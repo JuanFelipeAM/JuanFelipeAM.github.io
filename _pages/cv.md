@@ -23,8 +23,7 @@ Email: [shashank-singh@uiowa.edu](mailto:shashank-singh@uiowa.edu)
 
 ## Profile
 
-Ph.D. candidate in Mathematics (expected 2026) specializing in representation theory, Hopf algebras, and tensor categories.  
-Interested in postdoctoral positions that combine advanced research in algebraic structures with substantial teaching.  
+Ph.D. candidate in Mathematics (expected 2026) specializing in representation theory, Hopf algebras, and tensor categories.
 Current research focuses on generalizing classical representation-theoretic results (such as Gabriel’s theorem) to the setting of tensor categories.
 
 ---
