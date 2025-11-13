@@ -1,6 +1,5 @@
-
 ---
-layout: 
+layout: page
 title: Photography
 permalink: /photography/
 nav: true
