@@ -89,7 +89,7 @@ Master’s Thesis: *Class Field Theory and Tate’s Thesis*
 ### Instructor of Record, University of Iowa
 
 - **College Algebra** (Spring 2023; Fall 2023; Fall 2024; Fall 2025)  
-  Taught multiple coordinated sections (≈35–40 students each) as part of a 15–20-section course.  
+  Taught in a coordinated multi-section course (typically 15–20 sections) with 35–40 students per section.  
   Responsible for lectures, assessment design, grading, and coordination with other instructors to maintain common standards.
 
 - **Elementary Functions** (Fall 2022)  
