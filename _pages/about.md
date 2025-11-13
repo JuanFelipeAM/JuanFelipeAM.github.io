@@ -2,7 +2,7 @@
 layout: about
 title: About
 permalink: /
-subtitle: Department of Mathematics, University of Iowa · USA · Exploring Hopf algebras & tensor categories
+subtitle: Department of Mathematics, University of Iowa · USA
 
 profile:
   align: right
