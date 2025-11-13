@@ -40,7 +40,7 @@ Advisor: Prof. [Ryan Kinser](https://homepage.math.uiowa.edu/~rkinser/)
 Dissertation: *Quivers and Tensor Categories: Toward a Generalization of Gabriel’s Theorem*
 
 **B.S. & M.S. in Mathematics**, Indian Institute of Science Education and Research, Pune (2018)  
-Advisor: Prof. [Chandrasheel Bhagwat](https://sites.google.com/site/chandrasheelbhagwat/)  
+Advisor: Prof. [Chandrasheel Bhagwat](https://sites.google.com/site/chandrasheelbhagwat/)   
 Master’s Thesis: *Class Field Theory and Tate’s Thesis*
 
 ---
