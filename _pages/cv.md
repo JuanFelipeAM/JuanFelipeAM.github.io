@@ -143,7 +143,7 @@ Master’s Thesis: *Class Field Theory and Tate’s Thesis*
 - **Directed Reading Program mentor** (Fall 2024)  
   Mentored undergraduate student Grant Trentz in cryptography and number theory.
 
-- **Graduate student reading group organizer**  
+- **Graduate student reading group co-organizer**  
   Selected materials and coordinated weekly reading groups (6–8 graduate students):
   - Hopf algebras (Spring 2024)
   - Lie algebras and their representations (Fall 2023)
