@@ -27,8 +27,8 @@ latest_posts:
   limit: 3 # leave blank to include all the blog posts
 ---
 
-I’m **Shashank Pratap Singh**, a mathematician working in representation theory, Hopf algebras,
-and finite tensor categories.
+I’m **Shashank Pratap Singh**, a PhD Candidate in mathematics at the University of Iowa working in representation theory, Hopf algebras,
+and finite tensor categories under the guidance of Prof. Ryan Kinser.
 
 Right now I’m especially interested in:
 
