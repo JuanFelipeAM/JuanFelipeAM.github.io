@@ -5,7 +5,7 @@ draft = false
 +++
 
 
-{{< contact-section
+<!-- {{< contact-section
     title="Reach out" 
     contact_form_name="Your name"
     contact_form_email="Your e-mail"
@@ -44,4 +44,4 @@ Additional content added after the `section` blocks.
 Here you could freestyle, add other shortcodes, ...  Or just let the content empty, and rely on the shortcode sections alone.
 
 To make the text nicely wrapped in the footer, the shortcode `text-section` is used.
-{{< /text-section >}}
+{{< /text-section >}} -->

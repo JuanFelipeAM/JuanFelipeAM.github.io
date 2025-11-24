@@ -54,3 +54,56 @@
     </div>
   </div>
 </footer>
+
+<!-- Math rendering: MathJax v3 configured to recognize `$...$` inline math. -->
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']]
+    },
+    options: {
+      skipHtmlTags: ['script','noscript','style','textarea','pre','code']
+    }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<script>
+  (function(){
+    // Compute header/footer heights and expose as CSS variables
+    const headerSelector = 'header.header';
+    const footerSelector = 'footer.footer';
+
+    const setHeaderFooterHeights = () => {
+      // Header
+      const hdr = document.querySelector(headerSelector);
+      const h = hdr ? (hdr.offsetHeight || 0) : 0;
+      document.documentElement.style.setProperty('--site-header-height', h + 'px');
+
+      // Footer (try footer.footer then fallback to any footer)
+      const ftr = document.querySelector(footerSelector) || document.querySelector('footer');
+      const f = ftr ? (ftr.offsetHeight || 0) : 0;
+      document.documentElement.style.setProperty('--site-footer-height', f + 'px');
+    };
+
+    // Debounce resize
+    let t = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(t);
+      t = setTimeout(() => setHeaderFooterHeights(), 80);
+    });
+
+    // Update after DOM is ready and after resources load (fonts can change header/footer size)
+    document.addEventListener('DOMContentLoaded', () => {
+      requestAnimationFrame(() => {
+        setHeaderFooterHeights();
+        setTimeout(setHeaderFooterHeights, 120);
+      });
+    });
+
+    // Also set on load
+    window.addEventListener('load', setHeaderFooterHeights);
+  })();
+</script>
+

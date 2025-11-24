@@ -5,12 +5,16 @@
   {{ $sectionId = . }}
 {{ end }}
 
+{{/* Math rendering is provided globally (see footer partial). Do not include MathJax here. */}}
+
 <section {{if $sectionId}} id="{{ $sectionId }}"{{end}} class="rad-showcase rad-showcase--index rad-animation-group rad-fade-down">
   <div id="main-content">
 
     {{- $contextType := printf "%T" . -}}
     {{- $isShortcode := (eq $contextType "*hugolib.ShortcodeWithPage") -}}
     {{- $inner := (.Scratch.Get "Inner") -}}
+    {{- /* Trim whitespace so an empty inner (newline/space) doesn't count as content */ -}}
+    {{- $innerTrim := trim $inner "\n\r\t " -}}
 
     
 
@@ -63,24 +67,31 @@
 
     <div class="showcase-section row flex-column-reverse flex-md-row rad-fade-down rad-waiting rad-animate">
       <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-        <h1 class="display-1">
-          {{ $showcaseTitle }}
-        </h1>
-        <h2 class="display-5">
-          <span>{{ $showcaseSubtitle | safeHTML }}</span>
-        </h2>
-        <div class="lead">
-          {{ $showcaseDescription }}
-        </div>
-        {{ if $buttonText }}
-        <a
-          href="{{ $buttonURL }}"
-          class="btn btn-primary"
-        >
-          <i class="{{ $buttonIcon }}"></i>
-          {{ $buttonText }}
-        </a>
-        {{ end }}
+        {{- /* If the shortcode was called with inner content, render that markdown in the left column. */ -}}
+        {{- if ne $innerTrim "" }}
+          <div class="showcase-inner">
+            {{ $innerTrim | markdownify }}
+          </div>
+        {{- else }}
+          <h1 class="display-1">
+            {{ $showcaseTitle }}
+          </h1>
+          <h2 class="display-5">
+            <span>{{ $showcaseSubtitle | safeHTML }}</span>
+          </h2>
+          <div class="lead">
+            {{ $showcaseDescription }}
+          </div>
+          {{ if $buttonText }}
+          <a
+            href="{{ $buttonURL }}"
+            class="btn btn-primary"
+          >
+            <i class="{{ $buttonIcon }}"></i>
+            {{ $buttonText }}
+          </a>
+          {{ end }}
+        {{- end }}
       </div>
       <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 profile-image">
         {{ partial "lazypicture" (dict "src" $imgSrc "width" $imgWidth "height" $imgHeight "scale" $imgScale "class" "")}}
@@ -89,11 +100,7 @@
 
       </div>
 
-    {{- if $inner }}
-    <div class="col-12 inner-content">
-      {{ $inner }}
-    </div>
-    {{ end }}
+    {{/* inner content is rendered inside the left column when provided; no separate full-width block. */}}
 
     </div>
 

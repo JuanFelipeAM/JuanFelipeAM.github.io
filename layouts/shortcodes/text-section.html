@@ -9,6 +9,7 @@
 {{ $subtitle := .Get "subtitle" | default "" }}
 {{ $padding := .Get "padding" | default "true" }}
 {{ $centered := .Get "centered" | default "false" }}
+{{ $extraClass := .Get "class" | default "" }}
 {{ $containerClass := "" }}
 {{ $paddingClass := "" }}
 {{ $columnClass := "col-12" }}
@@ -23,7 +24,7 @@
     {{ $columnClass = printf "%s %s" $columnClass "text-center" }}
 {{ end }}
 
-<section {{if $sectionId}} id="{{ $sectionId }}"{{end}} class="section section--border-bottom rad-animation-group {{ $paddingClass }}">
+<section {{if $sectionId}} id="{{ $sectionId }}"{{end}} class="section section--border-bottom rad-animation-group {{ $paddingClass }} {{ $extraClass }}">
     <div class="{{ $containerClass }}">
         <div class="row rad-fade-down">
             <div class="{{ $columnClass }}">

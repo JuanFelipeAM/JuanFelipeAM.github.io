@@ -35,7 +35,7 @@ This document describes the new features added to the Adritian Hugo theme to mak
 
 ```yaml
 ---
-toc: true
+toc: false
 tocSticky: true  # Optional: makes TOC sticky on desktop
 ---
 ```

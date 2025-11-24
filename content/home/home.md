@@ -5,13 +5,28 @@ draft = false
 +++
 
 
-{{< showcase-section
-    title="Showcase section"
+{{< showcase-section imgSrc="images/about/user-picture.png" imgScale="0.5" >}}
+
+###### <div style="text-align: left">1N MacLean Hall<br>Department of Mathematics<br>The University of Iowa</div>
+juanfelipe-arizamejia@uiowa.edu<br>
+<br>
+
+#### Hello! My name is Juan&nbsp;Felipe.
+<br>I am a 5<sup>th</sup> year Ph.D. Candidate in Mathematics at The University of Iowa, advised by Prof. Ionu&tcedil; Chifan.<br>
+<br>
+
+My area of research is operator algebras, and my main interests lie in the interactions between von Neumann algebras, geometric group theory and ergodic theory.
+{{< /showcase-section >}}
+
+<!-- Below is the theme version not using markdown -->
+
+<!-- {{< showcase-section
+    title="Juan Felipe Ariza Mejía"
     subtitle="Subtitle - coming from <code>home.md</code>"
     buttonText="Email"
     description="<strong>Strong</strong>, <em>italic</em> and normal text. This comes from <a href='https://github.com/zetxek/adritian-demo/blob/main/content/home/home.md?plain=1'><code>home.md</code></a>, using the <code>showcase-section</code> <a href=''>shortcode</a>.<br/>Below you can see the social links, provided by the <code>platform-links</code> shortcode."
     imgSrc="images/showcase/showcase.png"
-    imgScale="0.5"
+    imgScale="0.25"
  >}}
 
 {{< platform-links >}}
@@ -37,9 +52,9 @@ draft = false
 
 {{< /platform-links >}}
 
-{{< /showcase-section >}}
+{{< /showcase-section >}} -->
 
-{{< about-section
+<!-- {{< about-section
     title="About me"
     content="This content is using the <code>about-section</code> shortcode. <br/>You can write <code>HTML</code>, as long as you <em>wrap it</em> accordingly. "
     button_icon="icon-user"
@@ -93,4 +108,4 @@ centered="true"
 
 You can also use the `text-section` shortcode to add centered texts
 
-{{< /text-section >}}
+{{< /text-section >}} -->

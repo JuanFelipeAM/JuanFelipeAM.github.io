@@ -13,13 +13,13 @@
 ## Header
 
 - id: "logo_alt"
-  translation: "Adritian logo"
+  translation: "Juan Felipe Ariza Mejía"
 
 - id: "logo_text1"
-  translation: "Adritian"
+  translation: "Juan Felipe"
 
 - id: "logo_text2"
-  translation: "Demo"
+  translation: "Ariza Mejía"
 
 ## General
 - id: "skipToMainContent"
@@ -47,7 +47,7 @@
 
 ## Homepage head title
 - id: "head_title"
-  translation: "Demo site for Adritian - a high performance hugo theme by Adrián Moreno"
+  translation: "Juan Felipe Ariza Mejía"
 
 - id: "head_description"
   translation: "This hugo theme (Adritian) is based on Bootstrap and has features that make it suitable for a personal site, a portfolio or other kind of Single Page Applications."

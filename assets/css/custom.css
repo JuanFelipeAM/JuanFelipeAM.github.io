@@ -1,1 +1,359 @@
 /* You can customize theme styles here */
+/* Using variables rooted out of assets/scss/_variables.scss */
+
+
+/* Some (global) variables for ease of use */
+:root {
+    --JFAM-head-name-size-sm: 28px;
+    --JFAM-head-name-size: 34px;
+    --JFAM-head-name-size-md: 37px;
+    --JFAM-head-name-size-bg: 40px;
+    /* Header background variables */
+    --JFAM-header-bg: 255,255,255; /* rgb as comma list for rgba() usage */
+    --JFAM-header-bg-alpha: 0.85; /* default alpha (0-1) */
+    --JFAM-header-bg-dark: 24,24,24;
+    --JFAM-header-bg-dark-alpha: 0.8;
+}
+
+.bd-navbar {
+    box-shadow: 0 0rem 0rem rgba(0,0,0,0), inset 0 -2.4px 0 black;
+}
+html[data-bs-theme="dark"] .bd-navbar {
+    box-shadow: 0 0rem 0rem rgba(0,0,0,0), inset 0 -2.4px 0 white;
+}
+
+/* Modifying style in _raditian.scss */
+
+.footer_left {
+    margin-top: 0px;
+}
+.footer_links {
+    margin-top: 0px;
+}
+.footer_right {
+    margin-top: 0px;
+}
+
+header.header .navbar-brand span:first-child {
+    font-size: var(--JFAM-head-name-size-sm);
+}
+header.header .navbar-brand span:nth-child(2) {
+    font-weight: 900; /* JFAM edit: Changed header formatting */
+    color: var(--bs-link-color); /* JFAM edit: Changed header formatting */
+    font-size: var(--JFAM-head-name-size-sm);
+}
+
+/* Header background / transparency overrides
+   - Uses CSS variables so you can tweak `--JFAM-header-bg-alpha` at runtime
+   - Adds a slight backdrop blur for translucent effect on supporting browsers */
+header.header {
+    background-color: rgba(var(--JFAM-header-bg), var(--JFAM-header-bg-alpha));
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    transition: background-color 180ms ease, box-shadow 180ms ease;
+}
+
+/* Dark theme variant */
+html[data-bs-theme="dark"] header.header {
+    background-color: rgba(var(--JFAM-header-bg-dark), var(--JFAM-header-bg-dark-alpha));
+    .navbar-brand span:first-child {
+        color: var(--bs-link-color); /* JFAM edit: Changed header formatting */
+    }
+    .navbar-brand span:nth-child(2) {
+        color: var(--bs-link-color); /* JFAM edit: Changed header formatting */
+    }
+}
+
+/* Ensure the showcase container starts after the header. The value is set by JS
+   into the `--site-header-height` variable; fallback keeps previous spacing. */
+.rad-showcase {
+    padding-top: var(--site-header-height, 120px) !important;
+}
+
+/* Optional transparent header modifier: add class `header--transparent` to `<header>` to make fully transparent */
+header.header.header--transparent {
+    background-color: transparent !important;
+    backdrop-filter: none !important;
+}
+
+/* Header spacing and bottom line thickness */
+:root {
+    --JFAM-header-padding-top: 8px; /* reduce the top padding */
+    --JFAM-header-padding-bottom: 8px; /* bottom padding */
+    --JFAM-header-border-thickness: 0px; /* bottom line thickness */
+}
+
+header.header {
+    padding-top: var(--JFAM-header-padding-top) !important;
+    padding-bottom: var(--JFAM-header-padding-bottom) !important;
+    border-bottom: var(--JFAM-header-border-thickness) solid rgba(0,0,0,0.08);
+}
+
+html[data-bs-theme="dark"] header.header {
+    border-bottom: var(--JFAM-header-border-thickness) solid rgba(255,255,255,0.06);
+}
+
+/* When header becomes sticky, keep a clear divider */
+.header.header--sticky-triggered {
+    box-shadow: none; /* keep it clean */
+    border-bottom-width: var(--JFAM-header-border-thickness);
+}
+
+/* Ensure brand spacing still looks good */
+header.header .navbar-brand {
+    margin-top: 0; /* remove extra top margin if present */
+}
+
+.showcase-section .col-md-6.profile-image img {
+    margin-top: 0; /* align to header bottom via .rad-showcase padding */
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* Small horizontal margins for the showcase section so the left/right
+   edges don't stick to the viewport or container. Adjust values below
+   if you prefer larger/smaller gutters. */
+/* .showcase-section {
+    box-sizing: border-box;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+} */
+
+.rad-showcase {
+    margin-top: -80px;
+}
+@media (max-width:767px) {
+    .showcase-section .col-md-6:not(.profile-image) {
+        margin-top: 30px !important;
+    }
+}
+@media (min-width: 768px) {
+    header.header .navbar-brand span:first-child {
+        font-size: var(--JFAM-head-name-size);
+    }
+    header.header .navbar-brand span:nth-child(2) {
+        font-size: var(--JFAM-head-name-size);
+    }
+    /* Showcase two-column width adjustments (text / image split)
+       Adjust the percentages below to change the width allocation.
+       Using !important ensures these rules take precedence over bundled rules. */
+    .showcase-section {
+        gap: 5%;
+        /* padding-left: 1.5rem; /* slightly larger gutters on medium+ screens */
+        /* padding-right: 1.5rem; */
+    }
+    .showcase-section .col-md-6.profile-image {
+        flex: 0 0 40% !important;
+        max-width: 40% !important;
+    }
+    .showcase-section .col-md-6.profile-image img {
+        margin-top: 0;
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+    .showcase-section .col-md-6:not(.profile-image) {
+        flex: 0 0 55% !important;
+        max-width: 55% !important;
+    }
+    .rad-showcase {
+        margin-top: 0px;
+    }
+}
+@media (min-width: 968px) {
+    header.header .navbar-brand span:first-child {
+        font-size: var(--JFAM-head-name-size-md);
+    }
+    header.header .navbar-brand span:nth-child(2) {
+        font-size: var(--JFAM-head-name-size-md);
+    }
+    /* Showcase two-column width adjustments (text / image split)
+       Adjust the percentages below to change the width allocation.
+       Using !important ensures these rules take precedence over bundled rules. */
+    .rad-showcase {
+        margin-top: -184px;
+    }
+}
+@media (min-width: 992px) {
+    header.header .navbar-brand span:first-child {
+        font-size: var(--JFAM-head-name-size-bg);
+    }
+    header.header .navbar-brand span:nth-child(2) {
+        font-size: var(--JFAM-head-name-size-bg);
+    }
+    /* Showcase two-column width adjustments (text / image split)
+       Adjust the percentages below to change the width allocation.
+       Using !important ensures these rules take precedence over bundled rules. */
+    .rad-showcase {
+        margin-top: -109px;
+    }
+}
+@media (min-width: 1200px) {
+    header.header .navbar-brand span:first-child {
+        font-size: var(--JFAM-head-name-size-bg);
+    }
+    header.header .navbar-brand span:nth-child(2) {
+        font-size: var(--JFAM-head-name-size-bg);
+    }
+    /* Showcase two-column width adjustments (text / image split)
+       Adjust the percentages below to change the width allocation.
+       Using !important ensures these rules take precedence over bundled rules. */
+    .rad-showcase {
+        margin-top: -55px;
+    }
+}
+@media (min-width: 1400px) {
+    header.header .navbar-brand span:first-child {
+        font-size: var(--JFAM-head-name-size-bg);
+    }
+    header.header .navbar-brand span:nth-child(2) {
+        font-size: var(--JFAM-head-name-size-bg);
+    }
+    /* Showcase two-column width adjustments (text / image split)
+       Adjust the percentages below to change the width allocation.
+       Using !important ensures these rules take precedence over bundled rules. */
+    .rad-showcase {
+        margin-top: -1px;
+    }
+}
+
+
+/* Font size for markdown rendered inside the showcase left column. Change this variable to adjust. */
+:root {
+    --JFAM-showcase-markdown-font-size: 20px; /* default: 18px */
+}
+
+/* Font size for `text-section` shortcode content. Adjust this variable to change
+   the base font-size used inside `.text-section__content`. */
+:root {
+    --JFAM-text-section-font-size: 20px;
+}
+
+/* Showcase inner markdown styling */
+.showcase-inner {
+    font-size: var(--JFAM-showcase-markdown-font-size);
+    line-height: 1.45;
+    color: inherit;
+}
+/* Normalize heading sizes inside the showcase inner markdown so headings
+   don't inherit large global heading/display styles. Headings will scale
+   relative to the showcase markdown font size. */
+.showcase-inner :is(h1,h2,h3,h4,h5,h6) {
+    line-height: 1.15;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-weight: 700;
+}
+@media (max-width: 767px) {
+    .showcase-inner {
+        font-size: calc(var(--JFAM-showcase-markdown-font-size) -8px);
+    }
+}
+
+/* Typographic hierarchy inside the showcase area (relative to the showcase base font-size).
+   Use em units so headings scale with the `--JFAM-showcase-markdown-font-size` variable. */
+.showcase-inner h1 { font-size: 1.8em; }
+.showcase-inner h2 { font-size: 1.4em; }
+.showcase-inner h3 { font-size: 1.2em; }
+.showcase-inner h4 { font-size: 1.1em; }
+.showcase-inner h5 { font-size: 1.0em; }
+.showcase-inner h6 { font-size: 0.95em; }
+
+.showcase-inner p,
+.showcase-inner li,
+.showcase-inner a {
+    font-size: 1em; /* equals var(--JFAM-showcase-markdown-font-size) */
+}
+
+/* Small-screen tuning: reduce heading scaling slightly for narrow viewports */
+@media (max-width: 767px) {
+    .showcase-inner h1 { font-size: 1.6em; }
+    .showcase-inner h2 { font-size: 1.25em; }
+    .showcase-inner h3 { font-size: 1.1em; }
+}
+
+/* Text-section font sizing */
+.text-section__content {
+    font-size: var(--JFAM-text-section-font-size);
+    line-height: 1.6;
+}
+
+@media (max-width: 767px) {
+    .text-section__content {
+        font-size: calc(var(--JFAM-text-section-font-size) - 2px);
+    }
+}
+
+/* Mirror the `.showcase-inner` typographic hierarchy inside text-section */
+.text-section__content :is(h1,h2,h3,h4,h5,h6) {
+    line-height: 1.15;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-weight: 700;
+}
+.text-section__content h1 { font-size: 1.8em; }
+.text-section__content h2 { font-size: 1.4em; }
+.text-section__content h3 { font-size: 1.2em; }
+.text-section__content h4 { font-size: 1.1em; }
+.text-section__content h5 { font-size: 1.0em; }
+.text-section__content h6 { font-size: 0.95em; }
+
+.text-section__content p,
+.text-section__content li,
+.text-section__content a {
+    font-size: 1em; /* equals var(--JFAM-text-section-font-size) */
+}
+
+@media (max-width: 767px) {
+    .text-section__content h1 { font-size: 1.6em; }
+    .text-section__content h2 { font-size: 1.25em; }
+    .text-section__content h3 { font-size: 1.1em; }
+}
+
+/* Full-height section variant (opt-in via `class="section--fullheight"` on the shortcode)
+   Ensures the section fills the viewport below the header and centers content vertically. */
+.section.section--fullheight {
+    /* Fill the viewport but subtract header and footer heights measured at runtime */
+    min-height: calc(111vh - var(--site-header-height, 120px) - var(--site-footer-height, 0px));
+    display: flex;
+    align-items: top;
+}
+.section.section--fullheight .container {
+    height: 100%;
+}
+.section.section--fullheight .row {
+    height: 100%;
+}
+.section.section--fullheight .text-section__content {
+    margin: 0 auto;
+}
+
+/* PDF embed spacing: ensure embedded iframes placed in the page are not
+   covered by a fixed/sticky header. Uses the runtime CSS variable
+   `--site-header-height` when available; falls back to 120px. */
+@media (max-width: 499px) {
+    .pdf-embed {
+        --temp-header-height: calc(var(--site-header-height, 120px) - 80px);
+        margin-top: var(--temp-header-height) !important;
+    }
+}
+
+@media (min-width: 500px) {
+    .pdf-embed {
+        --temp-header-height: calc(var(--site-header-height, 120px) - 52px);
+        margin-top: var(--temp-header-height) !important;
+    }
+}
+@media (min-width: 540px) {
+    .pdf-embed {
+        --temp-header-height: calc(var(--site-header-height, 120px) - 28px);
+        margin-top: var(--temp-header-height) !important;
+    }
+}
+@media (min-width: 760px) {
+    .pdf-embed {
+        --temp-header-height: calc(var(--site-header-height, 120px) - 28px);
+        margin-top: var(--temp-header-height) !important;
+    }
+}

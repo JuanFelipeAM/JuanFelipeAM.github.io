@@ -26,7 +26,7 @@
             class="logo"
             />
             {{ end }}
-          <span>{{ i18n "logo_text1" }}</span>
+          <span>{{ i18n "logo_text1" }}</span>&ensp;<!-- JFAM edit: added space &ensp -->
           <span>{{ i18n "logo_text2" }}</span>
         </a>
         <button
@@ -78,6 +78,6 @@
   </div>
 </header>
 
-{{- if not .IsHome }} 
+<!-- {{- if not .IsHome }} 
   {{ partial "breadcrumb.html" . }} 
-{{- end }}
+{{- end }} Eliminating that ugly breadcrum navigator -->
