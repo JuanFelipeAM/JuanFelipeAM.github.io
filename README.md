@@ -2,7 +2,7 @@
 
 **Minimalistic and clean theme for Hugo, great for Single Page personal websites or landing pages. With custom types for blog, portfolio, and content shortcodes.**
 
-This site is based on the [demo](https://github.com/zetxek/adritian-demo) website using the theme [dritian-Free-Hugo-Theme](https://github.com/zetxek/adritian-free-hugo-theme) authored by Adrián Moreno Peña.
+This site is based on the [demo](https://github.com/zetxek/adritian-demo) website using the theme [Adritian-Free-Hugo-Theme](https://github.com/zetxek/adritian-free-hugo-theme) authored by Adrián Moreno Peña.
 
 **Theme made available under:**
 
