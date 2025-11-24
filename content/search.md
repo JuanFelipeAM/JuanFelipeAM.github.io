@@ -6,6 +6,16 @@ layout: "search"
 ---
 
 
+<!-- --- # This is what comes in the exampleSite
+title: "Search" # in any language you want
+layout: "search" # necessary for search
+# url: "/archive"
+# description: "Description for Search"
+summary: "search"
+placeholder: "placeholder text in search input box"
+--- -->
+
+
 This file exists solely to respond to /search URL with the related `search` layout template.
 
 No content shown here is rendered, all content is based in the template layouts/page/search.html
