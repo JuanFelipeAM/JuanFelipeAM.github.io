@@ -2,6 +2,11 @@ baseURL = "https://JuanFelipeAM.github.io"
 title = "Juan Felipe Ariza Mejía"
 languageCode = "en"
 
+# Apparently need this to deploy on GitHub
+[caches]
+  [caches.images]
+    dir = ':cacheDir/images'
+
 # Exclude footer section from generating list pages (index.html and index.xml)
 [outputs]
   page = ["HTML"]
