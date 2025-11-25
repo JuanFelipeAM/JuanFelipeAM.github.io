@@ -1,5 +1,5 @@
 ---
-title: 'PDF Viewer'
+title: 'Gaussian Intro'
 hideTitle: true
 ---
 

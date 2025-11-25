@@ -1,5 +1,5 @@
 ---
-title: 'Printable CV'
+title: 'Teaching Statement'
 hideTitle: true
 ---
 

@@ -1,5 +1,6 @@
 +++
-#title =  "Research"
+title =  "Research"
+hideTitle = true
 type = "research"
 draft = false
 +++
@@ -12,19 +13,19 @@ draft = false
 [Denis]: https://as.vanderbilt.edu/math/bio/?who=denis-osin
 [Bin]: https://sites.google.com/view/binsun/
 
-## Research<br>
+## <br>Research<br>
 <br>
 
 ### Preprints:
 
-1. **McDuff superrigidity for group $\mathrm{II}_1$ factors**, with [Ionu&tcedil; Chifan][Ionut], [Denis Osin][Denis] and [Bin Sun][Bin].  Preprint 2025.
+1. ***McDuff superrigidity for group $\mathit{II}_1$ factors***, with [Ionu&tcedil; Chifan][Ionut], [Denis Osin][Denis] and [Bin Sun][Bin].  Preprint 2025.
 
-1. **Relative solidity results and their applications to computations of some $\mathrm{II}_1$ factor invariants**, with [Dulanji Niki Amaraweera][Niki], [Ionu&tcedil; Chifan][Ionut] and [Krishnendu Khan][Krishnendu].   Preprint: [arXiv:2509.19481](https://arxiv.org/abs/2509.19481)
+1. ***Relative solidity results and their applications to computations of some $\mathit{II}_1$ factor invariants***, with [Dulanji Niki Amaraweera][Niki], [Ionu&tcedil; Chifan][Ionut] and [Krishnendu Khan][Krishnendu].   Preprint: [arXiv:2509.19481](https://arxiv.org/abs/2509.19481)
 
 <br>
 
 ### Notes:
 
-- [*An Introduction to the Gaussian deformation*](/articles/gaussianintro) - is a set of notes prepared for a two part expository talk at GOALS 2024.  A portion of the notes and exercises included, were covered during the lectures and problem session.
+- [*An Introduction to the Gaussian deformation*](/articles/gaussianintro) -- This is a set of notes prepared for a two part expository talk at GOALS 2024 - a portion of the notes and exercises therein, were covered during the lectures and problem session.
 
 {{< /text-section >}}
