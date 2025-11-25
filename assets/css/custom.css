@@ -33,6 +33,9 @@ html[data-bs-theme="dark"] .bd-navbar {
 .footer_right {
     margin-top: 0px;
 }
+.footer {
+    padding-bottom: calc(var(--site-window-height) - var(--site-content-height)) !important;
+}
 
 header.header .navbar-brand span:first-child {
     font-size: var(--JFAM-head-name-size-sm);
@@ -121,11 +124,14 @@ header.header .navbar-brand {
 } */
 
 .rad-showcase {
-    margin-top: -80px;
+    margin-top: 0px;
 }
 @media (max-width:767px) {
     .showcase-section .col-md-6:not(.profile-image) {
         margin-top: 30px !important;
+    }
+    .rad-showcase {
+       margin-top: -80px;
     }
 }
 @media (min-width: 768px) {
@@ -154,6 +160,7 @@ header.header .navbar-brand {
         object-fit: cover;
     }
     .showcase-section .col-md-6:not(.profile-image) {
+        margin-top: 30px !important;
         flex: 0 0 55% !important;
         max-width: 55% !important;
     }
@@ -200,7 +207,7 @@ header.header .navbar-brand {
        Adjust the percentages below to change the width allocation.
        Using !important ensures these rules take precedence over bundled rules. */
     .rad-showcase {
-        margin-top: -43px;
+        margin-top: -12px;
     }
 }
 @media (min-width: 1400px) {
@@ -264,6 +271,7 @@ header.header .navbar-brand {
 .showcase-inner li,
 .showcase-inner a {
     font-size: 1em; /* equals var(--JFAM-showcase-markdown-font-size) */
+    margin-bottom: 2em;
 }
 
 /* Small-screen tuning: reduce heading scaling slightly for narrow viewports */

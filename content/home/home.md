@@ -9,13 +9,13 @@ draft = false
 
 ###### <div style="text-align: right">1N MacLean Hall<br>Department of Mathematics<br>The University of Iowa<br>juanfelipe-arizamejia@uiowa.edu<br></div>
 <br>
-
-### Hello, my name is Juan&nbsp;Felipe
-<br>I am a 5<sup>th</sup> year Ph.D. Candidate in Mathematics at The University of Iowa, advised by [Prof. Ionu&tcedil; Chifan](https://sites.google.com/view/i-chifan-website/home).<br>
 <br>
+
+### Hello, my name is <span style="font-size: 1.2em; line-height: 1.5">Juan&nbsp;Felipe</span><br>
+
+I am a 5<sup>th</sup> year Ph.D. Candidate in Mathematics at The University of Iowa, advised by [Prof. Ionu&tcedil; Chifan](https://sites.google.com/view/i-chifan-website/home).<br>
 
 My area of research is operator algebras, and my main interests lie in the interactions between von Neumann algebras, geometric group theory and ergodic theory.<br>
-<br>
 
 #### About me<br>
 

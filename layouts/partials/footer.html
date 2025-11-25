@@ -85,6 +85,59 @@
       const ftr = document.querySelector(footerSelector) || document.querySelector('footer');
       const f = ftr ? (ftr.offsetHeight || 0) : 0;
       document.documentElement.style.setProperty('--site-footer-height', f + 'px');
+      // Compute the vertical distance between header bottom and footer top
+      // This measures the available content area height between header and footer.
+      let contentHeight = 0;
+      let contentPct = '0%';
+      try {
+        if (hdr && ftr) {
+          // Use offsetTop/offsetHeight for robust measurement regardless of transforms
+          const headerBottom = (hdr.offsetTop || hdr.getBoundingClientRect().top || 0) + (hdr.offsetHeight || 0);
+          const footerTop = (ftr.offsetTop || ftr.getBoundingClientRect().top || 0);
+          contentHeight = Math.max(0, footerTop - headerBottom);
+        } else if (hdr) {
+          // No footer found: measure to document bottom
+          const headerBottom = (hdr.offsetTop || hdr.getBoundingClientRect().top || 0) + (hdr.offsetHeight || 0);
+          const docBottom = Math.max(document.documentElement.scrollHeight || 0, document.body.scrollHeight || 0);
+          contentHeight = Math.max(0, docBottom - headerBottom);
+        } else if (ftr) {
+          // No header found: measure from document top to footer top
+          const footerTop = (ftr.offsetTop || ftr.getBoundingClientRect().top || 0);
+          contentHeight = Math.max(0, footerTop);
+        } else {
+          contentHeight = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+        }
+        // percentage relative to viewport height
+        const winHLocal = (window.innerHeight || document.documentElement.clientHeight || 0);
+        contentPct = winHLocal ? (Math.round((contentHeight / winHLocal) * 10000) / 100) + '%' : '0%';
+      } catch (e) {
+        contentHeight = 0;
+        contentPct = '0%';
+      }
+      document.documentElement.style.setProperty('--site-content-height', contentHeight + 'px');
+      document.documentElement.style.setProperty('--site-content-height-percent', contentPct);
+      // Window / viewport height: expose as CSS variables for layout calculations
+      const winH = (window.innerHeight || document.documentElement.clientHeight || 0);
+      document.documentElement.style.setProperty('--site-window-height', winH + 'px');
+      // Also expose a `--vh` variable equal to 1% of the viewport height (useful for mobile 100vh quirks)
+      document.documentElement.style.setProperty('--vh', (winH * 0.01) + 'px');
+
+      // Body/document height: expose as CSS variables so layouts can react to
+      // the full document length (useful for sticky/fill calculations).
+      const doc = document.documentElement;
+      const body = document.body;
+      const bodyH = Math.max(
+        doc.scrollHeight || 0,
+        body.scrollHeight || 0,
+        doc.offsetHeight || 0,
+        body.offsetHeight || 0,
+        doc.clientHeight || 0
+      );
+      document.documentElement.style.setProperty('--site-body-height', bodyH + 'px');
+      // Also expose body height as a percentage of the viewport height (e.g. 250%)
+      const bodyPct = winH ? ((bodyH / winH) * 100) : 0;
+      document.documentElement.style.setProperty('--site-body-height-percent', bodyPct.toFixed(2) + '%');
+      
     };
 
     // Debounce resize
