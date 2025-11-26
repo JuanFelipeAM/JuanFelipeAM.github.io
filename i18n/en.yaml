@@ -30,7 +30,7 @@
 
 ## Footer
 - id: "footer_notice"
-  translation: "© Adritian. Free Hugo theme by Adrián Moreno Peña.<br><br>Design and deployment by Juan Felipe Ariza Mejía."
+  translation: "© Adritian. Free Hugo theme by Adrián Moreno Peña.<br>Icon made in Favicon.io, Asterisk icons created by Cap Cool - Flaticon, Hexagon icons created by Solarus - Flaticon.<br><br>Design and deployment by Juan Felipe Ariza Mejía."
 
 - id: "language"
   translation: "Language"

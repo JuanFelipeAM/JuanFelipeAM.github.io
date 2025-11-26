@@ -34,7 +34,7 @@ html[data-bs-theme="dark"] .bd-navbar {
     margin-top: 0px;
 }
 .footer {
-    padding-bottom: calc(var(--site-window-height) - var(--site-content-height)) !important;
+    padding-bottom: max(50px, var(--site-window-height) - var(--site-content-height)) !important;
 }
 
 header.header .navbar-brand span:first-child {
