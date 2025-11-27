@@ -365,3 +365,24 @@ header.header .navbar-brand {
         margin-top: var(--temp-header-height) !important;
     }
 }
+
+/* Make paragraph-level markdown links behave like links inside H5 headings
+   - Applies to main content areas (text-section, showcase, posts)
+   - Uses theme link colors and hover color so dark/light modes are respected */
+.text-section__content p a,
+.showcase-inner p a,
+.post-content p a,
+.content p a,
+.article p a {
+    color: var(--bs-link-color) !important;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.15s ease-in-out;
+}
+.text-section__content p a:hover,
+.showcase-inner p a:hover,
+.post-content p a:hover,
+.content p a:hover,
+.article p a:hover {
+    color: var(--bs-link-hover-color) !important;
+}

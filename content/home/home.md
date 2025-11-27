@@ -19,7 +19,12 @@ My area of research is operator algebras, and my main interests lie in the inter
 
 #### About me<br>
 
-I grew up in Bogotá, Colombia, and went to undergrad at Universidad de los Andes.  I completed my B.Sc. in Mathematics under the supervision of [Prof. Stefano Ferri](https://matematicas.uniandes.edu.co/es/profesores/stefano-ferri), and my B.Sc. in Physics under the supervision of [Prof. Andrés F. Reyes Lega](https://qft-mathphys.uniandes.edu.co/anreyes/).  Before Iowa, I went to Canada, where I obtained my Master's in Pure Mathematics from the University of Waterloo under the supervision of [Prof. Nico Spronk](https://www.math.uwaterloo.ca/~nspronk/).
+I grew up in Bogotá, Colombia, and went to undergrad at Universidad de los Andes.  I completed my B.Sc. in Mathematics under the supervision of [Prof. Stefano Ferri](https://matematicas.uniandes.edu.co/es/profesores/stefano-ferri), and my B.Sc. in Physics under the supervision of [Prof. Andrés F. Reyes Lega](https://qft-mathphys.uniandes.edu.co/anreyes/).  Before Iowa, I went to Canada, where I obtained my Master's in Pure Mathematics from the University of Waterloo under the supervision of [Prof. Nico Spronk](https://www.math.uwaterloo.ca/~nspronk/).<br>
+<br>
+
+#### Links<br>
+
+Check out the [UIowa Operator Algebras Research Seminar](https://sites.google.com/view/ui-oa-seminar/home)<br>
 
 {{< /showcase-section >}}
 
