@@ -7,7 +7,7 @@ draft = false
 
 {{< showcase-section imgSrc="images/about/user-picture.png" imgScale="0.5" >}}
 
-###### <div style="text-align: right">1N MacLean Hall<br>Department of Mathematics<br>The University of Iowa<br>juanfelipe-arizamejia@uiowa.edu<br></div>
+##### <div style="text-align: right">[1N MacLean Hall](https://facilities.uiowa.edu/building/0023)<br>[Department of Mathematics](https://math.uiowa.edu/)<br>[The University of Iowa](https://uiowa.edu/)<br>juanfelipe-arizamejia@uiowa.edu<br></div>
 <br>
 <br>
 
