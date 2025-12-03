@@ -18,7 +18,7 @@ draft = false
 
 ### Preprints:
 
-1. ***McDuff superrigidity for group $\mathit{II}_1$ factors***, with [Ionu&tcedil; Chifan][Ionut], [Denis Osin][Denis] and [Bin Sun][Bin].  Preprint 2025.
+1. ***McDuff superrigidity for group $\mathit{II}_1$ factors***, with [Ionu&tcedil; Chifan][Ionut], [Denis Osin][Denis] and [Bin Sun][Bin].  Preprint: [arXiv:2511.23123](https://arxiv.org/abs/2511.23123).
 
 1. ***Relative solidity results and their applications to computations of some $\mathit{II}_1$ factor invariants***, with [Dulanji Niki Amaraweera][Niki], [Ionu&tcedil; Chifan][Ionut] and [Krishnendu Khan][Krishnendu].   Preprint: [arXiv:2509.19481](https://arxiv.org/abs/2509.19481)
 
