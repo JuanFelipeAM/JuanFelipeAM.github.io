@@ -68,8 +68,8 @@ target = "assets/css/bootstrap-print.css"
 
 
 [params]
-title = 'Adritian - a high performance hugo theme by Adrián Moreno'
-description = 'This hugo theme (Adritian) is based on Bootstrap and has features that make it suitable for a personal site, a portfolio or other kind of Single Page Applications.'
+title = 'Juan Felipe Ariza Mejía - personal website'
+description = 'This is my personal academic website.'
 images = ['/img/og-img.png']
 sections = [
   "showcase",
@@ -102,8 +102,8 @@ vercelAnalytics = false
 code = "UA-XXXXX-Y"
 enabled = false
 [params.analytics.googleTagManager]
-code = "GTM-XXXXX"
-enabled = false
+code = "G-9ZLPXWHQGM"
+enabled = true
 
 [build]
 writeStats = true
