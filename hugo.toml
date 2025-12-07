@@ -103,7 +103,7 @@ code = "UA-XXXXX-Y"
 enabled = false
 [params.analytics.googleTagManager]
 code = "G-9ZLPXWHQGM"
-enabled = true
+enabled = false
 
 [build]
 writeStats = true
@@ -146,6 +146,10 @@ weight = 3
 name = "CV"
 URL = "/cv"
 weight = 4
+[[languages.en.menus.header]]
+name = "Photography"
+URL = "/photography"
+weight = 5
 # [[languages.en.menus.header]]
 # pre = "search"
 # name = "Search"
