@@ -1,0 +1,10 @@
+{{ define "main" }}
+  {{ partial "title.html" . }}
+  <!-- {{ partial "categories.html" }} JFAM this is not working -->
+  {{ partial "featured.html" . }}
+  <section class="galleries">
+    {{ range where (where .Pages "Params.galleryPage" "eq" true) "Params.private" "ne" true }}
+      {{ partial "album-card.html" . }}
+    {{ end }}
+  </section>
+{{ end }}

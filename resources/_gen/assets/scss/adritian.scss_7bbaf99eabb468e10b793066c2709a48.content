@@ -10246,13 +10246,12 @@ textarea:focus {
     font-size: 32.9px; } }
 
 .header .navbar-brand span:nth-child(2) {
-  margin-top: -20px;
   align-self: center;
-  font-family: AutumnMoon;
   font-size: 25px;
-  font-weight: 400;
+  font-weight: 900;
   letter-spacing: -1.17px;
-  color: #000; }
+  color: var(--bs-link-color);
+  /* JFAM edit: Changed header formatting */ }
 
 @media (min-width: 768px) {
   .header .navbar-brand span:nth-child(2) {

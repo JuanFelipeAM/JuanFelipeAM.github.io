@@ -1,4 +1,14 @@
 {{ define "main" }}
+{{ if eq .Params.galleryPage true }}
+  {{ partial "title.html" . }}
+  {{ partial "gallery.html" . }}
+  {{ partial "related.html" . }}
+  {{ with .Content }}
+    <section class="prose">
+      {{ . }}
+    </section>
+  {{ end }}
+{{ else }}
   <section id="main">
     {{ if not .Params.hideTitle }}  
     <h1 id="title">{{ .Title }}</h1>
@@ -9,4 +19,5 @@
       </article>
     </div>
   </section>
+{{ end }}
 {{ end }}

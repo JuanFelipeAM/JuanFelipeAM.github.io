@@ -1009,13 +1009,13 @@ textarea:focus {
 }
 
 .header .navbar-brand span:nth-child(2) {
-    margin-top: -20px;
+    // margin-top: -20px; JFAM taking this out
     align-self: center;
-    font-family: AutumnMoon;
+    // font-family: AutumnMoon; JFAM taking this out
     font-size: 25px;
-    font-weight: 400;
+    font-weight: 900; // JFAM changed from 400
     letter-spacing: -1.17px;
-    color: #000;
+    color: var(--bs-link-color); /* JFAM edit: Changed header formatting */
 }
 
 @media (min-width: 768px) {

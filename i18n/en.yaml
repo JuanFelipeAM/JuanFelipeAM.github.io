@@ -30,7 +30,7 @@
 
 ## Footer
 - id: "footer_notice"
-  translation: "© Adritian. Free Hugo theme by Adrián Moreno Peña.<br>Icon made in Favicon.io, Asterisk icons created by Cap Cool - Flaticon, Hexagon icons created by Solarus - Flaticon.<br><br>Design and deployment by Juan Felipe Ariza Mejía."
+  translation: "© Adritian. Free Hugo theme by Adrián Moreno Peña.<br>Icon made in Favicon.io, Asterisk icons created by Cap Cool - Flaticon, Hexagon icons created by Solarus - Flaticon.<br>© Gallery theme by Nico Kaiser.<br><br>© Design, photography and deployment by Juan Felipe Ariza Mejía."
 
 - id: "language"
   translation: "Language"
@@ -71,3 +71,45 @@
 - id: "404_button"
   translation: "Back to homepage"
 
+- id: "menu"
+  translation: "Menu"
+
+- id: "home"
+  translation: "Home"
+
+- id: "pageNotFound"
+  translation: "Page not found"
+
+- id: "toHomepage"
+  translation: "Go to homepage"
+
+- id: "closeTitle"
+  translation: "Close"
+
+- id: "zoomTitle"
+  translation: "Zoom"
+
+- id: "arrowPrevTitle"
+  translation: "Previous"
+
+- id: "arrowNextTitle"
+  translation: "Next"
+
+- id: "errorMsg"
+  translation: "The photo cannot be loaded"
+
+- id: "downloadTitle"
+  translation: "Download"
+
+- id: "relatedAlbums"
+  translation: "Related albums"
+
+- id: "photoCount"
+  translation:
+    one: "1 photo"
+    other: "{{ . }} photos"
+
+- id: "albumCount"
+  translation:
+    one: "{{ .photoCount }} in {{ .count }} album"
+    other: "{{ .photoCount }} in {{ .count }} albums"

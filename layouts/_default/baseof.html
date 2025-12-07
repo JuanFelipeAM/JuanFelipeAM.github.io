@@ -7,15 +7,48 @@
     {{- end }}>
 <head>
     {{ partial "head.html" . }}
+    {{ if eq .Params.galleryPage true }}
+        {{/* Gallery CSS needs to be loaded after site CSS */}}
+        {{ with resources.Get "css/main.scss" }}
+            {{ $css := . | toCSS | minify | fingerprint }}
+            <link rel="stylesheet" href="{{ $css.RelPermalink }}" />
+        {{ end }}
+        {{ $params := dict
+            "closeTitle" (i18n "closeTitle")
+            "zoomTitle" (i18n "zoomTitle")
+            "arrowPrevTitle" (i18n "arrowPrevTitle")
+            "arrowNextTitle" (i18n "arrowNextTitle")
+            "errorMsg" (i18n "errorMsg")
+            "downloadTitle" (i18n "downloadTitle")
+            "boxSpacing" (default 8 .Site.Params.gallery.boxSpacing)
+            "targetRowHeight" (default 288 .Site.Params.gallery.targetRowHeight)
+            "targetRowHeightTolerance" (default 0.25 .Site.Params.gallery.targetRowHeightTolerance)
+            "enableDownload" (default true .Params.build.publishResources)
+        }}
+        {{ with resources.Get "js/main.js" }}
+            {{ $js := . | js.Build (dict "minify" true "params" $params) | resources.Fingerprint }}
+            <script src="{{ $js.RelPermalink }}" defer></script>
+        {{ end }}
+    {{ end }}
     {{ partial "head_custom.html" . }}
 </head>
 
 <body class="{{- if .IsHome }}home{{- end }}{{- with .File }} page-{{- .ContentBaseName }}{{- end }}">
-    {{ partial "header.html" . }}
+    {{ if eq .Params.galleryPage true }}
+        {{ partial "galleryheader.html" . }}
+    {{ else }}
+        {{ partial "header.html" . }}
+    {{ end }}
 
-    <main class="container">
-        {{ block "main" . }}{{ end }}
-    </main>
+    {{ if eq .Params.galleryPage true }}
+        <main class="galleries" id="galleries" style="padding-top: var(--site-header-height, 120px);">
+            {{ block "main" . }}{{ end }}
+        </main>
+    {{ else }}
+        <main class="container">
+            {{ block "main" . }}{{ end }}
+        </main>
+    {{ end }}
 
     <div class="d-print-none">
         {{ partial "footer.html" . }}
