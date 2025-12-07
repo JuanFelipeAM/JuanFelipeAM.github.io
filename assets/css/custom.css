@@ -386,3 +386,25 @@ header.header .navbar-brand {
 .article p a:hover {
     color: var(--bs-link-hover-color) !important;
 }
+
+/* Gallery back button absolute positioning */
+.navbar .container-fluid {
+    position: relative !important;
+}
+
+
+/* Gallery page navbar button positioning */
+.header .navbar-toggler:not(.nav-link) {
+    position: absolute !important;
+    right: 0px !important;
+    left: auto !important;
+    top: 14px !important;
+}
+
+@media (min-width: 992px) {
+    .header .navbar-toggler:not(.nav-link) {
+        position: absolute !important;
+        right: 0px !important;
+        left: auto !important;
+    }
+}
