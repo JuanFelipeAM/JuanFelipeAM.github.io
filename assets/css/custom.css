@@ -39,11 +39,15 @@ html[data-bs-theme="dark"] .bd-navbar {
 
 header.header .navbar-brand span:first-child {
     font-size: var(--JFAM-head-name-size-sm);
+    padding-top: 8px;
+    padding-bottom: 5.3px;
 }
 header.header .navbar-brand span:nth-child(2) {
     font-weight: 900; /* JFAM edit: Changed header formatting */
     color: var(--bs-link-color); /* JFAM edit: Changed header formatting */
     font-size: var(--JFAM-head-name-size-sm);
+    padding-top: 8px;
+    padding-bottom: 5.3px;
 }
 
 /* Header background / transparency overrides
@@ -89,6 +93,7 @@ header.header.header--transparent {
 header.header {
     padding-top: var(--JFAM-header-padding-top) !important;
     padding-bottom: var(--JFAM-header-padding-bottom) !important;
+    min-height: 64px;
     border-bottom: var(--JFAM-header-border-thickness) solid rgba(0,0,0,0.08);
 }
 
@@ -126,6 +131,55 @@ header.header .navbar-brand {
 .rad-showcase {
     margin-top: 0px;
 }
+
+@media (max-width: 279px) {
+    header.header .navbar-brand span:first-child {
+        font-size: 10px !important;
+    }
+    header.header .navbar-brand span:nth-child(2) {
+        font-size: 10px !important;
+    }
+}
+@media (min-width: 280px) {
+    header.header .navbar-brand span:first-child {
+        font-size: 13.5px !important;
+    }
+    header.header .navbar-brand span:nth-child(2) {
+        font-size: 13.5px !important;
+    }
+}
+@media (min-width: 320px) {
+    header.header .navbar-brand span:first-child {
+        font-size: 16.5px !important;
+    }
+    header.header .navbar-brand span:nth-child(2) {
+        font-size: 16.5px !important;
+    }
+}
+@media (min-width: 380px) {
+    header.header .navbar-brand span:first-child {
+        font-size: 21px !important;
+    }
+    header.header .navbar-brand span:nth-child(2) {
+        font-size: 21px !important;
+    }
+}
+@media (min-width: 420px) {
+    header.header .navbar-brand span:first-child {
+        font-size: 24.5px !important;
+    }
+    header.header .navbar-brand span:nth-child(2) {
+        font-size: 24.5px !important;
+    }
+}
+@media (min-width: 480px) {
+    header.header .navbar-brand span:first-child {
+        font-size: 28px !important;
+    }
+    header.header .navbar-brand span:nth-child(2) {
+        font-size: 28px !important;
+    }
+}
 @media (max-width:767px) {
     .showcase-section .col-md-6:not(.profile-image) {
         margin-top: 30px !important;
@@ -136,10 +190,10 @@ header.header .navbar-brand {
 }
 @media (min-width: 768px) {
     header.header .navbar-brand span:first-child {
-        font-size: var(--JFAM-head-name-size);
+        font-size: var(--JFAM-head-name-size) !important;
     }
     header.header .navbar-brand span:nth-child(2) {
-        font-size: var(--JFAM-head-name-size);
+        font-size: var(--JFAM-head-name-size) !important;
     }
     /* Showcase two-column width adjustments (text / image split)
        Adjust the percentages below to change the width allocation.
@@ -170,10 +224,10 @@ header.header .navbar-brand {
 }
 @media (min-width: 968px) {
     header.header .navbar-brand span:first-child {
-        font-size: var(--JFAM-head-name-size-md);
+        font-size: var(--JFAM-head-name-size-md) !important;
     }
     header.header .navbar-brand span:nth-child(2) {
-        font-size: var(--JFAM-head-name-size-md);
+        font-size: var(--JFAM-head-name-size-md) !important;
     }
     /* Showcase two-column width adjustments (text / image split)
        Adjust the percentages below to change the width allocation.
@@ -184,10 +238,10 @@ header.header .navbar-brand {
 }
 @media (min-width: 992px) {
     header.header .navbar-brand span:first-child {
-        font-size: var(--JFAM-head-name-size-bg);
+        font-size: var(--JFAM-head-name-size-bg) !important;
     }
     header.header .navbar-brand span:nth-child(2) {
-        font-size: var(--JFAM-head-name-size-bg);
+        font-size: var(--JFAM-head-name-size-bg) !important;
     }
     /* Showcase two-column width adjustments (text / image split)
        Adjust the percentages below to change the width allocation.
@@ -198,10 +252,10 @@ header.header .navbar-brand {
 }
 @media (min-width: 1200px) {
     header.header .navbar-brand span:first-child {
-        font-size: var(--JFAM-head-name-size-bg);
+        font-size: var(--JFAM-head-name-size-bg) !important;
     }
     header.header .navbar-brand span:nth-child(2) {
-        font-size: var(--JFAM-head-name-size-bg);
+        font-size: var(--JFAM-head-name-size-bg) !important;
     }
     /* Showcase two-column width adjustments (text / image split)
        Adjust the percentages below to change the width allocation.
@@ -212,10 +266,10 @@ header.header .navbar-brand {
 }
 @media (min-width: 1400px) {
     header.header .navbar-brand span:first-child {
-        font-size: var(--JFAM-head-name-size-bg);
+        font-size: var(--JFAM-head-name-size-bg) !important;
     }
     header.header .navbar-brand span:nth-child(2) {
-        font-size: var(--JFAM-head-name-size-bg);
+        font-size: var(--JFAM-head-name-size-bg) !important;
     }
     /* Showcase two-column width adjustments (text / image split)
        Adjust the percentages below to change the width allocation.
@@ -398,7 +452,7 @@ header.header .navbar-brand {
     position: absolute !important;
     right: 0px !important;
     left: auto !important;
-    top: 14px !important;
+    top: -4px !important;
 }
 
 @media (min-width: 992px) {
@@ -406,5 +460,26 @@ header.header .navbar-brand {
         position: absolute !important;
         right: 0px !important;
         left: auto !important;
+    }
+}
+
+/* Navbar toggler dynamic padding */
+.header .navbar-toggler {
+    padding-top: 15px !important;
+    transition: padding 0.35s ease !important;
+}
+@media (min-width: 768px) {
+    .header .navbar-toggler {
+        padding-top: 20px !important;
+    }
+}
+@media (min-width: 968px) {
+    .header .navbar-toggler {
+        padding-top: 22px !important;
+    }
+}
+@media (min-width: 992px) {
+    .header .navbar-toggler {
+        padding-top: 24px !important;
     }
 }
