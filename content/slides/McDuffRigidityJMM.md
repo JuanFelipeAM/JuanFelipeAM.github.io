@@ -1,5 +1,5 @@
 ---
-title: 'Gaussian Intro'
+title: 'McDuff superrigidity JMM talk'
 hideTitle: true
 ---
 
@@ -11,7 +11,7 @@ hideTitle: true
 Below is an embedded PDF viewer. To make this work, place your PDF at `static/files/cv.pdf` (create the `static/files/` folder if it doesn't exist). The iframe will load the file at `/files/cv.pdf`. -->
 
 <div class="pdf-embed" style="max-width:100%;height:0;padding-bottom:140%;position:relative;">
-	<iframe src="/files/notes/Introduction to the Gaussian deformation.pdf" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" aria-label="Gaussian Intro"></iframe>
+	<iframe src="/files/slides/McDuff rigidity - 20 min JMM talk.pdf" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" aria-label="McDuff superrigidity JMM talk"></iframe>
 </div>
 
 <!-- If the browser cannot display the PDF inline, users can download it here: [Download CV]("/files/CV - JF Ariza Mejia.pdf"){:target="_blank" rel="noopener noreferrer"}.

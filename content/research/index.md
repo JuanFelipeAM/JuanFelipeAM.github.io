@@ -26,6 +26,12 @@ draft = false
 
 ### Notes:
 
-- [*An Introduction to the Gaussian deformation*](/articles/gaussianintro) -- This is a set of notes prepared for a two part expository talk at GOALS 2024 - a portion of the notes and exercises therein, were covered during the lectures and problem session.
+- [*An Introduction to the Gaussian deformation*](/articles/gaussianintro) -- This is a set of notes prepared for a two part expository talk at GOALS 2024 - a portion of the notes and exercises therein were covered during the lectures and problem session.
+
+<br>
+
+### Talks:
+
+- [*McDuff superrigidity for group $\mathrm{II}_1$ factors*](/slides/McDuffRigidityJMM) -- JMM 2026.
 
 {{< /text-section >}}
