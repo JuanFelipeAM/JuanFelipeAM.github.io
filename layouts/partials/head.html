@@ -30,8 +30,12 @@
   {{ i18n "head_title" }}
 </title>
 
+<!-- Default meta description (will be overridden by head_custom.html for specific pages) -->
 <meta name="description" content="{{ i18n "head_description" }}" />
 <meta name="generator-mode" content="{{ hugo.Environment }}" />
+
+<!-- Link to sitemap for better indexing -->
+<link rel="sitemap" type="application/xml" title="Sitemap" href="{{ "sitemap.xml" | absURL }}" />
 {{- $critical := resources.Get "css/critical.css" | resources.Minify }}
 <style data-generator="critical-css">
 {{- $critical.Content | safeCSS }}
