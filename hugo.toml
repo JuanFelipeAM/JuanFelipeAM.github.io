@@ -7,14 +7,6 @@ languageCode = "en"
   [caches.images]
     dir = ':cacheDir/images'
 
-# Sitemap configuration for better Google indexing
-[outputFormats.sitemap]
-  baseName = "sitemap"
-  isHTML = false
-  isPlainText = true
-  protocol = "https://"
-  mediatype = "application/xml"
-
 # Exclude footer section from generating list pages (index.html and index.xml)
 [outputs]
   page = ["HTML"]
