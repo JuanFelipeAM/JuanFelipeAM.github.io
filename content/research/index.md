@@ -19,7 +19,7 @@ draft = false
 
 ### Preprints:
 
-1. ***McDuff superrigidity for group $\mathit{II}_1$ factors***, with [Ionu&tcedil; Chifan][Ionut] and [Adriana Fernández Quero][Adriana].  Preprint: [arXiv:2602.05290](https://arxiv.org/abs/2602.05290).
+1. ***Non-amenable C$^\ast$-superrigid groups that are not W$^\ast$-superrigid***, with [Ionu&tcedil; Chifan][Ionut] and [Adriana Fernández Quero][Adriana].  Preprint: [arXiv:2602.05290](https://arxiv.org/abs/2602.05290).
 
 1. ***McDuff superrigidity for group $\mathit{II}_1$ factors***, with [Ionu&tcedil; Chifan][Ionut], [Denis Osin][Denis] and [Bin Sun][Bin].  Preprint: [arXiv:2511.23123](https://arxiv.org/abs/2511.23123).
 
