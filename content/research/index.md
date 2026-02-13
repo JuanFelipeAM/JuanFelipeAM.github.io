@@ -12,11 +12,14 @@ draft = false
 [Krishnendu]: https://sites.google.com/view/krishnendukhan-math/home
 [Denis]: https://as.vanderbilt.edu/math/bio/?who=denis-osin
 [Bin]: https://sites.google.com/view/binsun/
+[Adriana]: https://sites.google.com/view/adrianafernandezquero/home
 
 ## <br>Research<br>
 <br>
 
 ### Preprints:
+
+1. ***McDuff superrigidity for group $\mathit{II}_1$ factors***, with [Ionu&tcedil; Chifan][Ionut] and [Adriana Fernández Quero][Adriana].  Preprint: [arXiv:2602.05290](https://arxiv.org/abs/2602.05290).
 
 1. ***McDuff superrigidity for group $\mathit{II}_1$ factors***, with [Ionu&tcedil; Chifan][Ionut], [Denis Osin][Denis] and [Bin Sun][Bin].  Preprint: [arXiv:2511.23123](https://arxiv.org/abs/2511.23123).
 
