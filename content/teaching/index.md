@@ -13,6 +13,11 @@ draft = false
 Here you will find my [Statement of Teaching Philosophy](/teaching-statement).<br>
 <br>
 
+### Currently teaching (Spring 2026)
+##### Calculus III (instructor on record)
+<br>
+
+
 ### Past teaching
 #### As instructor on record at The University of Iowa
 - MATH:1020 Elementary Functions, Fall 2023
@@ -28,6 +33,8 @@ Here you will find my [Statement of Teaching Philosophy](/teaching-statement).<b
 - MATH:1560 Engineer Math II: Multivariable Calculus, Spring 2022
 - MATH:1560 Engineer Math II: Multivariable Calculus, Fall 2021
 - MATH:1460 Calculus for Biological Sciences, Fall 2021
+
+<br>
 
 *For more information, feel free to see my [CV](/cv) or [contact me](mailto:juanfelipe-arizamejia@uiowa.edu).*
 
