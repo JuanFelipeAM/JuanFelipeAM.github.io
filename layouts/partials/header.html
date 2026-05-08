@@ -43,15 +43,47 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-lg-auto">
             {{- range .Site.Menus.header }}
-            <li class="nav-item">
-              <a data-scroll class="nav-link" href="{{ .URL | relURL }}"
-                >{{ if .Pre }}
-                  <i class="icon-{{ .Pre }}" aria-label="{{ or .Name .Pre }}"></i>
-                {{ else }}
-                  {{ .Name | upper }}
-                {{ end }}</a
-              >
-            </li>
+              {{ if .HasChildren }}
+
+                <li class="nav-item dropdown">
+                  <a
+                    data-scroll
+                    class="nav-link dropdown-toggle"
+                    href="{{ .URL | relURL }}"
+                    id="navbarDropdown{{ .Identifier }}"
+                    role="button"
+                    aria-expanded="false">
+                    {{ if .Pre }}
+                      <i class="icon-{{ .Pre }}" aria-label="{{ or .Name .Pre }}"></i>
+                    {{ else }}
+                      {{ .Name | upper }}
+                    {{ end }}
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown{{ .Identifier }}">
+                    {{- range .Children }}
+                      <li>
+                        <a data-scroll class="dropdown-item" href="{{ .URL | relURL }}">
+                          {{ if .Pre }}
+                            <i class="icon-{{ .Pre }}" aria-label="{{ or .Name .Pre }}"></i>
+                          {{ else }}
+                            {{ .Name | upper }}
+                          {{ end }}
+                        </a>
+                      </li>
+                    {{- end }}
+                  </ul>
+                </li>
+
+              {{ else }}
+                <li class="nav-item">
+                  <a data-scroll class="nav-link" href="{{ .URL | relURL }}">
+                  {{ if .Pre }}
+                    <i class="icon-{{ .Pre }}" aria-label="{{ or .Name .Pre }}"></i>
+                  {{ else }}
+                    {{ .Name | upper }}
+                  {{ end }}</a>
+                </li>
+              {{ end }}
             {{- end }}
             
             {{- if hugo.IsMultilingual }} 

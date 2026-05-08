@@ -9,6 +9,7 @@ $transition: 280ms all 120ms ease-out;
 
 // prevents the menu content from not being visible
 // https://github.com/zetxek/adritian-free-hugo-theme/issues/206
+.header .navbar .nav-item.dropdown,
 .header .navbar .nav-item.language-selector,
 .header .navbar .nav-item.theme-selector {
     overflow: visible;

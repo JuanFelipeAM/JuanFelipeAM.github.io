@@ -1,0 +1,12 @@
+{{ define "main" }}
+  <section id="teaching" class="section section--border-bottom rad-animation-group flex-grow-1">
+    <div id="main-content">
+      {{ if not .Params.hideTitle }}  
+      <h1 id="title">{{ .Title }}</h1>
+      {{ end }}
+      <article id="content">
+        {{ .Content }}
+      </article>
+    </div>
+  </section>
+{{ end }}

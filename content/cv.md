@@ -2,7 +2,6 @@
 title: 'CV'
 hideTitle: true
 ---
-
 ℹ This page displays pdf files and should work fine in any browser<br> 
 
 
