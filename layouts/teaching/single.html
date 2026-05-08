@@ -1,5 +1,5 @@
 {{ define "main" }}
-  <section id="teaching" class="section section--border-bottom rad-animation-group flex-grow-1">
+  <div id="teaching" class="section--fullheight rad-animation-group flex-grow-1">
     <div id="main-content">
       {{ if not .Params.hideTitle }}  
       <h1 id="title">{{ .Title }}</h1>
@@ -8,5 +8,18 @@
         {{ .Content }}
       </article>
     </div>
-  </section>
+  </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        var teachingSection = document.getElementById('teaching');
+        if (teachingSection) {
+          teachingSection.style.minHeight = 'calc(111vh - var(--site-header-height, 120px) - var(--site-footer-height, 120px))';
+          var footer = document.querySelector('footer');
+          if (footer) {
+            footer.style.paddingBottom = 'min(60px, var(--site-window-height) - var(--site-content-height)) !important';
+            footer.style.marginTop = '50px';
+          }
+        }
+      });
+    </script>
 {{ end }}

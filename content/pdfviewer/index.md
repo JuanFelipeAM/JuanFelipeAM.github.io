@@ -1,4 +1,4 @@
 ---
 title: "PDF Viewer"
-layout: "pdfViewer"
+layout: "pdfviewer"
 ---

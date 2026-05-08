@@ -24,6 +24,8 @@ I grew up in Bogotá, Colombia, and went to undergrad at Universidad de los Ande
 
 #### Links<br>
 
+[GPOTS 2026 - Great Plains Operator Theory Symposium<br>held at The University of Iowa, May 26 – 30](https://sites.google.com/view/gpots-2026)<br>
+
 Check out the [UIowa Operator Algebras Research Seminar](https://sites.google.com/view/ui-oa-seminar/home)<br>
 
 {{< /showcase-section >}}

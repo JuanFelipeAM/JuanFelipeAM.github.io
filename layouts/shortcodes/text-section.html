@@ -10,9 +10,14 @@
 {{ $padding := .Get "padding" | default "true" }}
 {{ $centered := .Get "centered" | default "false" }}
 {{ $extraClass := .Get "class" | default "" }}
+{{ $borderClass := "section--border-bottom" }}
 {{ $containerClass := "" }}
 {{ $paddingClass := "" }}
 {{ $columnClass := "col-12" }}
+
+{{ if in $extraClass "section--fullheight" }}
+    {{ $borderClass = "" }}
+{{ end }}
 
 {{ if eq $padding "true" }}
     {{ $containerClass = "container" }}
@@ -24,7 +29,7 @@
     {{ $columnClass = printf "%s %s" $columnClass "text-center" }}
 {{ end }}
 
-<section {{if $sectionId}} id="{{ $sectionId }}"{{end}} class="section section--border-bottom rad-animation-group {{ $paddingClass }} {{ $extraClass }}">
+<section {{if $sectionId}} id="{{ $sectionId }}"{{end}} class="section {{ $borderClass }} rad-animation-group {{ $paddingClass }} {{ $extraClass }}">
     <div class="{{ $containerClass }}">
         <div class="row rad-fade-down">
             <div class="{{ $columnClass }}">
