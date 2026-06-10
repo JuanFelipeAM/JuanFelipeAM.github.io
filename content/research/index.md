@@ -13,11 +13,14 @@ draft = false
 [Denis]: https://as.vanderbilt.edu/math/bio/?who=denis-osin
 [Bin]: https://sites.google.com/view/binsun/
 [Adriana]: https://sites.google.com/view/adrianafernandezquero/home
+[Adrian]: https://mathweb.ucsd.edu/~aioana/
 
 ## <br>Research<br>
 <br>
 
 ### Preprints:
+
+1. ***Amenable absorption in von Neumann algebras of hyperbolic groups***, with [Ionu&tcedil; Chifan][Ionut], [Adriana Fernández Quero][Adriana] and [Adrian Ioana][Adrian].  Preprint: [arXiv:2606.10105](https://arxiv.org/abs/2606.10105).
 
 1. ***Non-amenable C$^\ast$-superrigid groups that are not W$^\ast$-superrigid***, with [Ionu&tcedil; Chifan][Ionut] and [Adriana Fernández Quero][Adriana].  Preprint: [arXiv:2602.05290](https://arxiv.org/abs/2602.05290).
 
@@ -34,6 +37,8 @@ draft = false
 <br>
 
 ### Talks:
+
+- [*Non-amenable C$^\ast$-superrigid groups that are not W$^\ast$-superrigid*](/slides/C(notW)star-superrigidGPOTS) -- GPOTS 2026.
 
 - [*McDuff superrigidity for group $\mathrm{II}_1$ factors*](/slides/McDuffRigidityJMM) -- JMM 2026.
 
