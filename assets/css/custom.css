@@ -303,7 +303,7 @@ header.header .navbar-brand {
 .text-section__content h1 { font-size: 1.8em; }
 .text-section__content h2 { font-size: 1.4em; }
 .text-section__content h3 { font-size: 1.2em; }
-.text-section__content h4 { font-size: 1.02em; }
+.text-section__content h4 { font-size: 1.1em; }
 .text-section__content h5 { font-size: 1.0em; }
 .text-section__content h6 { font-size: 0.95em; }
 
@@ -317,7 +317,6 @@ header.header .navbar-brand {
     .text-section__content h1 { font-size: 1.6em; }
     .text-section__content h2 { font-size: 1.25em; }
     .text-section__content h3 { font-size: 1.1em; }
-    .text-section__content h4 { font-size: 1.02em; }
 }
 
 /* Full-height section variant (opt-in via `class="section--fullheight"` on the shortcode)
@@ -387,8 +386,3 @@ header.header .navbar-brand {
 .article p a:hover {
     color: var(--bs-link-hover-color) !important;
 }
-
-/* Dropdown summary sizing inside text-section */
-.text-section__content summary.h3 { font-size: 1.2em; font-weight: 700; }
-.text-section__content summary.h4 { font-size: 1.02em; font-weight: 700; }
-.text-section__content summary.h5 { font-size: 1.0em; font-weight: 700; }

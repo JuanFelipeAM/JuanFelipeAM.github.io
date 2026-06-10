@@ -143,11 +143,6 @@ name = 'Teaching'
 URL = '/teaching'
 weight = 3
 [[languages.en.menus.header]]
-name = 'Calculus III Spring 2026'
-URL = '/teaching/current'
-parent = 'Teaching'
-weight = 3
-[[languages.en.menus.header]]
 name = "CV"
 URL = "/cv"
 weight = 4

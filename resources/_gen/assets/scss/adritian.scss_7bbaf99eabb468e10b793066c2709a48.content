@@ -9358,8 +9358,6 @@ textarea.form-control-lg {
         box-shadow: var(--bs-box-shadow-lg); } }
   .bd-navbar .dropdown-toggle:focus:not(:focus-visible) {
     outline: 0; }
-  .bd-navbar .dropdown:hover .dropdown-menu {
-    display: block; }
   .bd-navbar .dropdown-menu {
     --bs-dropdown-min-width: 12rem;
     --bs-dropdown-padding-x: .25rem;
@@ -9389,11 +9387,9 @@ textarea.form-control-lg {
 .underline-item {
   border-bottom: 1px solid white; }
 
-.header .navbar .nav-item.dropdown,
 .header .navbar .nav-item.language-selector,
 .header .navbar .nav-item.theme-selector {
   overflow: visible; }
-  .header .navbar .nav-item.dropdown .nav-link,
   .header .navbar .nav-item.language-selector .nav-link,
   .header .navbar .nav-item.theme-selector .nav-link {
     padding: 0; }

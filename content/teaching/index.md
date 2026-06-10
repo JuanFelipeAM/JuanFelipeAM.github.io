@@ -14,7 +14,7 @@ Here you will find my [Statement of Teaching Philosophy](/teaching-statement).<b
 <br>
 
 ### Currently teaching (Spring 2026)
-##### [Calculus III](/teaching/current/) (instructor on record)
+##### Calculus III (instructor on record)
 <br>
 
 

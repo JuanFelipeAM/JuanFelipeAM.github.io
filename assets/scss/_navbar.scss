@@ -86,11 +86,6 @@
         }
     }
 
-    // Show dropdown on hover
-    .dropdown:hover .dropdown-menu {
-        display: block;
-    }
-
     .dropdown-menu {
         --bs-dropdown-min-width: 12rem;
         --bs-dropdown-padding-x: .25rem;
