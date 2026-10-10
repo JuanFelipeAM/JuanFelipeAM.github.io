@@ -13,7 +13,7 @@ draft = false
 
 ### Hello, my name is <span style="font-size: 1.2em; line-height: 1.5">Juan&nbsp;Felipe</span><br>
 
-I am a 5<sup>th</sup> year Ph.D. Candidate in Mathematics at The University of Iowa, advised by [Prof. Ionu&tcedil; Chifan](https://sites.google.com/view/i-chifan-website/home).<br>
+I am a 6<sup>th</sup> year Ph.D. Candidate in Mathematics at The University of Iowa, advised by [Prof. Ionu&tcedil; Chifan](https://sites.google.com/view/i-chifan-website/home).<br>
 
 My area of research is operator algebras, and my main interests lie in the interactions between von Neumann algebras, geometric group theory and ergodic theory.<br>
 

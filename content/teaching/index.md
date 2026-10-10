@@ -13,13 +13,14 @@ draft = false
 Here you will find my [Statement of Teaching Philosophy](/teaching-statement).<br>
 <br>
 
-### Currently teaching (Spring 2026)
-##### Calculus III (instructor on record)
+### Currently teaching (Fall 2026)
+##### College Algebra (instructor on record)
 <br>
 
 
 ### Past teaching
 #### As instructor on record at The University of Iowa
+- MATH:2850 Calculus III, Spring 2026
 - MATH:1020 Elementary Functions, Fall 2023
 - MATH:1010 Trigonometry, Spring 2023
 - MATH:1005 College Algebra, Fall 2022
