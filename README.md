@@ -118,6 +118,8 @@ I think the change here is between the version of the theme in my website and th
 
 ### css\custom.css :
 
+1. showcase layout has to float the image to the right and wrap the text around it. It should also unfloat the image when the screen width is smaller than 768px
+
 
 ### scss\_raditian.scss :
 
