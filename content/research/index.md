@@ -3,6 +3,7 @@ title =  "Research"
 hideTitle = true
 type = "research"
 draft = false
+hideBreadcrumb = true # This is a local override (that can be added to individual pages's TOML/YAML front matter) for the global toggle from hugo.toml
 +++
 
 {{< text-section class="section--fullheight" padding="false" >}}

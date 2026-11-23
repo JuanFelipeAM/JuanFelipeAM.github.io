@@ -1,5 +1,21 @@
 /* You can customize theme styles here */
 
+
+/* Using variables rooted out of assets/scss/_variables.scss */
+/* Some (global) variables for ease of use*/
+:root {
+    --JFAM-head-name-size-sm: 28px;
+    --JFAM-head-name-size: 34px;
+    --JFAM-head-name-size-md: 37px;
+    --JFAM-head-name-size-bg: 40px;
+    /* Header background variables */
+    --JFAM-header-bg: 255,255,255; /* rgb as comma list for rgba() usage */
+    --JFAM-header-bg-alpha: 0.85; /* default alpha (0-1) */
+    --JFAM-header-bg-dark: 24,24,24;
+    --JFAM-header-bg-dark-alpha: 0.8;
+}
+
+
 /* JFAM edit: Showcase layout wraps text around a floated image, and stacks it on mobile.  Modification starts here */
 .showcase-section {
     display: block;
@@ -33,15 +49,159 @@
 
 /* End of modification of showcase image layout */
 
+/* Modification of header styles */
 
-@media (max-width: 300px) {
-    .header .navbar-brand span:first-child {
-        font-size: 24px;
+.container {
+  padding-left: 24px !important;
+  padding-right: 24px;
+}
+
+.bd-navbar {
+    box-shadow: 0 0rem 0rem rgba(0,0,0,0), inset 0 -2.4px 0 black;
+}
+html[data-bs-theme="dark"] .bd-navbar {
+    box-shadow: 0 0rem 0rem rgba(0,0,0,0), inset 0 -2.4px 0 white;
+}
+
+.header .navbar-brand span:first-child, .header .navbar-brand span:nth-child(2) {
+    align-self: center;
+    font-weight: 900 !important; /* JFAM edit: Changed header formatting */
+    color: var(--bs-link-color, var(--bs-primary, #41766f)) !important; /* JFAM edit: Changed header formatting */
+    font-size: var(--JFAM-head-name-size);
+    letter-spacing: -1.17px;
+}
+
+.header {
+    padding-top: 8px;
+}
+
+@media (min-width: 992px) {
+    .header .navbar-brand img {
+        width: 156px;
+        max-height: 40px;
     }
-    .header .navbar-brand span:nth-child(2) {
-        font-size: 24px;
+    .header .navbar-brand {
+        margin-top: 0;
+    }
+    .header .navbar-brand span:first-child, .header .navbar-brand span:nth-child(2) {
+        font-size: 40px !important;
+        border-top: none;
     }
 }
+
+@media only screen and (min-width: 992px) and (max-width: 1280px) {
+    .header {
+        padding-top: 8px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .header .navbar-brand img {
+        width: 156px;
+        max-height: 40px;
+    }
+    .header .navbar-brand {
+        margin-top: 0;
+    }
+    .header .navbar-brand span:first-child, .header .navbar-brand span:nth-child(2) {
+        font-size: 37px !important;
+        border-top: none;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .header .navbar-brand {
+        margin-top: 0px !important;
+        padding-top: 0px;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .header .navbar-brand img {
+        width: 156px;
+        max-height: 40px;
+    }
+    .header .navbar-brand {
+        margin-top: 0 !important;
+    }
+    .header .navbar-brand span:first-child, .header .navbar-brand span:nth-child(2) {
+        font-size: 34px !important;
+        border-top: none;
+    }
+}
+
+/* This makes font-size of header change dynamically based on screen width */
+@media (min-width: 301px) and (max-width: 575.99px) {
+    .header .navbar-brand span:first-child, .header .navbar-brand span:nth-child(2) {
+        font-size: clamp(20px, calc(4.73px + 5.091vw), 34px) !important;
+    }
+}
+
+/* This makes left padding of header change dynamically based on screen width */
+@media (min-width: 301px) and (max-width: 575.99px) {
+    .header .navbar-brand {
+        margin-top: 0 !important;
+        padding-top: clamp(5px, 15.4348px - 1.8116vw, 10px) !important;
+        padding-bottom: clamp(5px, 36.3043px - 5.4348vw, 20px) !important;
+    }
+    .header .navbar-brand span:first-child {
+        padding-left: clamp(
+            0px,
+            calc(62.727px - 10.909vw),
+            30px
+        );
+    }
+}
+
+
+/* This wraps around and gives padding to header in case screen width is less than 300px */
+@media (max-width: 300.98px) {
+    .header .navbar-brand {
+        margin-top: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0px;
+        line-height: 0.8;
+        align-items: flex-end;
+        text-align: right;
+        padding-left: 15px;
+    }
+
+    .header .navbar-brand span:first-child, .header .navbar-brand span:nth-child(2) {
+        display: block;
+        width: 100%;
+        text-align: right;
+        font-size: 20px !important;
+    }
+    .header .navbar-brand span:nth-child(2) {
+        padding-bottom : 10px;
+    }
+}
+
+/* Header background / transparency overrides
+   - Uses CSS variables so you can tweak `--JFAM-header-bg-alpha` at runtime
+   - Adds a slight backdrop blur for translucent effect on supporting browsers */
+.header {
+    position: sticky;
+    top: 0;
+    background-color: rgba(var(--JFAM-header-bg), var(--JFAM-header-bg-alpha));
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    transition: background-color 180ms ease, box-shadow 180ms ease;
+}
+
+/* Dark theme variant */
+html[data-bs-theme="dark"] .header {
+    background-color: rgba(var(--JFAM-header-bg-dark), var(--JFAM-header-bg-dark-alpha));
+    .navbar-brand span:first-child {
+        color: var(--bs-link-color); /* JFAM edit: Changed header formatting */
+    }
+    .navbar-brand span:nth-child(2) {
+        color: var(--bs-link-color); /* JFAM edit: Changed header formatting */
+    }
+}
+
+/* End of modification of header styles */
 
 
 /* Keep content filling the viewport so the footer stays below the page. */
@@ -71,52 +231,128 @@ body:has(.rad-showcase) .rad-showcase {
     flex-direction: column;
 }
 
+/* Start modifications to text-section and showcase styles */ 
+
+/* Font size for markdown rendered inside the showcase left column. Change this variable to adjust. */
+:root {
+    --JFAM-showcase-markdown-font-size: 20px; /* default: 18px */
+}
+
+/* Font size for `text-section` shortcode content. Adjust this variable to change
+   the base font-size used inside `.text-section__content`. */
+:root {
+    --JFAM-text-section-font-size: 20px;
+}
+
+/* Showcase inner markdown styling */
+.inner-content {
+    font-size: var(--JFAM-showcase-markdown-font-size);
+    line-height: 1.45;
+    color: inherit;
+}
+/* Normalize heading sizes inside the showcase inner markdown so headings
+   don't inherit large global heading/display styles. Headings will scale
+   relative to the showcase markdown font size. */
+.inner-content :is(h1,h2,h3,h4,h5,h6) {
+    line-height: 1.15;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-weight: 700;
+}
+@media (max-width: 767px) {
+    .inner-content {
+        font-size: calc(var(--JFAM-showcase-markdown-font-size) -8px);
+    }
+}
+
+/* Typographic hierarchy inside the showcase area (relative to the showcase base font-size).
+   Use em units so headings scale with the `--JFAM-showcase-markdown-font-size` variable. */
+.inner-content h1 { font-size: 1.8em; }
+.inner-content h2 { font-size: 1.4em; }
+.inner-content h3 { font-size: 1.2em; }
+.inner-content h4 { font-size: 1.1em; }
+.inner-content h5 { font-size: 1.0em; }
+.inner-content h6 { font-size: 0.95em; }
+
+.inner-content p,
+.inner-content li,
+.inner-content a {
+    font-size: 1em; /* equals var(--JFAM-showcase-markdown-font-size) */
+    margin-bottom: 2em;
+}
+
+/* Small-screen tuning: reduce heading scaling slightly for narrow viewports */
+@media (max-width: 767px) {
+    .inner-content h1 { font-size: 1.6em; }
+    .inner-content h2 { font-size: 1.25em; }
+    .inner-content h3 { font-size: 1.1em; }
+}
+
+/* Text-section font sizing */
+.text-section__content {
+    font-size: var(--JFAM-text-section-font-size);
+    line-height: 1.6;
+}
+
+@media (max-width: 767px) {
+    .text-section__content {
+        font-size: calc(var(--JFAM-text-section-font-size) - 2px);
+    }
+}
+
+/* Mirror the `.inner-content` typographic hierarchy inside text-section */
+.text-section__content :is(h1,h2,h3,h4,h5,h6) {
+    line-height: 1.15;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-weight: 700;
+}
+.text-section__content h1 { font-size: 1.8em; }
+.text-section__content h2 { font-size: 1.4em; }
+.text-section__content h3 { font-size: 1.2em; }
+.text-section__content h4 { font-size: 1.02em; }
+.text-section__content h5 { font-size: 1.0em; }
+.text-section__content h6 { font-size: 0.95em; }
+
+.text-section__content p,
+.text-section__content li,
+.text-section__content a {
+    font-size: 1em; /* equals var(--JFAM-text-section-font-size) */
+}
+
+@media (max-width: 767px) {
+    .text-section__content h1 { font-size: 1.6em; }
+    .text-section__content h2 { font-size: 1.25em; }
+    .text-section__content h3 { font-size: 1.1em; }
+    .text-section__content h4 { font-size: 1.02em; }
+}
+
+
+/* Make paragraph-level markdown links behave like links inside H5 headings
+   - Applies to main content areas (text-section, showcase, posts)
+   - Uses theme link colors and hover color so dark/light modes are respected */
+.text-section__content p a,
+.inner-content p a,
+.post-content p a,
+.content p a,
+.article p a {
+    color: var(--bs-link-color) !important;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.15s ease-in-out;
+}
+.text-section__content p a:hover,
+.inner-content p a:hover,
+.post-content p a:hover,
+.content p a:hover,
+.article p a:hover {
+    color: #41766f !important;
+}
+
+/* End of font styles for showcase and text-section content */
+
 
 /* Here are other changes I need to purge */
-.header {
-    padding-top: 8px;
-}
-
-@media (min-width: 992px) {
-    .header {
-        padding-top: 8px;
-    }
-}
-
-.header .navbar-brand span:first-child, .header .navbar-brand span:nth-child(2) {
-    align-self: center;
-    font-size: 34px;
-    font-weight: 900;
-    letter-spacing: -1.17px;
-    color: #AE1B13;
-}
-
-.header .navbar .nav-item:first-child, .header .navbar .nav-item:nth-child(2) {
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-@media (min-width: 768px) and (max-width: 991.98px) {
-    .header .navbar-brand img {
-        width: 156px;
-        max-height: 40px;
-    }
-    .header .navbar-brand span:first-child, .header .navbar-brand span:nth-child(2) {
-        font-size: 37px;
-    }
-}
-
-@media (min-width: 992px) {
-    .header .navbar-brand img {
-        width: 156px;
-        max-height: 40px;
-    }
-    .header .navbar-brand span:first-child, .header .navbar-brand span:nth-child(2) {
-        font-size: 40px;
-    }
-    .header .navbar .nav-item:first-child, .header .navbar .nav-item:nth-child(2) {
-        border-top: none;
-    }
-}
 
 .rad-showcase {
     margin-bottom: 0;
@@ -133,13 +369,9 @@ body:has(.rad-showcase) .rad-showcase {
 }
 
 
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 768px) {
     .rad-showcase__bg img {
         margin-left: 0;
-    }
-    .header .navbar-brand {
-        margin-top: 0px;
-        padding-top: 5px;
     }
 }
 
@@ -147,19 +379,4 @@ body:has(.rad-showcase) .rad-showcase {
     .rad-showcase__bg img {
         margin-left: 0;
     }
-    .header .navbar-brand {
-        margin-top: 0px;
-        padding-top: 0px;
-    }
-}
-
-@media only screen and (min-width: 992px) and (max-width: 1280px) {
-    .header {
-        padding-top: 8px;
-    }
-}
-
-.header .navbar-brand span:nth-child(2) {
-  color: var(--bs-link-color, var(--bs-primary, #41766f)) !important;
-  font-weight: 900 !important;
 }
