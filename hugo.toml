@@ -87,7 +87,7 @@ colorScheme = 'default'
 
 # Enable the live color scheme switcher (for the demo site)
 [params.colorSchemeSwitcher]
-enable = true
+enable = false
 
 # Color scheme selector visibility — set to true to hide in that location
 [params.colorSchemeSwitcher.selector.disable]
