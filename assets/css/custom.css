@@ -73,6 +73,7 @@ html[data-bs-theme="dark"] .bd-navbar {
 
 .header {
     padding-top: 8px;
+    padding-bottom: 8px !important;
 }
 
 @media (min-width: 992px) {
@@ -182,7 +183,7 @@ html[data-bs-theme="dark"] .bd-navbar {
    - Uses CSS variables so you can tweak `--JFAM-header-bg-alpha` at runtime
    - Adds a slight backdrop blur for translucent effect on supporting browsers */
 .header {
-    position: sticky;
+    position: sticky !important;
     top: 0;
     background-color: rgba(var(--JFAM-header-bg), var(--JFAM-header-bg-alpha));
     -webkit-backdrop-filter: blur(6px);
@@ -204,12 +205,19 @@ html[data-bs-theme="dark"] .header {
 /* End of modification of header styles */
 
 
-/* Keep content filling the viewport so the footer stays below the page. */
-body:has(.text-section),
-body:has(.rad-showcase) {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+
+
+/* The theme reserves 120px after headers and before generic .section elements.
+   This site uses the header in normal document flow, so that reservation adds
+   empty space after the header for text sections. */
+.header + .section,
+.header + main + .section,
+.header + main .rad-showcase,
+.header + main .text-section,
+.text-section.section--no-padding {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    justify-content: flex-start;
 }
 
 body:has(.text-section) > main,
@@ -356,6 +364,7 @@ body:has(.rad-showcase) .rad-showcase {
 
 .rad-showcase {
     margin-bottom: 0;
+    padding-top: 0 !important;
 }
 
 

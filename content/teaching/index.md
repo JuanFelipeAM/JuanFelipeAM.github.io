@@ -8,7 +8,7 @@ draft = false
 
 {{< text-section class="section--fullheight" padding="false" >}}
 
-## <br>Teaching
+## Teaching
 
 Here you will find my [Statement of Teaching Philosophy](/teaching-statement).<br>
 <br>

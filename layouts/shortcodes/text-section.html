@@ -17,6 +17,8 @@
 {{ if eq $padding "true" }}
     {{ $containerClass = "container" }}
     {{ $paddingClass = "section--padding" }}
+{{ else }}
+    {{ $paddingClass = "section--no-padding" }}
 {{ end }}
 
 {{ if eq $centered "true" }}
