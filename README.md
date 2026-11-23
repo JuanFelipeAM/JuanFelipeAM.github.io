@@ -104,12 +104,12 @@ Here I want to:
 
 <br>
 
-### partials\head.html :
-I think the change here is between the version of the theme in my website and the latest version.
+### shortcodes\text_section.html :
+The change here is so text section content has a special class and can be modified (font, etc.) from custom.css.
 
 <br>
 
-### shortcodes\text_section.html :
+### partials\head.html :
 I think the change here is between the version of the theme in my website and the latest version.
 ## 
 

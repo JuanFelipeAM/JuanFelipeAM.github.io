@@ -158,3 +158,8 @@ body:has(.rad-showcase) .rad-showcase {
         padding-top: 8px;
     }
 }
+
+.header .navbar-brand span:nth-child(2) {
+  color: var(--bs-link-color, var(--bs-primary, #41766f)) !important;
+  font-weight: 900 !important;
+}
