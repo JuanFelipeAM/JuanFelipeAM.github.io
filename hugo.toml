@@ -1,3 +1,369 @@
 baseURL = 'https://example.org/'
 locale = 'en-us'
-title = 'My New Hugo Project'
+title = "Test site for my personal Website"
+theme = "adritian"
+
+# Required for the theme's layouts/robots.txt to be rendered — Hugo ignores
+# a custom robots.txt template unless this is explicitly enabled.
+# https://gohugo.io/templates/robots/
+enableRobotsTXT = true
+
+[pagination]
+pagerSize = 3
+
+
+[outputs]
+  page = ["HTML"]
+  home = ["HTML", "RSS", "JSON"]
+  section = ["HTML", "RSS"]
+  taxonomy = ["HTML", "RSS"]
+  term = ["HTML", "RSS"]
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+  author = "authors"
+  series = "series"
+  topic = "topics"
+
+[module]
+#[[module.imports]] ## Remove module import to use local copy
+#path = "github.com/zetxek/adritian-free-hugo-theme"
+
+## Base mounts - so your site's assets are available
+[[module.mounts]]
+source = "archetypes"
+target = "archetypes"
+
+[[module.mounts]]
+source = "assets"
+target = "assets"
+
+[[module.mounts]]
+source = "i18n"
+target = "i18n"
+
+[[module.mounts]]
+source = "layouts"
+target = "layouts"
+
+[[module.mounts]]
+source = "static"
+target = "static"
+
+# The following mounts are required for the theme to be able to load bootstrap
+# Remember also to copy the theme's `package.json` to your site, and run `npm install`
+[[module.mounts]]
+source = "node_modules/bootstrap/scss"
+target = "assets/scss/bootstrap"
+
+[[module.mounts]]
+source = "node_modules/bootstrap/dist/js"
+target = "assets/js/bootstrap"
+
+[[module.mounts]]
+source = "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+target = "assets/js/vendor/bootstrap.bundle.min.js"
+
+[[module.mounts]]
+source = "node_modules/bootstrap-print-css/css/bootstrap-print.css"
+target = "assets/css/bootstrap-print.css"
+
+
+[params]
+title = 'Test site for personal Website'
+description = "Personal academic website of Juan Felipe Ariza Mejia"
+images = ['/img/og-img.png']
+themeColor = '#478079'
+
+# Header logo text. Optional — falls back to .Site.Title when unset.
+# Useful when your SEO/page `title` (long, keyword-rich) should differ
+# from the short brand text shown in the header. See PR #561.
+logo_text1 = 'Juan Felipe'
+logo_text2 = 'Ariza Mejía'
+
+# Color scheme: default | ocean | forest | rose | slate | midnight | warm
+colorScheme = 'default'
+
+# Enable the live color scheme switcher (for the demo site)
+[params.colorSchemeSwitcher]
+enable = true
+
+# Color scheme selector visibility — set to true to hide in that location
+[params.colorSchemeSwitcher.selector.disable]
+footer = false
+header = false
+
+#[params.seo] ## Commented out all seo, social for now
+#siteName = 'Adritian'
+#siteDescription = 'Adritian Demo — a high performance Hugo theme'
+#siteImage = '/img/og-img.png'
+
+#[params.social]
+#twitter = 'zetxek'
+
+#[params.seo.person]
+#name = 'Adrián Moreno Peña'
+#url = 'https://www.adrianmoreno.info'
+#sameAs = ['https://github.com/zetxek']
+#sections = [
+#  "showcase",
+#  "about",
+#  "education",
+#  "experience",
+#  "client-and-work",
+#  "testimonial",
+#  "contact",
+#  "newsletter",
+#]
+# If you want to display an image logo in the header, you can add it here
+# logo = '/img/hugo.svg'
+
+homepageExperienceCount = 6
+
+[params.favicons]
+# Optional: provide a different source image for auto-generation
+source = "icons/favicon.png"
+
+# Optional: override any generated file with a static one
+# favicon = "/favicon.ico"
+# icon16 = "/icons/icon-16.png"
+# icon32 = "/icons/icon-32.png"
+# appleTouch = "/icons/apple-touch-icon.png"
+# icon192 = "/icons/icon-192.png"
+# icon512 = "/icons/icon-512.png"
+# manifest = "/site.webmanifest"
+
+[params.analytics]
+## Analytics parameters.
+### Supported so far: Vercel (Page Insights, Analytics)
+### Google (Tag Manager, Analytics)
+### And Plausible
+
+# controls vercel page insights - disabled by default
+# to enable, just set to true
+vercelPageInsights = false
+vercelAnalytics = false
+
+# google analytics and tag manager. to enable, set "enabled" to true
+# and add the tracking code (UA-something for analytics, GTM-something for tag manager)
+[params.analytics.googleAnalytics]
+code = "UA-XXXXX-Y"
+enabled = false
+[params.analytics.googleTagManager]
+code = "GTM-XXXXX"
+enabled = false
+
+# plausible analytics. to enable, set "enabled" to true and set your site's domain
+[params.analytics.plausible]
+enabled = false
+domain = "" # e.g. example.com - defaults to the site's host when empty
+# script = "https://plausible.io/js/script.js" # optional override, e.g. for a self-hosted instance
+
+[build]
+writeStats = true
+
+[build.buildStats]
+enabledFor = ["scss"]
+disableClasses = false
+disableIDs = false
+disableTags = false
+enable = true
+
+# Language selector visibility — set to true to hide in that location
+[params.languages.selector.disable]
+footer = true
+header = true
+mobileHeader = true
+
+[languages]
+[languages.en]
+disabled = false
+locale = 'en'
+direction = 'ltr'
+label = 'English'
+weight = 0
+
+[languages.en.params.footer]
+notice = '© Adritian. Free Hugo theme by Adrián Moreno Peña.<br>Icon made in Favicon.io, Asterisk icons created by Cap Cool - Flaticon, Hexagon icons created by Solarus - Flaticon.<br><br>Design and deployment by Juan Felipe Ariza Mejía.'
+
+[languages.en.menus]
+[[languages.en.menus.header]]
+name = "Home"
+URL = "/"
+weight = 1
+
+[[languages.en.menus.header]]
+name = 'Research'
+URL = '/research'
+weight = 2
+
+[[languages.en.menus.header]]
+name = 'Teaching'
+URL = '/teaching'
+weight = 3
+
+#[[languages.en.menus.header]] ## Will deal with subsections later
+#name = 'Calculus III Spring 2026'
+#URL = '/teaching/current'
+#parent = 'Teaching'
+#weight = 3
+
+#[[languages.en.menus.header]]
+#name = "CV"
+#URL = "/cv"
+#weight = 4
+
+[[languages.en.menus.header]]
+pre = "email"
+name = "email"
+URL = "#contact"
+weight = 5
+
+[[languages.en.menus.header]]
+pre = "search"
+name = "Search"
+URL = "/search"
+weight = 6
+
+#[[languages.en.menus.footer]] ## Keeping for template if footer menu wanted
+#name = "Home"
+#URL = "/"
+#weight = 1
+
+
+#[languages.es] ## Keeping for template of other languages
+#disabled = false
+#locale = 'es'
+#direction = 'ltr'
+#label = 'Español'
+#weight = 0
+
+
+# Plugins
+[params.plugins]
+
+# CSS Plugins
+[[params.plugins.css]]
+URL = "css/custom.css"
+[[params.plugins.css]]
+URL = "css/adritian-icons.css"
+## Print css
+[[params.plugins.css]]
+URL = "css/bootstrap-print.css"
+
+# JS Plugins
+[[params.plugins.js]]
+URL = "js/rad-animations.js"
+[[params.plugins.js]]
+URL = "js/sticky-header.js"
+[[params.plugins.js]]
+URL = "js/library/fontfaceobserver.js"
+
+# SCSS Plugins
+[[params.plugins.scss]]
+URL = "scss/adritian.scss"
+
+
+# theme/color style 
+[params.colorTheme]
+
+## the following configuration would disable automatic theme selection
+#  [params.colorTheme.auto]
+#    disable = true
+#  [params.colorTheme.forced]
+#    theme = "dark"
+
+## the following parameter will disable theme override in the footer
+#  [params.colorTheme.selector.disable]
+#  footer = true
+
+# Color theme selector visibility — set to true to hide in that location
+[params.colorTheme.selector.disable]
+footer = false
+header = true
+mobileHeader = true
+## by default we allow override AND automatic selection
+
+# View Transitions API - enabled by default
+# Set to false to disable the native View Transitions API
+# viewTransitions = false
+
+[params.sharing] ## Not sure what this does
+bluesky = false
+mastodon = false
+
+[params.blog]
+layout = "sidebar-right"     # options: default (no sidebar), sidebar, sidebar-right
+sidebarWidth = "25"    # percentage width of the sidebar
+narrowContent = true   # if true, limits content width to 720px for better readability
+showCategories = true
+showRecentPosts = true
+recentPostCount = 5
+listStyle = "summary"  # options: simple, summary
+listLayout = "default" # options: default, cards
+featured_sort_by_weight = true
+featured_sort_by_date = false
+
+
+[params.experience]
+showJobCard = true # Set to false to hide the job card
+
+# Navbar overflow handling - options: "dropdown" | "footer" | "none"
+[params.navbarOverflow]
+mode = "dropdown" # "dropdown" moves items to More dropdown, "footer" moves to footer, "none" disables
+
+
+# Performance optimizations
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    lineNos = false
+    noClasses = false
+    style = "github"
+
+[imaging]
+  resampleFilter = "Lanczos"
+  anchor = "Smart"
+  [imaging.jpeg]
+    quality = 85
+  [imaging.webp]
+    quality = 85
+  [imaging.avif]
+    quality = 85
+
+[minify]
+  disableCSS = false
+  disableHTML = false
+  disableJS = false
+  disableJSON = false
+  disableSVG = false
+  disableXML = false
+  minifyOutput = true
+  [minify.tdewolff]
+    [minify.tdewolff.html]
+      keepDefaultAttrVals = true
+      keepWhitespace = false
+    [minify.tdewolff.css]
+      precision = 0
+    [minify.tdewolff.js]
+      precision = 0
+
+
+### Adding my own parameters and controls
+
+[[cascade]]
+[cascade.params]
+hideBreadcrumb = true # This toggles the breadcrumbs navigation bar
+
+
+[params.header]
+hideEmailButton = true # This toggles the email button in the menu bar
+hideSearchButton = true # This toggles the search button in the menu bar
+
+[params.footer]
+showMenu = false
+
+###
