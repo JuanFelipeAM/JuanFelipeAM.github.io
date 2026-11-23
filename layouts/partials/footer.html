@@ -2,6 +2,7 @@
 
 
     {{ $footer := where (where .Site.Pages "Type" "footer") "Lang" .Lang }}
+    {{- $showFooterMenu := .Site.Params.footer.showMenu | default true -}}<!-- Adding option to hide footer menu -->
 
     {{ range (sort $footer "Date" "desc") }}
       {{ .Content | safeHTML }}
@@ -10,11 +11,13 @@
   <div class="container items">
     <div class="container">
       <div class="row w-100 align-items-center">
-        <div class="footer_left col-12 col-lg-4 mb-3 mb-lg-0 text-center text-lg-start">
+        <div class="footer_left col-12 {{ if $showFooterMenu }}col-lg-4{{ else }}col-lg-10{{ end }} mb-3 mb-lg-0 text-center text-wrap"><!-- Width of footer_left conditional on the showFooterMenu variable, and made the text centered -->
           <div class="footer__copy">
             <span>{{ .Site.Params.footer.notice | default (i18n "footer_notice") | safeHTML }}</span>
           </div>
         </div>
+        <!-- Adding a wrapper in front of footer menu render -->
+        {{ if $showFooterMenu }}
         <nav class="footer_links col-12 col-lg-6 mb-3 mb-lg-0 text-center text-lg-start" aria-label='{{ i18n "footer_navigation" }}'>
           <ul class="navbar-nav w-100 align-items-center justify-content-center justify-content-lg-start d-flex flex-wrap gap-2">
             {{ range .Site.Menus.footer }}
@@ -31,6 +34,7 @@
             {{ end }}
           </ul>
         </nav>
+        {{ end }} <!-- End of the footer menu wrapper -->
         <div class="footer_right col-12 col-lg-2 mb-3 mb-lg-0 text-center text-lg-end">
           <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center gap-2 d-grid col-12 ">
             {{- if hugo.IsMultilingual }} 
@@ -57,3 +61,17 @@
     </div>
   </div>
 </footer>
+
+<!-- Math rendering: MathJax v3 configured to recognize `$...$` inline math. -->
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']]
+    },
+    options: {
+      skipHtmlTags: ['script','noscript','style','textarea','pre','code']
+    }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>

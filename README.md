@@ -42,7 +42,7 @@ I also want to load MathJax and I did it in the footer in the website online.
 ```    }```<br>
 ```  };```<br>
 ```</script>```<br>
-```<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>```
+```<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>``` All of this goes at the end, after ```</footer>```
 
 <br>
 

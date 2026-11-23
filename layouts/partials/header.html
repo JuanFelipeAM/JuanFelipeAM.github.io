@@ -14,6 +14,9 @@
 
 {{ partial "skip-to-content.html" }}
 
+{{- $hideEmailButton := .Site.Params.header.hideEmailButton | default true -}}<!-- JFAM edit: Adding option to hide email button in the header -->
+{{- $hideSearchButton := .Site.Params.header.hideSearchButton | default true -}}<!-- JFAM edit: Adding option to hide search button in the header -->
+
 <header class="header fixed-top" id="header">
   <div class="container">
     <nav class="navbar bd-navbar navbar-expand-lg navbar-light p-0" aria-label='{{ i18n "primary_navigation" }}'>
@@ -27,7 +30,7 @@
             class="logo"
             />
             {{ end }}
-          <span>{{ $logoText1 }}</span>
+          <span>{{ $logoText1 }}</span>&ensp;<!-- JFAM edit: added space &ensp -->
           <span>{{ .Site.Params.logo_text2 | default "" }}</span>
         </a>
         <button
@@ -44,16 +47,24 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-lg-auto">
             {{- range .Site.Menus.header }}
-            <li class="nav-item">
-              <a data-scroll class="nav-link" href="{{ .URL | relURL }}">
-                {{- if .Pre -}}
+              {{- if .Pre -}}
+                {{- if and (eq .Pre "email") ($hideEmailButton) }}<!-- JFAM edit: Modified this so a space is not created for a hidden menu button -->
+                {{- else if and (eq .Pre "search") ($hideSearchButton) }}
+                {{- else -}}
+                  <li class="nav-item">
+                  <a data-scroll class="nav-link" href="{{ .URL | relURL }}">
                   <i class="icon-{{ .Pre }}" aria-hidden="true"></i>
                   <span class="visually-hidden">{{ .Name | default .Pre }}</span>
-                {{- else -}}
-                  {{ .Name | upper }}
+                  </a>
+                  </li>
                 {{- end -}}
-              </a>
-            </li>
+              {{- else -}}
+                <li class="nav-item">
+                <a data-scroll class="nav-link" href="{{ .URL | relURL }}">
+                {{ .Name | upper }}
+                </a>
+                </li>
+              {{- end -}}
             {{- end }}
             
             {{- if hugo.IsMultilingual }} 

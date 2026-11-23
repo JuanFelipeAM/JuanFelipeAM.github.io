@@ -11,7 +11,7 @@
     {{- $contextType := printf "%T" . -}}
     {{- $isShortcode := (eq $contextType "*hugolib.ShortcodeWithPage") -}}
     {{- $inner := (.Scratch.Get "Inner") -}}
-
+    {{- $innerTrim := trim $inner "\n\r\t " -}}{{/* JFAM: I suspect the markdown is read with a space \n at the start */}}
     
 
     {{/* ---------------------------------------------------------------------------
@@ -61,8 +61,15 @@
       {{- $socialLinks = hugo.Data.homepage.showcase.socialLinks -}}
     {{ end }}
 
-    <div class="showcase-section row flex-column-reverse flex-md-row rad-fade-down rad-waiting rad-animate">
-      <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+    <div class="showcase-section rad-fade-down rad-waiting rad-animate">{{/* JFAM: Removed columns, displayed image right away */}}
+      <div class="profile-image{{ if $imgShape }} profile-image--{{ $imgShape }}{{ end }}">
+        {{ partial "lazypicture" (dict "src" $imgSrc "width" $imgWidth "height" $imgHeight "scale" $imgScale "eager" true "sizes" "(min-width: 768px) 50vw, 100vw")}}
+      </div>
+      {{- if ne $innerTrim "" }}
+        <div class="inner-content">
+          {{ $innerTrim | markdownify }}{{/* JFAM: Used markdownify and define class inner-content */}}
+        </div>
+      {{- else }}
         <h1 class="display-1">
           {{ $showcaseTitle }}
         </h1>
@@ -81,24 +88,15 @@
           {{ $buttonText }}
         </a>
         {{ end }}
-      </div>
-      <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 profile-image{{ if $imgShape }} profile-image--{{ $imgShape }}{{ end }}">
-        {{ partial "lazypicture" (dict "src" $imgSrc "width" $imgWidth "height" $imgHeight "scale" $imgScale "eager" true "sizes" "(min-width: 768px) 50vw, 100vw")}}
-
+      {{ end }}
+      
 <!-- future "right text -->
 
-      </div>
-
-    {{- if $inner }}
-    <div class="col-12 inner-content">
-      {{ $inner }}
-    </div>
-    {{ end }}
-
     </div>
 
 
-    <div class="row platform-links">
+
+    <div class="platform-links">
       <div class="col-12">
         {{- if $socialLinks -}}
           {{ range $socialLinks }}

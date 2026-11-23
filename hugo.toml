@@ -226,10 +226,10 @@ name = "Search"
 URL = "/search"
 weight = 6
 
-#[[languages.en.menus.footer]] ## Keeping for template if footer menu wanted
-#name = "Home"
-#URL = "/"
-#weight = 1
+[[languages.en.menus.footer]] ## Keeping for template if footer menu wanted
+name = "Home"
+URL = "/"
+weight = 1
 
 
 #[languages.es] ## Keeping for template of other languages
