@@ -32,3 +32,129 @@
 }
 
 /* End of modification of showcase image layout */
+
+
+@media (max-width: 300px) {
+    .header .navbar-brand span:first-child {
+        font-size: 24px;
+    }
+    .header .navbar-brand span:nth-child(2) {
+        font-size: 24px;
+    }
+}
+
+
+/* Keep content filling the viewport so the footer stays below the page. */
+body:has(.text-section),
+body:has(.rad-showcase) {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+body:has(.text-section) > main,
+body:has(.rad-showcase) > main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+body:has(.text-section) #main-content,
+body:has(.text-section) #main-content > div,
+body:has(.text-section) #main-content article,
+body:has(.text-section) .text-section.section--fullheight,
+body:has(.rad-showcase) #main-content,
+body:has(.rad-showcase) .home-container,
+body:has(.rad-showcase) .rad-showcase {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Here are other changes I need to purge */
+.header {
+    padding-top: 8px;
+}
+
+@media (min-width: 992px) {
+    .header {
+        padding-top: 8px;
+    }
+}
+
+.header .navbar-brand span:first-child, .header .navbar-brand span:nth-child(2) {
+    align-self: center;
+    font-size: 34px;
+    font-weight: 900;
+    letter-spacing: -1.17px;
+    color: #AE1B13;
+}
+
+.header .navbar .nav-item:first-child, .header .navbar .nav-item:nth-child(2) {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .header .navbar-brand img {
+        width: 156px;
+        max-height: 40px;
+    }
+    .header .navbar-brand span:first-child, .header .navbar-brand span:nth-child(2) {
+        font-size: 37px;
+    }
+}
+
+@media (min-width: 992px) {
+    .header .navbar-brand img {
+        width: 156px;
+        max-height: 40px;
+    }
+    .header .navbar-brand span:first-child, .header .navbar-brand span:nth-child(2) {
+        font-size: 40px;
+    }
+    .header .navbar .nav-item:first-child, .header .navbar .nav-item:nth-child(2) {
+        border-top: none;
+    }
+}
+
+.rad-showcase {
+    margin-bottom: 0;
+}
+
+
+#breadcrumb-bar {
+    position: relative;
+    padding-top: 86px;
+    
+    nav {
+        display: inline-block;
+    }
+}
+
+
+@media only screen and (max-width: 767px) {
+    .rad-showcase__bg img {
+        margin-left: 0;
+    }
+    .header .navbar-brand {
+        margin-top: 0px;
+        padding-top: 5px;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .rad-showcase__bg img {
+        margin-left: 0;
+    }
+    .header .navbar-brand {
+        margin-top: 0px;
+        padding-top: 0px;
+    }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1280px) {
+    .header {
+        padding-top: 8px;
+    }
+}
