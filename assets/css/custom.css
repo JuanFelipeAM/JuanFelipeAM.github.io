@@ -22,6 +22,7 @@
     --JFAM-header-bg-dark-alpha: 0.8;
 }
 
+html body { font-family: Segoe UI !important; }
 
 /* JFAM edit: Showcase layout wraps text around a floated image, and stacks it on mobile.  Modification starts here */
 .showcase-section {
@@ -318,6 +319,7 @@ body:has(.rad-showcase) .rad-showcase {
 .inner-content p,
 .text-section__content p {
     font-size: 1em;
+    font-weight: 400;
     margin-bottom: 1em;
 }
 
@@ -325,7 +327,13 @@ body:has(.rad-showcase) .rad-showcase {
 .inner-content a,
 .text-section__content li,
 .text-section__content a {
+    font-weight: 700;
     font-size: 1em;
+}
+
+.inner-content ul li,
+.text-section__content ul li {
+    font-weight: 400 !important;
 }
 
 @media (max-width: 767px) {
