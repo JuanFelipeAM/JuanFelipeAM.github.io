@@ -15,7 +15,7 @@ draft = false
 
 I am a 6<sup>th</sup> year Ph.D. Candidate in Mathematics at The University of Iowa, advised by [Prof. Ionu&tcedil; Chifan](https://sites.google.com/view/i-chifan-website/home).<br>
 
-My area of research is operator algebras, and my main interests lie in the interactions between von Neumann algebras, geometric group theory and ergodic theory.<br>
+My area of research is operator algebras, and my main interests lie in the interactions between von Neumann algebras, geometric group theory and ergodic theory.<br><br>
 
 #### About me<br>
 
@@ -25,7 +25,5 @@ I grew up in Bogotá, Colombia, and went to undergrad at Universidad de los Ande
 #### Links<br>
 
 [GPOTS 2026 - Great Plains Operator Theory Symposium held at The University of Iowa, May 26 – 30](https://sites.google.com/view/gpots-2026)<br>
-Check out the [UIowa Operator Algebras Research Seminar](https://sites.google.com/view/ui-oa-seminar/home)<br>
-
+Check out the [UIowa Operator Algebras Research Seminar](https://sites.google.com/view/ui-oa-seminar/home)
 {{< /showcase-section >}}
-

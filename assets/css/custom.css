@@ -10,8 +10,11 @@
     --JFAM-head-name-size-bg: 40px;
     --JFAM-content-gap-after-header: 0.2rem;
     --JFAM-header-height: 88px;
-    --JFAM-markdown-font-size: 20px;
+    --JFAM-markdown-font-size: 18px;
     --JFAM-showcase-mobile-picture-underlap: 64px;
+    --JFAM-showcase-footer-gap-small: 1.25rem;
+    --JFAM-showcase-footer-gap-medium: 2.25rem;
+    --JFAM-showcase-footer-gap-large: 3.25rem;
     /* Header background variables */
     --JFAM-header-bg: 255,255,255; /* rgb as comma list for rgba() usage */
     --JFAM-header-bg-alpha: 0.85; /* default alpha (0-1) */
@@ -29,7 +32,7 @@
 }
 .showcase-section .profile-image {
     float: inline-end;
-    width: 42%;
+    width: 36%;
     margin-inline-start: 1.5rem;
     margin-block-end: 1.5rem;
 }
@@ -260,6 +263,20 @@ body:has(.rad-showcase) .rad-showcase {
     flex: 0 0 auto;
     justify-content: flex-start;
     align-items: stretch;
+    min-height: 0 !important;
+    padding-bottom: var(--JFAM-showcase-footer-gap-small);
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    body:has(.rad-showcase) .rad-showcase {
+        padding-bottom: var(--JFAM-showcase-footer-gap-medium);
+    }
+}
+
+@media (min-width: 992px) {
+    body:has(.rad-showcase) .rad-showcase {
+        padding-bottom: var(--JFAM-showcase-footer-gap-large);
+    }
 }
 
 /* Shared markdown typography for showcase and text sections */
@@ -301,7 +318,7 @@ body:has(.rad-showcase) .rad-showcase {
 .inner-content p,
 .text-section__content p {
     font-size: 1em;
-    margin-bottom: 2em;
+    margin-bottom: 1em;
 }
 
 .inner-content li,
