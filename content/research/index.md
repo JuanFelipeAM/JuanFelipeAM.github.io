@@ -16,7 +16,7 @@ hideBreadcrumb = true # This is a local override (that can be added to individua
 [Adriana]: https://sites.google.com/view/adrianafernandezquero/home
 [Adrian]: https://mathweb.ucsd.edu/~aioana/
 
-## Research<br>
+## <br>Research<br>
 <br>
 
 ### Preprints:

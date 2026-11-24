@@ -98,6 +98,46 @@
   </div>
 </header>
 
+<script>
+  (() => {
+    const header = document.getElementById("header");
+    if (!header) return;
+
+    const root = document.documentElement;
+    const updateHeaderHeight = () => {
+      const wasTriggered = header.classList.contains("header--sticky-triggered");
+      const previousTransition = header.style.transition;
+      if (wasTriggered) {
+        header.style.transition = "none";
+        header.classList.remove("header--sticky-triggered");
+        void header.offsetHeight;
+      }
+
+      root.style.setProperty(
+        "--JFAM-header-height",
+        `${Math.ceil(header.getBoundingClientRect().height)}px`
+      );
+
+      if (wasTriggered) {
+        header.classList.add("header--sticky-triggered");
+        header.style.transition = previousTransition;
+      }
+    };
+
+    updateHeaderHeight();
+    window.addEventListener("resize", () => requestAnimationFrame(updateHeaderHeight));
+
+    if ("ResizeObserver" in window) {
+      const observer = new ResizeObserver(() => {
+        if (!header.classList.contains("header--sticky-triggered")) {
+          updateHeaderHeight();
+        }
+      });
+      observer.observe(header);
+    }
+  })();
+</script>
+
 {{- if not .IsHome }} 
   {{ partial "breadcrumb.html" . }} 
 {{- end }}
