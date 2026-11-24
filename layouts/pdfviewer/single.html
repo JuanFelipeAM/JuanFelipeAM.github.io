@@ -1,5 +1,5 @@
 {{ define "main" }}
 <div class="pdfviewer-single">
-  {{ partial "pdf-viewer.html" (dict "containerId" "pdfEmbed" "frameId" "pdfFrame" "requireFile" true) }}
+  {{ partial "pdf-viewer.html" (dict "containerId" "pdfEmbed" "frameId" "pdfFrame" "requireFile" true "file" .Params.pdf) }}
 </div>
 {{ end }}

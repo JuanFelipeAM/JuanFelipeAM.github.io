@@ -1,6 +1,7 @@
 {{ $containerId := .containerId | default "pdfEmbed" }}
 {{ $frameId := .frameId | default "pdfFrame" }}
 {{ $requireFile := .requireFile | default true }}
+{{ $file := .file | default "" | jsonify | safeJS }}
 {{ $allowedPdfs := .allowedPdfs | default (slice) | jsonify | safeJS }}
 
 <div id="{{ $containerId }}" class="pdf-embed">
@@ -19,6 +20,7 @@
     const fileBase = {{ "/files/" | relURL | jsonify | safeJS }};
     const allowedPdfs = {{ $allowedPdfs }};
     const requireFile = {{ $requireFile }};
+    const configuredFile = {{ $file }};
 
     function showNotFound() {
       pdfEmbed.hidden = true;
@@ -41,21 +43,24 @@
         });
     }
 
-    const rawQuery = window.location.search;
-    if (!rawQuery) {
-      if (requireFile) {
-        showNotFound();
+    let file = configuredFile;
+    if (!file) {
+      const rawQuery = window.location.search;
+      if (!rawQuery) {
+        if (requireFile) {
+          showNotFound();
+        }
+        return;
       }
-      return;
-    }
 
-    const validQuery = /^\?file=([^&]+)$/.test(rawQuery)
-      && !/%(?:[^0-9A-Fa-f]|$)/.test(rawQuery);
-    const file = new URLSearchParams(rawQuery).get("file");
+      const validQuery = /^\?file=([^&]+)$/.test(rawQuery)
+        && !/%(?:[^0-9A-Fa-f]|$)/.test(rawQuery);
+      file = new URLSearchParams(rawQuery).get("file");
 
-    if (!validQuery || !file) {
-      showNotFound();
-      return;
+      if (!validQuery || !file) {
+        showNotFound();
+        return;
+      }
     }
 
     const segments = file.replace(/\\/g, "/").split("/");
