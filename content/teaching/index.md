@@ -14,7 +14,7 @@ Here you will find my [Statement of Teaching Philosophy](/teaching-statement/).<
 <br>
 
 ### Currently teaching (Fall 2026)
-##### College Algebra (instructor on record)
+##### MATH:1005 College Algebra (instructor on record)
 <br>
 
 
@@ -37,7 +37,7 @@ Here you will find my [Statement of Teaching Philosophy](/teaching-statement/).<
 
 <br>
 
-*For more information, feel free to see my [CV](/cv) or [contact me](mailto:juanfelipe-arizamejia@uiowa.edu).*
+*For more information, feel free to see my [CV](/cv) or [Email me](mailto:juanfelipe-arizamejia@uiowa.edu).*
 
 
 {{< /text-section >}}

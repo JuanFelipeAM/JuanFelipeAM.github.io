@@ -209,10 +209,10 @@ weight = 3
 #parent = 'Teaching'
 #weight = 3
 
-#[[languages.en.menus.header]]
-#name = "CV"
-#URL = "/cv"
-#weight = 4
+[[languages.en.menus.header]]
+name = "CV"
+URL = "/CV"
+weight = 4
 
 [[languages.en.menus.header]]
 pre = "email"
