@@ -21,7 +21,7 @@ Here you will find my [Statement of Teaching Philosophy](/teaching-statement/).<
 
 ### Past teaching
 #### As instructor on record at The University of Iowa
-- MATH:2850 [Calculus III](/teaching/Calc3), Spring 2026 [(Lecture notes)](/Lectures/)
+- MATH:2850 [Calculus III](/teaching/Calc3/), Spring 2026 [(Lecture notes)](/teaching/Calc3/?details=open)
 - MATH:1020 Elementary Functions, Fall 2023
 - MATH:1010 Trigonometry, Spring 2023
 - MATH:1005 College Algebra, Fall 2022

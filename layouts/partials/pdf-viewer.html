@@ -53,9 +53,13 @@
         return;
       }
 
+      file = new URLSearchParams(rawQuery).get("file");
+      if (!file && !requireFile) {
+        return;
+      }
+
       const validQuery = /^\?file=([^&]+)$/.test(rawQuery)
         && !/%(?:[^0-9A-Fa-f]|$)/.test(rawQuery);
-      file = new URLSearchParams(rawQuery).get("file");
 
       if (!validQuery || !file) {
         showNotFound();

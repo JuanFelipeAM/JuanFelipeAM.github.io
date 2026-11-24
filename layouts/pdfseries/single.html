@@ -29,6 +29,14 @@
   const nextButton = document.getElementById("pdfSeriesNext");
 
   const rawQuery = window.location.search;
+  const query = new URLSearchParams(rawQuery);
+
+  if (query.get("details") === "open") {
+    const details = pdfSeriesTop.querySelector("details");
+    if (details) {
+      details.open = true;
+    }
+  }
 
   if (rawQuery === "") {
     pdfSeriesTop.hidden = false;
