@@ -10,7 +10,7 @@ draft = false
 
 ## <br>Teaching
 
-Here you will find my [Statement of Teaching Philosophy](/teaching-statement).<br>
+Here you will find my [Statement of Teaching Philosophy](/pdfviewer/?file=Teaching%20statement%20postdoc.pdf).<br>
 <br>
 
 ### Currently teaching (Fall 2026)

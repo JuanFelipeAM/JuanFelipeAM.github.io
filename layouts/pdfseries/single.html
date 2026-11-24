@@ -1,0 +1,118 @@
+{{ define "main" }}
+
+<div id="pdfSeriesTop" class="pdfseries-top">
+  <article class="text-section__content">
+    {{ .Content }}
+  </article>
+</div>
+
+<div id="pdfSeriesViewer" class="pdfseries-viewer" hidden>
+  <nav class="pdfseries-controls" aria-label="PDF series navigation">
+    <button id="pdfSeriesPrevious" type="button">Previous</button>
+    <a id="pdfSeriesTopLink" href="{{ .RelPermalink }}">Top</a>
+    <button id="pdfSeriesNext" type="button">Next</button>
+  </nav>
+  <div class="pdf-embed pdfseries-embed">
+    <iframe
+      id="pdfSeriesFrame"
+      aria-label="PDF Series Viewer"
+      scrolling="yes">
+    </iframe>
+  </div>
+</div>
+
+<script>
+  const pdfs = {{ .Params.pdfs | default slice | jsonify | safeJS }};
+  const pdfSeriesTop = document.getElementById("pdfSeriesTop");
+  const pdfSeriesViewer = document.getElementById("pdfSeriesViewer");
+  const pdfSeriesFrame = document.getElementById("pdfSeriesFrame");
+  const previousButton = document.getElementById("pdfSeriesPrevious");
+  const nextButton = document.getElementById("pdfSeriesNext");
+  const fileBase = "{{ "/files/" | relURL }}";
+  const notFoundUrl = "{{ "/404.html" | relURL }}";
+
+  function showNotFound() {
+    fetch(notFoundUrl)
+      .then(response => {
+        if (!response.ok && response.status !== 404) {
+          throw new Error("Unable to load 404 page");
+        }
+        return response.text();
+      })
+      .then(html => {
+        document.open();
+        document.write(html);
+        document.close();
+      })
+      .catch(() => {
+        document.open();
+        document.write("<!doctype html><html><head><title>404 Page not found</title></head><body><main><h1>404</h1><h2>Page not found</h2></main></body></html>");
+        document.close();
+      });
+  }
+
+  function encodePdfPath(file) {
+    return file.replace(/\\/g, "/").split("/").map(encodeURIComponent).join("/");
+  }
+
+  const rawQuery = window.location.search;
+
+  if (rawQuery === "") {
+    pdfSeriesTop.hidden = false;
+    pdfSeriesViewer.hidden = true;
+  } else {
+    const validQuery = /^\?file=([^&]+)$/.test(rawQuery)
+      && !/%(?:[^0-9A-Fa-f]|$)/.test(rawQuery);
+    const file = new URLSearchParams(rawQuery).get("file");
+
+    if (!validQuery || !file) {
+      showNotFound();
+    } else {
+      const segments = file.replace(/\\/g, "/").split("/");
+      const validPath = segments.every(segment => segment && segment !== "." && segment !== "..");
+      const currentIndex = pdfs.findIndex(pdf => pdf === file);
+
+      if (!validPath || currentIndex < 0) {
+        showNotFound();
+      } else {
+        pdfSeriesTop.hidden = true;
+        pdfSeriesViewer.hidden = false;
+
+        const pdfUrl = fileBase + encodePdfPath(file);
+        fetch(pdfUrl, { method: "HEAD", cache: "no-store" })
+          .then(response => {
+            if (!response.ok) {
+              showNotFound();
+              return;
+            }
+
+            const contentType = response.headers.get("Content-Type") || "";
+            if (!contentType.toLowerCase().includes("application/pdf")) {
+              showNotFound();
+              return;
+            }
+
+            pdfSeriesFrame.src = pdfUrl;
+          })
+          .catch(showNotFound);
+
+        previousButton.disabled = currentIndex === 0;
+        nextButton.disabled = currentIndex === pdfs.length - 1;
+
+        previousButton.addEventListener("click", () => {
+          if (currentIndex > 0) {
+            window.location.search = "?file=" + encodeURIComponent(pdfs[currentIndex - 1]);
+          }
+        });
+
+        nextButton.addEventListener("click", () => {
+          if (currentIndex < pdfs.length - 1) {
+            window.location.search = "?file=" + encodeURIComponent(pdfs[currentIndex + 1]);
+          }
+        });
+      }
+    }
+  }
+</script>
+
+{{ end }}
