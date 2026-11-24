@@ -1,7 +1,7 @@
 +++
-title = "McDuff superrigidity JMM talk"
+title = "C(notW)star-superrigid non-amenable groups GPOTS talk"
 type = "pdfviewer"
 hideTitle = true
 draft = false
-pdf = "slides/McDuff rigidity - 20 min JMM talk.pdf"
+pdf = "slides/C(notW)star-superrigid non-amenable groups GPOTS talk.pdf"
 +++

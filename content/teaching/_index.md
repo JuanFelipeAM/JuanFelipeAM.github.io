@@ -2,6 +2,7 @@
 title =  "Teaching"
 hideTitle = true
 type = "teaching"
+layout = "single"
 draft = false
 +++
 
@@ -20,7 +21,7 @@ Here you will find my [Statement of Teaching Philosophy](/teaching-statement/).<
 
 ### Past teaching
 #### As instructor on record at The University of Iowa
-- MATH:2850 Calculus III, Spring 2026 [(Lecture notes)](/Lectures/)
+- MATH:2850 [Calculus III](/teaching/Calc3), Spring 2026 [(Lecture notes)](/Lectures/)
 - MATH:1020 Elementary Functions, Fall 2023
 - MATH:1010 Trigonometry, Spring 2023
 - MATH:1005 College Algebra, Fall 2022
@@ -37,7 +38,7 @@ Here you will find my [Statement of Teaching Philosophy](/teaching-statement/).<
 
 <br>
 
-*For more information, feel free to see my [CV](/cv) or [Email me](mailto:juanfelipe-arizamejia@uiowa.edu).*
+*For more information, feel free to see my [CV](/cv) or [email me](mailto:juanfelipe-arizamejia@uiowa.edu).*
 
 
 {{< /text-section >}}
