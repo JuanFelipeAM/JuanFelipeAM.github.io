@@ -9,9 +9,18 @@ pdfs = ["Lec 1.pdf",
 "Lec 3.pdf",]
 +++
 
-## PDF Series
+## <br>PDF Series
 
 Add PDF filenames to the `pdfs` array in this page's front matter, then link to each PDF here.
+
+Add PDF filenames to the `pdfs` array in this page's front matter, then link to each PDF here.<br>
+Add PDF filenames to the `pdfs` array in this page's front matter, then link to each PDF here.<br>
+Add PDF filenames to the `pdfs` array in this page's front matter, then link to each PDF here.<br>
+Add PDF filenames to the `pdfs` array in this page's front matter, then link to each PDF here.<br>
+Add PDF filenames to the `pdfs` array in this page's front matter, then link to each PDF here.<br>
+Add PDF filenames to the `pdfs` array in this page's front matter, then link to each PDF here.<br>
+Add PDF filenames to the `pdfs` array in this page's front matter, then link to each PDF here.<br>
+Add PDF filenames to the `pdfs` array in this page's front matter, then link to each PDF here.<br>
 
 For example:
 

@@ -219,10 +219,14 @@ html[data-bs-theme="dark"] .header {
 
 /* End of modification of header styles */
 
-/* Keep the PDF viewer immediately below the fixed header at every breakpoint. */
-body.page-pdfviewer > main {
+/* Keep PDF layouts immediately below the fixed header at every breakpoint. */
+.pdfviewer-single,
+body:has(.pdfseries-viewer:not([hidden])) .pdfseries-viewer {
     padding-top: var(--JFAM-header-height);
-    padding-bottom: 10px;
+}
+
+body:has(.pdfseries-viewer:not([hidden])) > main {
+    padding-top: 0 !important;
 }
 
 /* 404 pages: fill the viewport below the fixed header, keep the footer at the
@@ -269,6 +273,7 @@ body:has(.four-o-four) > .d-print-none {
     height: 100vh;
     height: 100dvh;
     max-width: 100%;
+    margin-bottom: 10px;
 }
 
 .pdf-embed iframe {
@@ -278,16 +283,6 @@ body:has(.four-o-four) > .d-print-none {
     width: 100%;
     height: 100%;
     border: 0;
-}
-
-body.page-pdfseries > main {
-    padding-top: var(--JFAM-header-height);
-}
-
-.pdfseries-top {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 40px 24px;
 }
 
 .pdfseries-viewer {
@@ -329,10 +324,6 @@ body.page-pdfseries > main {
 
 .pdfseries-controls #pdfSeriesNext {
     justify-self: end;
-}
-
-.pdfseries-embed {
-    height: calc(100dvh - var(--JFAM-header-height) - 50px);
 }
 
 /* The theme reserves 120px after headers and before generic .section elements.
