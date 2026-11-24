@@ -3,6 +3,7 @@ title = "PDF Series"
 type = "pdfseries"
 hideTitle = true
 draft = false
+topLabel = "Lectures"
 
 pdfs = ["Lec 1.pdf",
 "Lec 2.pdf",

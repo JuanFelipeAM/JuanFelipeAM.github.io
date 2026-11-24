@@ -269,10 +269,12 @@ body:has(.four-o-four) > .d-print-none {
 
 .pdf-embed {
     position: relative;
-    width: 100%;
+    left: 50%;
+    width: calc(100vw - 60px);
     height: 100vh;
     height: 100dvh;
-    max-width: 100%;
+    max-width: none;
+    transform: translateX(-50%);
     margin-bottom: 10px;
 }
 
@@ -300,18 +302,50 @@ body:has(.four-o-four) > .d-print-none {
 .pdfseries-controls button,
 .pdfseries-controls a {
     min-width: 90px;
-    padding: 8px 12px;
-    border: 1px solid currentColor;
-    border-radius: 4px;
-    background: transparent;
-    color: inherit;
+    padding: 9px 14px;
+    border: 2px solid var(--bs-link-color);
+    border-radius: 10px;
+    background: color-mix(in srgb, var(--bs-link-color) 18%, transparent);
+    color: var(--bs-link-color);
+    font-weight: 900;
     text-align: center;
     text-decoration: none;
+    cursor: pointer;
+    transition: background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.pdfseries-controls button:not(:disabled):hover,
+.pdfseries-controls a:hover {
+    background: color-mix(in srgb, var(--bs-link-color) 32%, transparent);
+    border-color: var(--bs-link-color);
+    transform: translateY(-1px);
 }
 
 .pdfseries-controls button:disabled {
-    cursor: not-allowed;
-    opacity: 0.45;
+    cursor: default;
+    opacity: 1;
+    background: #eeeeee;
+    border-color: #cfcfcf;
+    color: #9a9a9a;
+}
+
+html[data-bs-theme="dark"] .pdfseries-controls button,
+html[data-bs-theme="dark"] .pdfseries-controls a {
+    background: #cfcfcf;
+    border-color: #9ca3af;
+    color: #486460;
+}
+
+html[data-bs-theme="dark"] .pdfseries-controls button:not(:disabled):hover,
+html[data-bs-theme="dark"] .pdfseries-controls a:hover {
+    background: #7b8493;
+    border-color: #b7bec8;
+}
+
+html[data-bs-theme="dark"] .pdfseries-controls button:disabled {
+    background: #343434;
+    border-color: #4a4a4a;
+    color: #777777;
 }
 
 .pdfseries-controls #pdfSeriesPrevious {
