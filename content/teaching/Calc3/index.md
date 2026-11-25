@@ -105,4 +105,3 @@ I will be posting my lecture notes that used during class.  These files are for 
 ##### [Lec. 41 (after) - Stokes's Theorem](/teaching/calc3/?file=Calc%203%20Sp26/Lecture%20notes%20after/Lec.%2041%20%28after%29%20-%20Stokes%E2%80%99s%20Theorem.pdf)
 
 {{< /details >}}
-

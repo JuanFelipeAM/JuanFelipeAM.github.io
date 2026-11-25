@@ -17,9 +17,9 @@
     --JFAM-showcase-footer-gap-large: 3.25rem;
     /* Header background variables */
     --JFAM-header-bg: 255,255,255; /* rgb as comma list for rgba() usage */
-    --JFAM-header-bg-alpha: 0.85; /* default alpha (0-1) */
+    --JFAM-header-bg-alpha: 0.88; /* default alpha (0-1) */
     --JFAM-header-bg-dark: 24,24,24;
-    --JFAM-header-bg-dark-alpha: 0.8;
+    --JFAM-header-bg-dark-alpha: 0.85;
 }
 
 html body { font-family: Segoe UI !important; }
@@ -217,6 +217,15 @@ html[data-bs-theme="dark"] .header {
     }
 }
 
+.header.header--sticky-triggered {
+    background-color: rgba(var(--JFAM-header-bg), var(--JFAM-header-bg-alpha));
+    box-shadow: none;
+}
+
+html[data-bs-theme="dark"] .header.header--sticky-triggered {
+    background-color: rgba(var(--JFAM-header-bg-dark), var(--JFAM-header-bg-dark-alpha));
+}
+
 /* End of modification of header styles */
 
 /* Keep PDF layouts immediately below the fixed header at every breakpoint. */
@@ -289,6 +298,10 @@ body:has(.four-o-four) > .d-print-none {
 
 .pdfseries-viewer {
     width: 100%;
+}
+
+html:has(.pdfseries-top) {
+    scrollbar-gutter: stable;
 }
 
 .pdfseries-controls {
