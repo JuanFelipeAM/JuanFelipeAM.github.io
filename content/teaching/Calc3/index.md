@@ -5,7 +5,7 @@ draft = false
 aliases = [ "/teaching/current/" ]
 
 type = "pdfseries"
-topLabel = "Calc III lecture notes"
+topLabel = "Calculus III – Lecture notes"
 pdfs = [
   "Calc 3 Sp26/Lecture notes after/Lec. 1 (after) - 1.1 - 1.2 Vectors In 2D and 3D.pdf",
   "Calc 3 Sp26/Lecture notes after/Lec. 2 (after) - 1.3 Dot Product.pdf",
@@ -55,8 +55,8 @@ pdfs = [
 
 # <br> Calculus III<br>
 
-During the Spring 2026 I am teaching MATH:2850 Calculus III as a standalone instructor.
-I will be posting my lecture notes that used during class.  These files are for reference and for following the syllabus content, the pdf files were drawn over during the lectures and pages were added during class if more drawing space was needed.  In particular, the lecture content might start in the second page sometimes.
+During the Spring 2026 semester I taught MATH:2850 Calculus III as a standalone instructor.<span style="display: block; height: 0.5em" aria-hidden="true"></span>
+I have posted my lecture notes that I used during classes.  These files are for reference and for following the syllabus content, the pdf files were drawn over during the lectures and pages were added during class if more drawing space was needed.  In particular, the lecture content might start in the second page sometimes.
 <span style="display: block; height: 1.2em" aria-hidden="true"></span>
 
 

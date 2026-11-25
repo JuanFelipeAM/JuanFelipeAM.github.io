@@ -13,7 +13,7 @@
 <div id="pdfSeriesViewer" class="pdfseries-viewer" hidden>
   <nav class="pdfseries-controls" aria-label="PDF series navigation">
     <button id="pdfSeriesPrevious" type="button">Previous</button>
-    <a id="pdfSeriesTopLink" href="{{ .RelPermalink }}">{{ .Params.topLabel | default "Top" }}</a>
+    <a id="pdfSeriesTopLink" href="{{ .RelPermalink }}?details=open">{{ .Params.topLabel | default "Top" }}</a>
     <button id="pdfSeriesNext" type="button">Next</button>
   </nav>
   {{ partial "pdf-viewer.html" (dict "containerId" "pdfSeriesEmbed" "frameId" "pdfSeriesFrame" "requireFile" false "allowedPdfs" (.Params.pdfs | default slice)) }}
