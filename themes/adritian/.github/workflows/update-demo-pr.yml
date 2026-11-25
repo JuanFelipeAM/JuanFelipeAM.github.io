@@ -1,0 +1,563 @@
+## Updates demo site (https://github.com/zetxek/adritian-demo)
+## taken from https://stackoverflow.com/a/68213855/570087
+
+name: Preview demo site
+
+permissions:
+  contents: read
+  id-token: write
+  pages: write
+  pull-requests: write
+  checks: write
+  statuses: write
+  actions: write
+## This will open a PR which will open a vercel preview URL in the demo site
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, closed]
+  schedule:
+    # Periodic self-heal: sweep stale theme-update/* previews the closed-PR
+    # cleanup job below missed (races, or refs that predate this workflow).
+    - cron: '23 */6 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run: log intended reconcile actions without writing anything'
+        type: boolean
+        default: false
+      limit:
+        description: 'Max number of stale-ref deletions/closures per reconcile run'
+        type: string
+        default: '200'
+
+jobs:
+  label-dependabot:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && github.actor == 'dependabot[bot]' && github.event.action != 'closed'
+    steps:
+      - name: Add safe-to-test label to Dependabot PRs
+        uses: actions/github-script@v8
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            try {
+              // First check if the label exists
+              await github.rest.issues.getLabel({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                name: 'safe-to-test'
+              });
+              
+              // If it exists, add it to the PR
+              await github.rest.issues.addLabels({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                labels: ['safe-to-test']
+              });
+              console.log('Added safe-to-test label to PR');
+            } catch (error) {
+              // If getting the label failed, the PR workflow can't add it
+              // Let's just modify our workflow to handle this differently
+              console.log('Could not add safe-to-test label: ' + error.message);
+              console.log('Will handle Dependabot PRs directly in check-conditions job');
+            }
+
+  check-dependabot:
+    # pull_request events only: the check-conditions script below reads
+    # github.event.pull_request.labels, which doesn't exist on other triggers.
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    outputs:
+      should-run: ${{ steps.check-conditions.outputs.should-run }}
+    steps:
+      - id: check-conditions
+        run: |
+          # Check if PR has safe-to-test label
+          if [[ "${{ contains(github.event.pull_request.labels.*.name, 'safe-to-test') }}" == "true" ]]; then
+            echo "should-run=true" >> $GITHUB_OUTPUT
+            echo "PR has safe-to-test label, allowing workflow to run"
+            exit 0
+          fi
+          
+          # Always allow Dependabot PRs to run
+          if [[ "${{ github.actor }}" == "dependabot[bot]" ]]; then
+            echo "should-run=true" >> $GITHUB_OUTPUT
+            echo "PR is from Dependabot, automatically allowing workflow to run"
+            exit 0
+          fi
+          
+          # For other contributors
+          echo "should-run=true" >> $GITHUB_OUTPUT
+          echo "PR is from a trusted contributor, allowing workflow to run"
+
+  update-demo:
+    needs: check-dependabot
+    # Skip for fork PRs: PRIVATE_TOKEN_GITHUB is unavailable in pull_request context for forks.
+    # External contributor PRs are handled by update-demo-pr-external.yml instead.
+    # Skip on PR close: there's nothing to preview anymore, see cleanup-demo-preview.
+    if: github.event_name == 'pull_request' && needs.check-dependabot.outputs.should-run == 'true' && !github.event.pull_request.head.repo.fork && github.event.action != 'closed'
+    env:
+      SOURCE_BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+      PR_NUMBER: ${{ github.event.number }}
+      HUGO_VERSION: ${{ vars.HUGO_VERSION || '0.163.0' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source repository
+        uses: actions/checkout@v6
+        with: 
+          repository: zetxek/adritian-free-hugo-theme
+          ref: ${{ github.head_ref || github.ref_name }}
+          token: ${{ secrets.PRIVATE_TOKEN_GITHUB }}
+          path: source-repo
+          
+      - name: Checkout demo repository  
+        uses: actions/checkout@v6
+        with: 
+          repository: zetxek/adritian-demo
+          token: ${{ secrets.PRIVATE_TOKEN_GITHUB }}
+          path: demo-repo 
+     
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: ${{ env.HUGO_VERSION }}
+          extended: true
+     
+      - name: Send pull-request
+        shell: bash        
+        run: |
+          SOURCE_REPOSITORY="zetxek/adritian-free-hugo-theme"
+          LATEST_COMMIT=${{ github.event.pull_request.head.sha || github.sha }}
+          SHORT_COMMIT=${LATEST_COMMIT:0:8}
+          
+          # Handle both PR events and manual workflow dispatch.
+          # NOTE: the branch name is intentionally stable per source PR (or per
+          # source branch for manual dispatch) and does NOT include the commit
+          # SHA. This ensures each source PR maps to a single preview PR in the
+          # demo repo: new commits force-push to the same branch and update the
+          # existing preview PR instead of opening a new one.
+          # The short commit SHA is recorded in the commit message and in a PR comment; consider also updating the PR title/body when reusing an existing PR.
+          if [ -n "$PR_NUMBER" ]; then
+            PR_URL="https://github.com/$SOURCE_REPOSITORY/pull/$PR_NUMBER"
+            BRANCH_NAME="theme-update/pr-$PR_NUMBER"
+            PR_TITLE="preview: theme PR #$PR_NUMBER ($SHORT_COMMIT)"
+          else
+            # For manual workflow dispatch, use branch name instead
+            BRANCH_REF="${{ github.head_ref || github.ref_name }}"
+            PR_URL="https://github.com/$SOURCE_REPOSITORY/tree/$BRANCH_REF"
+            BRANCH_NAME="theme-update/branch-$BRANCH_REF"
+            PR_TITLE="preview: theme branch $BRANCH_REF ($SHORT_COMMIT)"
+          fi
+          
+          BASE_BRANCH="main"
+          ASSIGNEE="zetxek"
+
+          echo "Latest commit: $LATEST_COMMIT"
+          echo "Short commit: $SHORT_COMMIT"
+          echo "Branch name: $BRANCH_NAME"
+          echo "PR URL: $PR_URL"
+          if [ -n "$PR_NUMBER" ]; then
+            echo "PR Number: $PR_NUMBER"
+          else
+            echo "Manual workflow dispatch - no PR number"
+          fi
+
+          git config --global --add --bool push.autoSetupRemote true
+
+          # Verify source commit exists
+          cd source-repo
+          if ! git cat-file -e $LATEST_COMMIT; then
+            echo "Error: Commit $LATEST_COMMIT does not exist in source repository"
+            exit 1
+          fi
+          echo "✅ Verified commit $LATEST_COMMIT exists in source repository"
+          
+          # Switch to demo repository
+          cd ../demo-repo
+
+          # Setup git identity
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions - update theme module"
+
+          # Create feature branch
+          git checkout -b $BRANCH_NAME
+
+          # Initialize Hugo module if needed
+          if [ ! -f "go.mod" ]; then
+            hugo mod init github.com/zetxek/adritian-demo
+          fi
+
+          # Clean up any existing invalid module references
+          if [ -f "go.mod" ]; then
+            echo "Cleaning up existing go.mod..."
+            # Remove any existing theme references that might have invalid revisions
+            grep -v 'github.com/zetxek/adritian-free-hugo-theme' go.mod > go.mod.tmp || touch go.mod.tmp
+            mv go.mod.tmp go.mod
+            # Clean up any existing go.sum entries
+            if [ -f "go.sum" ]; then
+              grep -v 'github.com/zetxek/adritian-free-hugo-theme' go.sum > go.sum.tmp || touch go.sum.tmp
+              mv go.sum.tmp go.sum
+            fi
+          fi
+
+          # Get the theme from the PR branch - use branch name instead of commit for better reliability
+          BRANCH_NAME_THEME="${{ github.head_ref || github.ref_name }}"
+          echo "Using theme branch: $BRANCH_NAME_THEME"
+          
+          # Try to get the specific commit first, fallback to branch if commit is not available
+          echo "Attempting to get theme with commit: $LATEST_COMMIT"
+          if hugo mod get github.com/zetxek/adritian-free-hugo-theme@$LATEST_COMMIT; then
+            echo "✅ Successfully got theme with commit hash"
+          else
+            echo "Failed to get specific commit, trying branch instead..."
+            echo "Attempting to get theme with branch: $BRANCH_NAME_THEME"
+            if hugo mod get github.com/zetxek/adritian-free-hugo-theme@$BRANCH_NAME_THEME; then
+              echo "✅ Successfully got theme with branch name"
+            else
+              echo "❌ Failed to get theme with both commit and branch, trying main branch as last resort..."
+              hugo mod get github.com/zetxek/adritian-free-hugo-theme@main
+            fi
+          fi
+          
+          hugo mod tidy
+
+          # Sync content from theme's exampleSite to demo repo
+          echo "📦 Syncing content from theme exampleSite..."
+          CONTENT_SOURCE="../source-repo/exampleSite"
+          
+          # Sync content directories (blog posts, pages, etc.)
+          if [ -d "$CONTENT_SOURCE/content" ]; then
+            rsync -a --delete "$CONTENT_SOURCE/content/" content/
+            echo "✅ Synced content/"
+          fi
+          
+          # Sync assets (images, etc. referenced by content)
+          if [ -d "$CONTENT_SOURCE/assets" ]; then
+            rsync -a --delete "$CONTENT_SOURCE/assets/" assets/
+            echo "✅ Synced assets/"
+          fi
+          
+          # Sync data files
+          if [ -d "$CONTENT_SOURCE/data" ]; then
+            rsync -a --delete "$CONTENT_SOURCE/data/" data/
+            echo "✅ Synced data/"
+          fi
+          
+          # Sync static files
+          if [ -d "$CONTENT_SOURCE/static" ]; then
+            rsync -a --delete "$CONTENT_SOURCE/static/" static/
+            echo "✅ Synced static/"
+          fi
+          
+          # Sync i18n overrides
+          if [ -d "$CONTENT_SOURCE/i18n" ]; then
+            rsync -a --delete "$CONTENT_SOURCE/i18n/" i18n/
+            echo "✅ Synced i18n/"
+          fi
+          
+          # Sync hugo.toml with URL adjustment for preview
+          if [ -f "$CONTENT_SOURCE/hugo.toml" ]; then
+            cp "$CONTENT_SOURCE/hugo.toml" hugo.toml
+            sed -i -E 's|^baseURL[[:space:]]*=[[:space:]]*".*"|baseURL = "https://adritian-demo.vercel.app/"|' hugo.toml
+            echo "✅ Synced hugo.toml"
+          fi
+
+          # Commit all changes (theme module + content)
+          git add --all
+          if [ -n "$PR_NUMBER" ]; then
+            COMMIT_MSG="preview: theme PR #$PR_NUMBER ($SHORT_COMMIT)"
+          else
+            BRANCH_REF="${{ github.head_ref || github.ref_name }}"
+            COMMIT_MSG="preview: theme branch $BRANCH_REF ($SHORT_COMMIT)"
+          fi
+          git commit -m "$COMMIT_MSG" && git push --force || echo "No changes to commit"
+
+          # Push branch
+          git push origin $BRANCH_NAME --force
+
+          # Setup GitHub CLI
+          echo "${{ secrets.PRIVATE_TOKEN_GITHUB }}" > token.txt
+          gh auth login --with-token < token.txt
+
+          # Check if PR exists
+          PR_EXISTS=$(gh pr list --state open --base $BASE_BRANCH --head $BRANCH_NAME --json number | jq '.[0].number // empty')
+          echo "PR_EXISTS: $PR_EXISTS"
+
+          if [ -n "$PR_EXISTS" ]; then
+            echo "PR Exists. Updating pull-request..."
+            gh pr view
+            echo "✅ Pull-request updated!"
+            # TODO: update the PR body with the latest commit
+            # Add a comment to the PR with the update
+            gh pr comment $PR_EXISTS --body "Updated PR to last commit in source repo: \`$LATEST_COMMIT\`"
+          else
+            echo "✨ Creating new pull-request..."
+            if [ -n "$PR_NUMBER" ]; then
+              PR_BODY="⚠️ The source PR is not merged yet - this is a preview PR created to test the theme update with a vercel preview URL.
+              - Last commit: \`$LATEST_COMMIT\`
+              - Source PR: $PR_URL
+              - 🔗 Triggered by https://github.com/zetxek/adritian-free-hugo-theme/actions/workflows/update-demo-pr.yml"
+            else
+              BRANCH_REF="${{ github.head_ref || github.ref_name }}"
+              PR_BODY="⚠️ This is a preview PR created to test the theme update from branch \`$BRANCH_REF\` with a vercel preview URL.
+              - Last commit: \`$LATEST_COMMIT\`
+              - Source branch: $PR_URL
+              - 🔗 Triggered by https://github.com/zetxek/adritian-free-hugo-theme/actions/workflows/update-demo-pr.yml"
+            fi
+
+            PR_RESULT=$(gh pr create \
+              --title "$PR_TITLE" \
+              --body "$PR_BODY" \
+              --head $BRANCH_NAME \
+              --base $BASE_BRANCH \
+              --assignee $ASSIGNEE \
+              --label preview)
+            
+            if [ $? -ne 0 ]; then
+              echo "Error creating PR: $PR_RESULT"
+              exit 0
+            fi
+
+            echo "✅ Pull-request created!"
+          fi
+
+  cleanup-demo-preview:
+    # Runs when the source PR is closed (merged or not) so a stale preview branch
+    # pinned to a now-unresolvable commit doesn't keep failing Vercel builds.
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && !github.event.pull_request.head.repo.fork
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.PRIVATE_TOKEN_GITHUB }}
+      PR_NUMBER: ${{ github.event.number }}
+      MERGED: ${{ github.event.pull_request.merged }}
+    steps:
+      - name: Close preview PR and delete branch in demo repository
+        shell: bash
+        run: |
+          DEMO_REPOSITORY="zetxek/adritian-demo"
+          SOURCE_REPOSITORY="zetxek/adritian-free-hugo-theme"
+          BRANCH_NAME="theme-update/pr-$PR_NUMBER"
+          PR_URL="https://github.com/$SOURCE_REPOSITORY/pull/$PR_NUMBER"
+
+          echo "Source PR #$PR_NUMBER closed - cleaning up preview branch $BRANCH_NAME in $DEMO_REPOSITORY"
+
+          # Close any open preview PR for this branch (idempotent: no-op if none exists)
+          PREVIEW_PR=$(gh pr list --repo "$DEMO_REPOSITORY" --state open --head "$BRANCH_NAME" --json number | jq '.[0].number // empty')
+          if [ -n "$PREVIEW_PR" ]; then
+            if [ "$MERGED" == "true" ]; then
+              REASON="Source PR $PR_URL was merged, so the preview is no longer needed and is being removed."
+            else
+              REASON="Source PR $PR_URL was closed without merging, so the pinned theme revision no longer resolves. Removing this preview."
+            fi
+            gh pr comment "$PREVIEW_PR" --repo "$DEMO_REPOSITORY" --body "$REASON" || echo "Could not comment on preview PR #$PREVIEW_PR, continuing..."
+            gh pr close "$PREVIEW_PR" --repo "$DEMO_REPOSITORY" || echo "Could not close preview PR #$PREVIEW_PR, continuing..."
+          else
+            echo "No open preview PR found for branch $BRANCH_NAME, skipping close"
+          fi
+
+          # Delete the preview branch (idempotent: no-op if already gone, e.g. squash-merged)
+          if gh api "repos/$DEMO_REPOSITORY/git/refs/heads/$BRANCH_NAME" >/dev/null 2>&1; then
+            if gh api -X DELETE "repos/$DEMO_REPOSITORY/git/refs/heads/$BRANCH_NAME"; then
+              echo "✅ Deleted branch $BRANCH_NAME"
+            else
+              echo "Could not delete branch $BRANCH_NAME, continuing..."
+            fi
+          else
+            echo "Branch $BRANCH_NAME does not exist, skipping delete"
+          fi
+
+  reconcile-demo-previews:
+    # Self-heal sweep: the cleanup-demo-preview job above only fires on the
+    # closed event for the PR that owns a given preview. Missed/raced events,
+    # and refs that predate that job, need a periodic backstop so no one has
+    # to notice a broken Vercel build by hand.
+    if: github.event_name != 'pull_request'
+    concurrency:
+      group: reconcile-demo-previews
+      cancel-in-progress: false
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.PRIVATE_TOKEN_GITHUB }}
+      DEMO_REPOSITORY: zetxek/adritian-demo
+      SOURCE_REPOSITORY: zetxek/adritian-free-hugo-theme
+      DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+      DELETE_LIMIT: ${{ github.event.inputs.limit || '200' }}
+    steps:
+      - name: Reconcile stale preview refs
+        shell: bash
+        run: |
+          set -uo pipefail
+
+          # Percent-encode a branch name for use as a URL path segment
+          # (ref names may contain '/', e.g. theme-update/branch-feature/foo).
+          urlencode() {
+            local s="$1" out="" c i
+            for (( i=0; i<${#s}; i++ )); do
+              c="${s:i:1}"
+              case "$c" in
+                [a-zA-Z0-9.~_-]) out+="$c" ;;
+                *) out+=$(printf '%%%02X' "'$c") ;;
+              esac
+            done
+            printf '%s' "$out"
+          }
+
+          # Look up the source PR's state, distinguishing "confirmed gone" from
+          # "the API call itself failed" so a transient outage (rate limit, 5xx,
+          # token problem, network) can't be misread as a dead PR.
+          # Echoes one of: open, closed, missing, error (failure detail goes to stderr).
+          check_pr_state() {
+            local pr="$1" out rc
+            out=$(gh api "repos/$SOURCE_REPOSITORY/pulls/$pr" --jq .state 2>&1)
+            rc=$?
+            if [ $rc -eq 0 ]; then
+              printf '%s' "$out"
+            elif [[ "$out" == *"HTTP 404"* ]]; then
+              printf 'missing'
+            else
+              echo "API lookup failed for PR #$pr: $out" >&2
+              printf 'error'
+            fi
+          }
+
+          # Same idea for the source branch existence check.
+          check_branch_state() {
+            local branch_name="$1" out rc
+            out=$(gh api "repos/$SOURCE_REPOSITORY/branches/$branch_name" 2>&1)
+            rc=$?
+            if [ $rc -eq 0 ]; then
+              printf 'open'
+            elif [[ "$out" == *"HTTP 404"* ]]; then
+              printf 'missing'
+            else
+              echo "API lookup failed for branch $branch_name: $out" >&2
+              printf 'error'
+            fi
+          }
+
+          scanned=0
+          deleted=0
+          closed_prs=0
+          skipped_live=0
+          skipped_unknown=0
+          failed=0
+          remaining=0
+          deletions=0
+
+          echo "Reconcile run: dry_run=$DRY_RUN limit=$DELETE_LIMIT"
+
+          # Enumerate every ref under theme-update/, paginated so repos with
+          # >100 stale refs (like the current backlog) are handled in full.
+          # --method GET is required here: without it, `-f` makes gh default
+          # to POST, and matching-refs 404s on POST (verified against the
+          # live API) — the sweep would never run.
+          refs_list=$(gh api --paginate --method GET -f per_page=100 "repos/$DEMO_REPOSITORY/git/matching-refs/heads/theme-update/" --jq '.[].ref') || {
+            echo "Failed to list theme-update/* refs from $DEMO_REPOSITORY"
+            exit 1
+          }
+
+          if [ -z "$refs_list" ]; then
+            echo "No theme-update/* refs found in $DEMO_REPOSITORY"
+          fi
+
+          while IFS= read -r full_ref; do
+            [ -z "$full_ref" ] && continue
+            scanned=$((scanned + 1))
+            branch="${full_ref#refs/heads/}"
+            name="${branch#theme-update/}"
+
+            source_pr=""
+            source_branch=""
+            if [[ "$name" =~ ^pr-([0-9]+)$ ]]; then
+              source_pr="${BASH_REMATCH[1]}"
+            elif [[ "$name" =~ ^pr-([0-9]+)-[0-9a-fA-F]+$ ]]; then
+              # Legacy branch naming (theme-update/pr-N-<sha>) from before the
+              # branch name was made stable per source PR.
+              source_pr="${BASH_REMATCH[1]}"
+            elif [[ "$name" =~ ^branch-(.+)$ ]]; then
+              source_branch="${BASH_REMATCH[1]}"
+            else
+              echo "SKIP (unrecognized ref shape, leaving intact): $branch"
+              skipped_unknown=$((skipped_unknown + 1))
+              continue
+            fi
+
+            is_live="false"
+            lookup_failed="false"
+            if [ -n "$source_pr" ]; then
+              pr_state=$(check_pr_state "$source_pr")
+              case "$pr_state" in
+                open) is_live="true" ;;
+                closed|missing) is_live="false" ;;
+                *) lookup_failed="true" ;;
+              esac
+            else
+              branch_state=$(check_branch_state "$source_branch")
+              case "$branch_state" in
+                open) is_live="true" ;;
+                missing) is_live="false" ;;
+                *) lookup_failed="true" ;;
+              esac
+            fi
+
+            if [ "$lookup_failed" == "true" ]; then
+              echo "FAILED to determine liveness for $branch, skipping (will retry next run)"
+              failed=$((failed + 1))
+              continue
+            fi
+
+            if [ "$is_live" == "true" ]; then
+              echo "LIVE: $branch (source still open), leaving intact"
+              skipped_live=$((skipped_live + 1))
+              continue
+            fi
+
+            if [ "$deletions" -ge "$DELETE_LIMIT" ]; then
+              echo "LIMIT reached ($DELETE_LIMIT this run), leaving for a future run: $branch"
+              remaining=$((remaining + 1))
+              continue
+            fi
+
+            if [ -n "$source_pr" ]; then
+              reason="Source PR https://github.com/$SOURCE_REPOSITORY/pull/$source_pr is no longer open, so the pinned theme revision no longer resolves. Removing this stale preview."
+            else
+              reason="Source branch $source_branch no longer exists in $SOURCE_REPOSITORY, so the pinned theme revision no longer resolves. Removing this stale preview."
+            fi
+
+            preview_pr_out=$(gh pr list --repo "$DEMO_REPOSITORY" --state open --head "$branch" --json number --jq '.[0].number // empty' 2>&1)
+            if [ $? -ne 0 ]; then
+              echo "FAILED to look up preview PR for branch $branch, skipping (will retry next run): $preview_pr_out"
+              failed=$((failed + 1))
+              continue
+            fi
+            preview_pr="$preview_pr_out"
+
+            # deleted/closed_prs only count writes that actually happened;
+            # deletions is the action budget and must advance in dry runs too,
+            # so --limit caps a dry run the same way it caps a real one.
+            if [ -n "$preview_pr" ]; then
+              if [ "$DRY_RUN" == "true" ]; then
+                echo "[dry-run] would comment on and close preview PR #$preview_pr (branch $branch): $reason"
+              else
+                gh pr comment "$preview_pr" --repo "$DEMO_REPOSITORY" --body "$reason" || { echo "FAILED to comment on preview PR #$preview_pr, continuing"; failed=$((failed + 1)); continue; }
+                gh pr close "$preview_pr" --repo "$DEMO_REPOSITORY" --delete-branch || { echo "FAILED to close preview PR #$preview_pr, continuing"; failed=$((failed + 1)); continue; }
+                closed_prs=$((closed_prs + 1))
+                deleted=$((deleted + 1))
+              fi
+            else
+              encoded_branch=$(urlencode "$branch")
+              if [ "$DRY_RUN" == "true" ]; then
+                echo "[dry-run] would delete ref $branch"
+              else
+                gh api --method DELETE "repos/$DEMO_REPOSITORY/git/refs/heads/$encoded_branch" || { echo "FAILED to delete ref $branch, continuing"; failed=$((failed + 1)); continue; }
+                deleted=$((deleted + 1))
+              fi
+            fi
+
+            deletions=$((deletions + 1))
+          done <<< "$refs_list"
+
+          echo "Summary: scanned=$scanned deleted=$deleted closed_prs=$closed_prs actionable=$deletions skipped_live=$skipped_live skipped_unknown=$skipped_unknown failed=$failed remaining=$remaining"
