@@ -157,7 +157,7 @@ code = "UA-XXXXX-Y"
 enabled = false
 [params.analytics.googleTagManager]
 code = "G-9ZLPXWHQGM"
-enabled = false
+enabled = true
 
 # plausible analytics. to enable, set "enabled" to true and set your site's domain
 [params.analytics.plausible]
