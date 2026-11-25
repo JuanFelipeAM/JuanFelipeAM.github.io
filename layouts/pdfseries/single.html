@@ -1,0 +1,67 @@
+{{ define "main" }}
+
+<section id="pdfSeriesTop" class="section text-section rad-animation-group section--no-padding section--fullheight pdfseries-top">
+  <div class="row rad-fade-down">
+    <div class="col-12">
+      <div class="text-section__content">
+        {{ .Content }}
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="pdfSeriesViewer" class="pdfseries-viewer" hidden>
+  <nav class="pdfseries-controls" aria-label="PDF series navigation">
+    <button id="pdfSeriesPrevious" type="button">Previous</button>
+    <a id="pdfSeriesTopLink" href="{{ .RelPermalink }}">{{ .Params.topLabel | default "Top" }}</a>
+    <button id="pdfSeriesNext" type="button">Next</button>
+  </nav>
+  {{ partial "pdf-viewer.html" (dict "containerId" "pdfSeriesEmbed" "frameId" "pdfSeriesFrame" "requireFile" false "allowedPdfs" (.Params.pdfs | default slice)) }}
+</div>
+
+<script>
+  const pdfs = {{ .Params.pdfs | default slice | jsonify | safeJS }};
+  const pdfSeriesTop = document.getElementById("pdfSeriesTop");
+  const pdfSeriesViewer = document.getElementById("pdfSeriesViewer");
+  const previousButton = document.getElementById("pdfSeriesPrevious");
+  const nextButton = document.getElementById("pdfSeriesNext");
+
+  const rawQuery = window.location.search;
+  const query = new URLSearchParams(rawQuery);
+
+  if (query.get("details") === "open") {
+    const details = pdfSeriesTop.querySelector("details");
+    if (details) {
+      details.open = true;
+    }
+  }
+
+  if (rawQuery === "") {
+    pdfSeriesTop.hidden = false;
+    pdfSeriesViewer.hidden = true;
+  } else {
+    const file = new URLSearchParams(rawQuery).get("file");
+    const currentIndex = pdfs.findIndex(pdf => pdf === file);
+
+    if (currentIndex >= 0) {
+      pdfSeriesTop.hidden = true;
+      pdfSeriesViewer.hidden = false;
+      previousButton.disabled = currentIndex === 0;
+      nextButton.disabled = currentIndex === pdfs.length - 1;
+
+      previousButton.addEventListener("click", () => {
+        if (currentIndex > 0) {
+          window.location.search = "?file=" + encodeURIComponent(pdfs[currentIndex - 1]);
+        }
+      });
+
+      nextButton.addEventListener("click", () => {
+        if (currentIndex < pdfs.length - 1) {
+          window.location.search = "?file=" + encodeURIComponent(pdfs[currentIndex + 1]);
+        }
+      });
+    }
+  }
+</script>
+
+{{ end }}

@@ -1,9 +1,9 @@
-<!-- if you want to enable google tag manager you can check in your theme toml -->
-{{ if .Site.Params.analytics.google_tag_manager.enabled }}
+<!-- To enable Google Tag Manager, configure `.Site.Params.analytics.googleTagManager` in your site's configuration file (e.g., hugo.toml / config.toml) -->
+{{ if .Site.Params.analytics.googleTagManager.enabled }}
 <!-- Google Tag Manager (noscript) -->
 <noscript
   ><iframe
-    src="https://www.googletagmanager.com/ns.html?id={{ .Site.Params.analytics.google_tag_manager.id }}"
+    src="https://www.googletagmanager.com/ns.html?id={{ .Site.Params.analytics.googleTagManager.code }}"
     height="0"
     width="0"
     style="display: none; visibility: hidden"
@@ -14,27 +14,31 @@
 
 {{ partial "skip-to-content.html" }}
 
-<header class="header fixed-top rad-animation-group" id="header">
-  <div class="container rad-fade-in">
-    <nav class="navbar bd-navbar navbar-expand-lg navbar-light p-0">
+{{- $hideEmailButton := .Site.Params.header.hideEmailButton | default true -}}<!-- JFAM edit: Adding option to hide email button in the header -->
+{{- $hideSearchButton := .Site.Params.header.hideSearchButton | default true -}}<!-- JFAM edit: Adding option to hide search button in the header -->
+
+<header class="header fixed-top" id="header">
+  <div class="container">
+    <nav class="navbar bd-navbar navbar-expand-lg navbar-light p-0" aria-label='{{ i18n "primary_navigation" }}'>
       <div class="container-fluid">
         <a class="navbar-brand mx-auto" href="{{ .Site.BaseURL | relLangURL }}">
+            {{ $logoText1 := .Site.Params.logo_text1 | default .Site.Title }}
             {{ if .Site.Params.logo }}
             <img
             src="{{ .Site.Params.logo | absURL }}"
-            alt="{{ i18n "logo_alt" }}"
+            alt="{{ $logoText1 }} logo"
             class="logo"
             />
             {{ end }}
-          <span>{{ i18n "logo_text1" }}</span>&ensp;<!-- JFAM edit: added space &ensp -->
-          <span>{{ i18n "logo_text2" }}</span>
+          <span>{{ $logoText1 }}</span>&ensp;<!-- JFAM edit: added space &ensp -->
+          <span>{{ .Site.Params.logo_text2 | default "" }}</span>
         </a>
         <button
           class="navbar-toggler collapsed"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarSupportedContent, #header"
-          aria-controls="navbarSupportedContent"
+          aria-controls="navbarSupportedContent header"
           aria-expanded="false"
           aria-label='{{ i18n "toggle_navigation" }}'
         >
@@ -43,15 +47,24 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-lg-auto">
             {{- range .Site.Menus.header }}
-            <li class="nav-item">
-              <a data-scroll class="nav-link" href="{{ .URL | relURL }}"
-                >{{ if .Pre }}
-                  <i class="icon-{{ .Pre }}" aria-label="{{ or .Name .Pre }}"></i>
-                {{ else }}
-                  {{ .Name | upper }}
-                {{ end }}</a
-              >
-            </li>
+              {{- if .Pre -}}
+                {{- if and (eq .Pre "email") ($hideEmailButton) }}<!-- JFAM edit: Modified this so a space is not created for a hidden menu button -->
+                {{- else if and (eq .Pre "search") ($hideSearchButton) }}
+                {{- else -}}
+                  <li class="nav-item">
+                  <a data-scroll class="nav-link" href="{{ .URL | relURL }}">
+                  <i class="icon-{{ .Pre }}" aria-hidden="true"></i>
+                  <span class="visually-hidden">{{ .Name | default .Pre }}</span>
+                  </a>
+                  </li>
+                {{- end -}}
+              {{- else -}}
+                <li class="nav-item">
+                <a data-scroll class="nav-link" href="{{ .URL | relURL }}">
+                {{ .Name | upper }}
+                </a>
+                </li>
+              {{- end -}}
             {{- end }}
             
             {{- if hugo.IsMultilingual }} 
@@ -66,8 +79,15 @@
             {{- if not .Site.Params.colorTheme.selector.disable.header }}
             <li class="dropdown theme-selector nav-item">
               {{ .Scratch.Set "selectorPlacement" "header" }}
-              {{ .Scratch.Set "dropdownDirection" "down" }}  
+              {{ .Scratch.Set "dropdownDirection" "down" }}
               {{ partial "selector-theme.html" . }}
+            </li>
+            {{- end }}
+            {{- if and .Site.Params.colorSchemeSwitcher.enable (not .Site.Params.colorSchemeSwitcher.selector.disable.header) }}
+            <li class="dropdown scheme-selector nav-item">
+              {{ .Scratch.Set "selectorPlacement" "header" }}
+              {{ .Scratch.Set "dropdownDirection" "down" }}
+              {{ partial "selector-scheme.html" . }}
             </li>
             {{- end }}
           </ul>
@@ -78,6 +98,47 @@
   </div>
 </header>
 
-<!-- {{- if not .IsHome }} 
+<!-- JFAM edit: This script computes the header height -->
+<script>
+  (() => {
+    const header = document.getElementById("header");
+    if (!header) return;
+
+    const root = document.documentElement;
+    const updateHeaderHeight = () => {
+      const wasTriggered = header.classList.contains("header--sticky-triggered");
+      const previousTransition = header.style.transition;
+      if (wasTriggered) {
+        header.style.transition = "none";
+        header.classList.remove("header--sticky-triggered");
+        void header.offsetHeight;
+      }
+
+      root.style.setProperty(
+        "--JFAM-header-height",
+        `${Math.ceil(header.getBoundingClientRect().height)}px`
+      );
+
+      if (wasTriggered) {
+        header.classList.add("header--sticky-triggered");
+        header.style.transition = previousTransition;
+      }
+    };
+
+    updateHeaderHeight();
+    window.addEventListener("resize", () => requestAnimationFrame(updateHeaderHeight));
+
+    if ("ResizeObserver" in window) {
+      const observer = new ResizeObserver(() => {
+        if (!header.classList.contains("header--sticky-triggered")) {
+          updateHeaderHeight();
+        }
+      });
+      observer.observe(header);
+    }
+  })();
+</script>
+
+{{- if not .IsHome }} 
   {{ partial "breadcrumb.html" . }} 
-{{- end }} Eliminating that ugly breadcrum navigator -->
+{{- end }}

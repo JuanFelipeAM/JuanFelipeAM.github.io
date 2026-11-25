@@ -3,6 +3,7 @@ title =  "Research"
 hideTitle = true
 type = "research"
 draft = false
+hideBreadcrumb = true # This is a local override (that can be added to individual pages's TOML/YAML front matter) for the global toggle from hugo.toml
 +++
 
 {{< text-section class="section--fullheight" padding="false" >}}
@@ -20,13 +21,13 @@ draft = false
 
 ### Preprints:
 
-1. ***Amenable absorption in von Neumann algebras of hyperbolic groups***, with [Ionu&tcedil; Chifan][Ionut], [Adriana Fernández Quero][Adriana] and [Adrian Ioana][Adrian].  Preprint: [arXiv:2606.10105](https://arxiv.org/abs/2606.10105).
+1. ***Amenable absorption in von Neumann algebras of hyperbolic groups***, with [Ionu&tcedil; Chifan][Ionut], [Adriana Fernández Quero][Adriana] and [Adrian Ioana][Adrian].  **Preprint:** [arXiv:2606.10105](https://arxiv.org/abs/2606.10105).
 
-1. ***Non-amenable C$^\ast$-superrigid groups that are not W$^\ast$-superrigid***, with [Ionu&tcedil; Chifan][Ionut] and [Adriana Fernández Quero][Adriana].  Preprint: [arXiv:2602.05290](https://arxiv.org/abs/2602.05290).
+1. ***Non-amenable C$^\ast$-superrigid groups that are not W$^\ast$-superrigid***, with [Ionu&tcedil; Chifan][Ionut] and [Adriana Fernández Quero][Adriana].  **Preprint:** [arXiv:2602.05290](https://arxiv.org/abs/2602.05290).
 
-1. ***McDuff superrigidity for group $\mathit{II}_1$ factors***, with [Ionu&tcedil; Chifan][Ionut], [Denis Osin][Denis] and [Bin Sun][Bin].  Preprint: [arXiv:2511.23123](https://arxiv.org/abs/2511.23123).
+1. ***McDuff superrigidity for group $\mathit{II}_1$ factors***, with [Ionu&tcedil; Chifan][Ionut], [Denis Osin][Denis] and [Bin Sun][Bin].  **Preprint:** [arXiv:2511.23123](https://arxiv.org/abs/2511.23123).
 
-1. ***Relative solidity results and their applications to computations of some $\mathit{II}_1$ factor invariants***, with [Dulanji Niki Amaraweera][Niki], [Ionu&tcedil; Chifan][Ionut] and [Krishnendu Khan][Krishnendu].   Preprint: [arXiv:2509.19481](https://arxiv.org/abs/2509.19481)
+1. ***Relative solidity results and their applications to computations of some $\mathit{II}_1$ factor invariants***, with [Dulanji Niki Amaraweera][Niki], [Ionu&tcedil; Chifan][Ionut] and [Krishnendu Khan][Krishnendu].   **Preprint:** [arXiv:2509.19481](https://arxiv.org/abs/2509.19481)
 
 <br>
 

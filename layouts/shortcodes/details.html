@@ -1,0 +1,7 @@
+{{- $summary := .Get "summary" | default "Details" -}}
+{{- $summaryClass := .Get "summaryClass" | default "" -}}
+{{- $open := .Get "open" -}}
+<details{{ if $open }} open{{ end }}>
+  <summary{{ with $summaryClass }} class="{{ . }}"{{ end }}>{{ $summary }}</summary>
+  {{ .Inner | markdownify }}
+</details>

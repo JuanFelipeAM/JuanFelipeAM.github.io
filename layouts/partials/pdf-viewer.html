@@ -1,0 +1,97 @@
+{{ $containerId := .containerId | default "pdfEmbed" }}
+{{ $frameId := .frameId | default "pdfFrame" }}
+{{ $requireFile := .requireFile | default true }}
+{{ $file := .file | default "" | jsonify | safeJS }}
+{{ $allowedPdfs := .allowedPdfs | default (slice) | jsonify | safeJS }}
+
+<div id="{{ $containerId }}" class="pdf-embed">
+  <iframe
+    id="{{ $frameId }}"
+    aria-label="PDF Viewer"
+    scrolling="yes">
+  </iframe>
+</div>
+
+<script>
+  (function () {
+    const pdfEmbed = document.getElementById({{ $containerId | jsonify | safeJS }});
+    const pdfFrame = document.getElementById({{ $frameId | jsonify | safeJS }});
+    const notFoundUrl = {{ "/404.html" | relURL | jsonify | safeJS }};
+    const fileBase = {{ "/files/" | relURL | jsonify | safeJS }};
+    const allowedPdfs = {{ $allowedPdfs }};
+    const requireFile = {{ $requireFile }};
+    const configuredFile = {{ $file }};
+
+    function showNotFound() {
+      pdfEmbed.hidden = true;
+      fetch(notFoundUrl)
+        .then(response => {
+          if (!response.ok && response.status !== 404) {
+            throw new Error("Unable to load 404 page");
+          }
+          return response.text();
+        })
+        .then(html => {
+          document.open();
+          document.write(html);
+          document.close();
+        })
+        .catch(() => {
+          document.open();
+          document.write("<!doctype html><html><head><title>404 Page not found</title></head><body><main><h1>404</h1><h2>Page not found</h2></main></body></html>");
+          document.close();
+        });
+    }
+
+    let file = configuredFile;
+    if (!file) {
+      const rawQuery = window.location.search;
+      if (!rawQuery) {
+        if (requireFile) {
+          showNotFound();
+        }
+        return;
+      }
+
+      file = new URLSearchParams(rawQuery).get("file");
+      if (!file && !requireFile) {
+        return;
+      }
+
+      const validQuery = /^\?file=([^&]+)$/.test(rawQuery)
+        && !/%(?:[^0-9A-Fa-f]|$)/.test(rawQuery);
+
+      if (!validQuery || !file) {
+        showNotFound();
+        return;
+      }
+    }
+
+    const segments = file.replace(/\\/g, "/").split("/");
+    const validPath = segments.every(segment => segment && segment !== "." && segment !== "..");
+    const allowed = allowedPdfs.length === 0 || allowedPdfs.includes(file);
+
+    if (!validPath || !allowed) {
+      showNotFound();
+      return;
+    }
+
+    const pdfUrl = fileBase + segments.map(encodeURIComponent).join("/");
+    fetch(pdfUrl, { method: "HEAD", cache: "no-store" })
+      .then(response => {
+        if (!response.ok) {
+          showNotFound();
+          return;
+        }
+
+        const contentType = response.headers.get("Content-Type") || "";
+        if (!contentType.toLowerCase().includes("application/pdf")) {
+          showNotFound();
+          return;
+        }
+
+        pdfFrame.src = pdfUrl;
+      })
+      .catch(showNotFound);
+  })();
+</script>

@@ -17,6 +17,8 @@
 {{ if eq $padding "true" }}
     {{ $containerClass = "container" }}
     {{ $paddingClass = "section--padding" }}
+{{ else }}
+    {{ $paddingClass = "section--no-padding" }}
 {{ end }}
 
 {{ if eq $centered "true" }}
@@ -24,7 +26,7 @@
     {{ $columnClass = printf "%s %s" $columnClass "text-center" }}
 {{ end }}
 
-<section {{if $sectionId}} id="{{ $sectionId }}"{{end}} class="section section--border-bottom rad-animation-group {{ $paddingClass }} {{ $extraClass }}">
+<section {{if $sectionId}} id="{{ $sectionId }}"{{end}} class="section text-section rad-animation-group {{ $paddingClass }} {{ $extraClass }}">
     <div class="{{ $containerClass }}">
         <div class="row rad-fade-down">
             <div class="{{ $columnClass }}">

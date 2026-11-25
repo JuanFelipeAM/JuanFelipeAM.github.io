@@ -1,18 +1,73 @@
 /* You can customize theme styles here */
+
+
 /* Using variables rooted out of assets/scss/_variables.scss */
-
-
-/* Some (global) variables for ease of use */
+/* Some (global) variables for ease of use*/
 :root {
     --JFAM-head-name-size-sm: 28px;
     --JFAM-head-name-size: 34px;
     --JFAM-head-name-size-md: 37px;
     --JFAM-head-name-size-bg: 40px;
+    --JFAM-content-gap-after-header: 0.2rem;
+    --JFAM-header-height: 88px;
+    --JFAM-markdown-font-size: 18px;
+    --JFAM-showcase-mobile-picture-underlap: 64px;
+    --JFAM-showcase-footer-gap-small: 1.25rem;
+    --JFAM-showcase-footer-gap-medium: 2.25rem;
+    --JFAM-showcase-footer-gap-large: 3.25rem;
     /* Header background variables */
     --JFAM-header-bg: 255,255,255; /* rgb as comma list for rgba() usage */
-    --JFAM-header-bg-alpha: 0.85; /* default alpha (0-1) */
+    --JFAM-header-bg-alpha: 0.88; /* default alpha (0-1) */
     --JFAM-header-bg-dark: 24,24,24;
-    --JFAM-header-bg-dark-alpha: 0.8;
+    --JFAM-header-bg-dark-alpha: 0.85;
+}
+
+html body { font-family: Segoe UI !important; }
+
+/* JFAM edit: Showcase layout wraps text around a floated image, and stacks it on mobile.  Modification starts here */
+.showcase-section {
+    display: block;
+}
+.showcase-section .showcase-copy, .showcase-section .inner-content {
+    padding-block-start: 0;
+}
+.showcase-section .profile-image {
+    float: inline-end;
+    width: 36%;
+    margin-inline-start: 1.5rem;
+    margin-block-end: 1.5rem;
+}
+.showcase-section .profile-image img {
+    display: block;
+    margin-top: 0;
+}
+@media only screen and (min-width: 768px) {
+    .showcase-section .showcase-copy, .showcase-section .inner-content {
+        padding-block-start: 1.5rem;
+    }
+}
+@media only screen and (max-width: 767.98px) {
+    .showcase-section .profile-image {
+        float: none;
+        width: 100%;
+        margin-inline: 0;
+        margin-block-end: 1.5rem;
+    }
+}
+
+@media only screen and (max-width: 767.98px) {
+    .showcase-section .profile-image:has(img) {
+        margin-block-start: calc(-1 * var(--JFAM-showcase-mobile-picture-underlap));
+    }
+}
+
+/* End of modification of showcase image layout */
+
+/* Modification of header styles */
+
+.container {
+  padding-left: 24px !important;
+  padding-right: 24px;
 }
 
 .bd-navbar {
@@ -22,34 +77,129 @@ html[data-bs-theme="dark"] .bd-navbar {
     box-shadow: 0 0rem 0rem rgba(0,0,0,0), inset 0 -2.4px 0 white;
 }
 
-/* Modifying style in _raditian.scss */
-
-.footer_left {
-    margin-top: 0px;
-}
-.footer_links {
-    margin-top: 0px;
-}
-.footer_right {
-    margin-top: 0px;
-}
-.footer {
-    padding-bottom: max(50px, var(--site-window-height) - var(--site-content-height)) !important;
+.header .navbar-brand span:first-child, .header .navbar-brand span:nth-child(2) {
+    align-self: center;
+    font-weight: 900 !important; /* JFAM edit: Changed header formatting */
+    color: var(--bs-link-color, var(--bs-primary, #41766f)) !important; /* JFAM edit: Changed header formatting */
+    font-size: var(--JFAM-head-name-size);
+    letter-spacing: -1.17px;
 }
 
-header.header .navbar-brand span:first-child {
-    font-size: var(--JFAM-head-name-size-sm);
+.header {
+    padding-top: 8px;
+    padding-bottom: 8px !important;
 }
-header.header .navbar-brand span:nth-child(2) {
-    font-weight: 900; /* JFAM edit: Changed header formatting */
-    color: var(--bs-link-color); /* JFAM edit: Changed header formatting */
-    font-size: var(--JFAM-head-name-size-sm);
+
+@media (min-width: 992px) {
+    .header .navbar-brand img {
+        width: 156px;
+        max-height: 40px;
+    }
+    .header .navbar-brand {
+        margin-top: 0;
+    }
+    .header .navbar-brand span:first-child, .header .navbar-brand span:nth-child(2) {
+        font-size: 40px !important;
+        border-top: none;
+    }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1280px) {
+    .header {
+        padding-top: 8px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .header .navbar-brand img {
+        width: 156px;
+        max-height: 40px;
+    }
+    .header .navbar-brand {
+        margin-top: 0;
+    }
+    .header .navbar-brand span:first-child, .header .navbar-brand span:nth-child(2) {
+        font-size: 37px !important;
+        border-top: none;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .header .navbar-brand {
+        margin-top: 0px !important;
+        padding-top: 0px;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .header .navbar-brand img {
+        width: 156px;
+        max-height: 40px;
+    }
+    .header .navbar-brand {
+        margin-top: 0 !important;
+    }
+    .header .navbar-brand span:first-child, .header .navbar-brand span:nth-child(2) {
+        font-size: 34px !important;
+        border-top: none;
+    }
+}
+
+/* This makes font-size of header change dynamically based on screen width */
+@media (min-width: 350px) and (max-width: 575.99px) {
+    .header .navbar-brand span:first-child, .header .navbar-brand span:nth-child(2) {
+        font-size: clamp(20px, calc(4.73px + 5.091vw), 34px) !important;
+    }
+}
+
+/* This makes left padding of header change dynamically based on screen width */
+@media (min-width: 350px) and (max-width: 575.99px) {
+    .header .navbar-brand {
+        margin-top: 0 !important;
+        padding-top: clamp(5px, 15.4348px - 1.8116vw, 10px) !important;
+        padding-bottom: clamp(5px, 36.3043px - 5.4348vw, 20px) !important;
+    }
+    .header .navbar-brand span:first-child {
+        padding-left: clamp(
+            0px,
+            calc(62.727px - 10.909vw),
+            30px
+        );
+    }
+}
+
+
+/* This wraps around and gives padding to header in case screen width is less than 350px */
+@media (max-width: 349.98px) {
+    .header .navbar-brand {
+        margin-top: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        flex-wrap: nowrap;
+        gap: 0px;
+        line-height: 0.8;
+        align-items: flex-end;
+        text-align: right;
+        padding-left: 15px;
+    }
+
+    .header .navbar-brand span:first-child, .header .navbar-brand span:nth-child(2) {
+        display: block;
+        flex: 0 0 100%;
+        width: 100%;
+        text-align: right;
+        font-size: 20px !important;
+    }
+    .header .navbar-brand span:nth-child(2) {
+        padding-bottom : 10px;
+    }
 }
 
 /* Header background / transparency overrides
    - Uses CSS variables so you can tweak `--JFAM-header-bg-alpha` at runtime
    - Adds a slight backdrop blur for translucent effect on supporting browsers */
-header.header {
+.header {
+    top: 0;
     background-color: rgba(var(--JFAM-header-bg), var(--JFAM-header-bg-alpha));
     -webkit-backdrop-filter: blur(6px);
     backdrop-filter: blur(6px);
@@ -57,7 +207,7 @@ header.header {
 }
 
 /* Dark theme variant */
-html[data-bs-theme="dark"] header.header {
+html[data-bs-theme="dark"] .header {
     background-color: rgba(var(--JFAM-header-bg-dark), var(--JFAM-header-bg-dark-alpha));
     .navbar-brand span:first-child {
         color: var(--bs-link-color); /* JFAM edit: Changed header formatting */
@@ -67,310 +217,298 @@ html[data-bs-theme="dark"] header.header {
     }
 }
 
-/* Ensure the showcase container starts after the header. The value is set by JS
-   into the `--site-header-height` variable; fallback keeps previous spacing. */
-.rad-showcase {
-    padding-top: var(--site-header-height, 120px) !important;
-}
-
-/* Optional transparent header modifier: add class `header--transparent` to `<header>` to make fully transparent */
-header.header.header--transparent {
-    background-color: transparent !important;
-    backdrop-filter: none !important;
-}
-
-/* Header spacing and bottom line thickness */
-:root {
-    --JFAM-header-padding-top: 8px; /* reduce the top padding */
-    --JFAM-header-padding-bottom: 8px; /* bottom padding */
-    --JFAM-header-border-thickness: 0px; /* bottom line thickness */
-}
-
-header.header {
-    padding-top: var(--JFAM-header-padding-top) !important;
-    padding-bottom: var(--JFAM-header-padding-bottom) !important;
-    border-bottom: var(--JFAM-header-border-thickness) solid rgba(0,0,0,0.08);
-}
-
-html[data-bs-theme="dark"] header.header {
-    border-bottom: var(--JFAM-header-border-thickness) solid rgba(255,255,255,0.06);
-}
-
-/* When header becomes sticky, keep a clear divider */
 .header.header--sticky-triggered {
-    box-shadow: none; /* keep it clean */
-    border-bottom-width: var(--JFAM-header-border-thickness);
+    background-color: rgba(var(--JFAM-header-bg), var(--JFAM-header-bg-alpha));
+    box-shadow: none;
 }
 
-/* Ensure brand spacing still looks good */
-header.header .navbar-brand {
-    margin-top: 0; /* remove extra top margin if present */
+html[data-bs-theme="dark"] .header.header--sticky-triggered {
+    background-color: rgba(var(--JFAM-header-bg-dark), var(--JFAM-header-bg-dark-alpha));
 }
 
-.showcase-section .col-md-6.profile-image img {
-    margin-top: 0; /* align to header bottom via .rad-showcase padding */
-    width: 100%;
+/* End of modification of header styles */
+
+/* Keep PDF layouts immediately below the fixed header at every breakpoint. */
+.pdfviewer-single,
+body:has(.pdfseries-viewer:not([hidden])) .pdfseries-viewer {
+    padding-top: var(--JFAM-header-height);
+}
+
+body:has(.pdfseries-viewer:not([hidden])) > main {
+    padding-top: 0 !important;
+}
+
+/* 404 pages: fill the viewport below the fixed header, keep the footer at the
+   bottom, and allow the document to grow and scroll when the viewport is short. */
+html:has(.four-o-four),
+body:has(.four-o-four) {
     height: auto;
-    object-fit: cover;
 }
 
-/* Small horizontal margins for the showcase section so the left/right
-   edges don't stick to the viewport or container. Adjust values below
-   if you prefer larger/smaller gutters. */
-/* .showcase-section {
-    box-sizing: border-box;
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
-} */
+html:has(.four-o-four) {
+    min-height: 100%;
+}
 
-.rad-showcase {
-    margin-top: 0px;
+body:has(.four-o-four) {
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
-@media (max-width:767px) {
-    .showcase-section .col-md-6:not(.profile-image) {
-        margin-top: 30px !important;
-    }
-    .rad-showcase {
-       margin-top: -80px;
+
+body:has(.four-o-four) > main {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    padding-top: calc(var(--JFAM-header-height) + var(--JFAM-content-gap-after-header));
+}
+
+body:has(.four-o-four) > main > .four-o-four {
+    width: 100%;
+    padding: 30px 0;
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+body:has(.four-o-four) > .d-print-none {
+    flex: 0 0 auto;
+}
+
+.pdf-embed {
+    position: relative;
+    left: 50%;
+    width: calc(100vw - 60px);
+    height: 100vh;
+    height: 100dvh;
+    max-width: none;
+    transform: translateX(-50%);
+    margin-bottom: 10px;
+}
+
+.pdf-embed iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.pdfseries-viewer {
+    width: 100%;
+}
+
+html:has(.pdfseries-top) {
+    scrollbar-gutter: stable;
+}
+
+.pdfseries-controls {
+    height: 50px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 12px;
+}
+
+.pdfseries-controls button,
+.pdfseries-controls a {
+    min-width: 90px;
+    height: 46px;
+    padding: 0 14px;
+    border: 0;
+    border-radius: 10px;
+    background: color-mix(in srgb, var(--bs-link-color) 18%, transparent);
+    color: var(--bs-link-color);
+    font-size: 1.25rem;
+    font-weight: 900;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 180ms ease, transform 180ms ease;
+}
+
+.pdfseries-controls button:not(:disabled):hover,
+.pdfseries-controls a:hover {
+    background: color-mix(in srgb, var(--bs-link-color) 32%, transparent);
+    transform: translateY(-1px);
+}
+
+.pdfseries-controls button:disabled {
+    cursor: default;
+    opacity: 1;
+    background: #eeeeee;
+    color: #9a9a9a;
+}
+
+html[data-bs-theme="dark"] .pdfseries-controls button,
+html[data-bs-theme="dark"] .pdfseries-controls a {
+    background: #cfcfcf;
+    color: #486460;
+}
+
+html[data-bs-theme="dark"] .pdfseries-controls button:not(:disabled):hover,
+html[data-bs-theme="dark"] .pdfseries-controls a:hover {
+    background: #7b8493;
+}
+
+html[data-bs-theme="dark"] .pdfseries-controls button:disabled {
+    background: #343434;
+    color: #777777;
+}
+
+.pdfseries-controls #pdfSeriesPrevious {
+    justify-self: start;
+}
+
+.pdfseries-controls #pdfSeriesTopLink {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-self: center;
+}
+
+.pdfseries-controls #pdfSeriesNext {
+    justify-self: end;
+}
+
+/* The theme reserves 120px after headers and before generic .section elements.
+   This site uses the header in normal document flow, so that reservation adds
+   empty space after the header for text sections. */
+.header + .section,
+.header + main + .section,
+.header + main .rad-showcase,
+.header + main .text-section {
+    margin-top: 0 !important;
+    justify-content: flex-start;
+}
+
+main#main-content:has(.text-section),
+main#main-content:has(.rad-showcase) {
+    padding-top: calc(var(--JFAM-header-height) + var(--JFAM-content-gap-after-header));
+}
+
+body:has(.text-section) > main,
+body:has(.rad-showcase) > main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+body:has(.text-section) > main {
+    padding-top: calc(var(--JFAM-header-height) + var(--JFAM-content-gap-after-header));
+}
+
+body:has(.text-section) #main-content,
+body:has(.text-section) #main-content > div,
+body:has(.text-section) #main-content article,
+body:has(.text-section) .text-section.section--fullheight,
+body:has(.rad-showcase) #main-content,
+body:has(.rad-showcase) .home-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+body:has(.rad-showcase) .rad-showcase {
+    flex: 0 0 auto;
+    justify-content: flex-start;
+    align-items: stretch;
+    min-height: 0 !important;
+    padding-bottom: var(--JFAM-showcase-footer-gap-small);
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    body:has(.rad-showcase) .rad-showcase {
+        padding-bottom: var(--JFAM-showcase-footer-gap-medium);
     }
 }
-@media (min-width: 768px) {
-    header.header .navbar-brand span:first-child {
-        font-size: var(--JFAM-head-name-size);
-    }
-    header.header .navbar-brand span:nth-child(2) {
-        font-size: var(--JFAM-head-name-size);
-    }
-    /* Showcase two-column width adjustments (text / image split)
-       Adjust the percentages below to change the width allocation.
-       Using !important ensures these rules take precedence over bundled rules. */
-    .showcase-section {
-        gap: 5%;
-        /* padding-left: 1.5rem; /* slightly larger gutters on medium+ screens */
-        /* padding-right: 1.5rem; */
-    }
-    .showcase-section .col-md-6.profile-image {
-        flex: 0 0 40% !important;
-        max-width: 40% !important;
-    }
-    .showcase-section .col-md-6.profile-image img {
-        margin-top: 0;
-        width: 100%;
-        height: auto;
-        object-fit: cover;
-    }
-    .showcase-section .col-md-6:not(.profile-image) {
-        margin-top: 30px !important;
-        flex: 0 0 55% !important;
-        max-width: 55% !important;
-    }
-    .rad-showcase {
-        margin-top: 0px;
-    }
-}
-@media (min-width: 968px) {
-    header.header .navbar-brand span:first-child {
-        font-size: var(--JFAM-head-name-size-md);
-    }
-    header.header .navbar-brand span:nth-child(2) {
-        font-size: var(--JFAM-head-name-size-md);
-    }
-    /* Showcase two-column width adjustments (text / image split)
-       Adjust the percentages below to change the width allocation.
-       Using !important ensures these rules take precedence over bundled rules. */
-    .rad-showcase {
-        margin-top: 0px;
-    }
-}
+
 @media (min-width: 992px) {
-    header.header .navbar-brand span:first-child {
-        font-size: var(--JFAM-head-name-size-bg);
-    }
-    header.header .navbar-brand span:nth-child(2) {
-        font-size: var(--JFAM-head-name-size-bg);
-    }
-    /* Showcase two-column width adjustments (text / image split)
-       Adjust the percentages below to change the width allocation.
-       Using !important ensures these rules take precedence over bundled rules. */
-    .rad-showcase {
-        margin-top: 0px;
-    }
-}
-@media (min-width: 1200px) {
-    header.header .navbar-brand span:first-child {
-        font-size: var(--JFAM-head-name-size-bg);
-    }
-    header.header .navbar-brand span:nth-child(2) {
-        font-size: var(--JFAM-head-name-size-bg);
-    }
-    /* Showcase two-column width adjustments (text / image split)
-       Adjust the percentages below to change the width allocation.
-       Using !important ensures these rules take precedence over bundled rules. */
-    .rad-showcase {
-        margin-top: -12px;
-    }
-}
-@media (min-width: 1400px) {
-    header.header .navbar-brand span:first-child {
-        font-size: var(--JFAM-head-name-size-bg);
-    }
-    header.header .navbar-brand span:nth-child(2) {
-        font-size: var(--JFAM-head-name-size-bg);
-    }
-    /* Showcase two-column width adjustments (text / image split)
-       Adjust the percentages below to change the width allocation.
-       Using !important ensures these rules take precedence over bundled rules. */
-    .rad-showcase {
-        margin-top: 0px;
+    body:has(.rad-showcase) .rad-showcase {
+        padding-bottom: var(--JFAM-showcase-footer-gap-large);
     }
 }
 
-
-/* Font size for markdown rendered inside the showcase left column. Change this variable to adjust. */
-:root {
-    --JFAM-showcase-markdown-font-size: 20px; /* default: 18px */
-}
-
-/* Font size for `text-section` shortcode content. Adjust this variable to change
-   the base font-size used inside `.text-section__content`. */
-:root {
-    --JFAM-text-section-font-size: 20px;
-}
-
-/* Showcase inner markdown styling */
-.showcase-inner {
-    font-size: var(--JFAM-showcase-markdown-font-size);
+/* Shared markdown typography for showcase and text sections */
+.inner-content,
+.text-section__content {
+    font-size: var(--JFAM-markdown-font-size);
     line-height: 1.45;
     color: inherit;
 }
-/* Normalize heading sizes inside the showcase inner markdown so headings
-   don't inherit large global heading/display styles. Headings will scale
-   relative to the showcase markdown font size. */
-.showcase-inner :is(h1,h2,h3,h4,h5,h6) {
-    line-height: 1.15;
-    margin-top: 0;
-    margin-bottom: 0.5em;
-    font-weight: 700;
-}
-@media (max-width: 767px) {
-    .showcase-inner {
-        font-size: calc(var(--JFAM-showcase-markdown-font-size) -8px);
-    }
-}
 
-/* Typographic hierarchy inside the showcase area (relative to the showcase base font-size).
-   Use em units so headings scale with the `--JFAM-showcase-markdown-font-size` variable. */
-.showcase-inner h1 { font-size: 1.8em; }
-.showcase-inner h2 { font-size: 1.4em; }
-.showcase-inner h3 { font-size: 1.2em; }
-.showcase-inner h4 { font-size: 1.1em; }
-.showcase-inner h5 { font-size: 1.0em; }
-.showcase-inner h6 { font-size: 0.95em; }
-
-.showcase-inner p,
-.showcase-inner li,
-.showcase-inner a {
-    font-size: 1em; /* equals var(--JFAM-showcase-markdown-font-size) */
-    margin-bottom: 2em;
-}
-
-/* Small-screen tuning: reduce heading scaling slightly for narrow viewports */
-@media (max-width: 767px) {
-    .showcase-inner h1 { font-size: 1.6em; }
-    .showcase-inner h2 { font-size: 1.25em; }
-    .showcase-inner h3 { font-size: 1.1em; }
-}
-
-/* Text-section font sizing */
-.text-section__content {
-    font-size: var(--JFAM-text-section-font-size);
-    line-height: 1.6;
-}
-
-@media (max-width: 767px) {
-    .text-section__content {
-        font-size: calc(var(--JFAM-text-section-font-size) - 2px);
-    }
-}
-
-/* Mirror the `.showcase-inner` typographic hierarchy inside text-section */
+.inner-content :is(h1,h2,h3,h4,h5,h6),
 .text-section__content :is(h1,h2,h3,h4,h5,h6) {
     line-height: 1.15;
     margin-top: 0;
     margin-bottom: 0.5em;
     font-weight: 700;
 }
+
+@media (max-width: 767px) {
+    .inner-content,
+    .text-section__content {
+        font-size: calc(var(--JFAM-markdown-font-size) - 2px);
+    }
+}
+
+.inner-content h1,
 .text-section__content h1 { font-size: 1.8em; }
+.inner-content h2,
 .text-section__content h2 { font-size: 1.4em; }
+.inner-content h3,
 .text-section__content h3 { font-size: 1.2em; }
-.text-section__content h4 { font-size: 1.1em; }
+.inner-content h4,
+.text-section__content h4 { font-size: 1.02em; }
+.inner-content h5,
 .text-section__content h5 { font-size: 1.0em; }
+.inner-content h6,
 .text-section__content h6 { font-size: 0.95em; }
 
-.text-section__content p,
+.inner-content p,
+.text-section__content p {
+    font-size: 1em;
+    font-weight: 400;
+    margin-bottom: 1em;
+}
+
+.inner-content li,
+.inner-content a,
 .text-section__content li,
 .text-section__content a {
-    font-size: 1em; /* equals var(--JFAM-text-section-font-size) */
+    font-weight: 700;
+    font-size: 1em;
+}
+
+.inner-content ul li,
+.text-section__content ul li {
+    font-weight: 400 !important;
+}
+
+.inner-content ol li::marker,
+.text-section__content ol li::marker {
+    font-weight: 400;
 }
 
 @media (max-width: 767px) {
+    .inner-content h1,
     .text-section__content h1 { font-size: 1.6em; }
+    .inner-content h2,
     .text-section__content h2 { font-size: 1.25em; }
+    .inner-content h3,
     .text-section__content h3 { font-size: 1.1em; }
+    .inner-content h4,
+    .text-section__content h4 { font-size: 1.02em; }
 }
 
-/* Full-height section variant (opt-in via `class="section--fullheight"` on the shortcode)
-   Ensures the section fills the viewport below the header and centers content vertically. */
-.section.section--fullheight {
-    /* Fill the viewport but subtract header and footer heights measured at runtime */
-    min-height: calc(111vh - var(--site-header-height, 120px) - var(--site-footer-height, 120px));
-    display: flex;
-    align-items: top;
-}
-.section.section--fullheight .container {
-    height: 100%;
-}
-.section.section--fullheight .row {
-    height: 100%;
-}
-.section.section--fullheight .text-section__content {
-    margin: 0 auto;
-}
-
-/* PDF embed spacing: ensure embedded iframes placed in the page are not
-   covered by a fixed/sticky header. Uses the runtime CSS variable
-   `--site-header-height` when available; falls back to 120px. */
-@media (max-width: 499px) {
-    .pdf-embed {
-        --temp-header-height: calc(var(--site-header-height, 120px) - 80px);
-        margin-top: var(--temp-header-height) !important;
-    }
-}
-
-@media (min-width: 500px) {
-    .pdf-embed {
-        --temp-header-height: calc(var(--site-header-height, 120px) - 52px);
-        margin-top: var(--temp-header-height) !important;
-    }
-}
-@media (min-width: 540px) {
-    .pdf-embed {
-        --temp-header-height: calc(var(--site-header-height, 120px) - 28px);
-        margin-top: var(--temp-header-height) !important;
-    }
-}
-@media (min-width: 760px) {
-    .pdf-embed {
-        --temp-header-height: calc(var(--site-header-height, 120px) - 28px);
-        margin-top: var(--temp-header-height) !important;
-    }
-}
 
 /* Make paragraph-level markdown links behave like links inside H5 headings
    - Applies to main content areas (text-section, showcase, posts)
    - Uses theme link colors and hover color so dark/light modes are respected */
 .text-section__content p a,
-.showcase-inner p a,
+.inner-content p a,
 .post-content p a,
 .content p a,
 .article p a {
@@ -380,9 +518,46 @@ header.header .navbar-brand {
     transition: color 0.15s ease-in-out;
 }
 .text-section__content p a:hover,
-.showcase-inner p a:hover,
+.inner-content p a:hover,
 .post-content p a:hover,
 .content p a:hover,
 .article p a:hover {
-    color: var(--bs-link-hover-color) !important;
+    color: #41766f !important;
+}
+
+/* End of font styles for showcase and text-section content */
+
+
+/* Here are other changes I need to purge */
+
+.rad-showcase {
+    margin-bottom: 0;
+    padding-top: 0 !important;
+}
+
+.text-section {
+    padding-top: 0 !important;
+}
+
+
+#breadcrumb-bar {
+    position: relative;
+    padding-top: 86px;
+    
+    nav {
+        display: inline-block;
+    }
+}
+
+
+@media only screen and (max-width: 768px) {
+    .rad-showcase__bg img {
+        margin-left: 0;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .rad-showcase__bg img {
+        margin-left: 0;
+    }
 }

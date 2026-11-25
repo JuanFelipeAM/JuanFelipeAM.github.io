@@ -2,37 +2,39 @@
 
 
     {{ $footer := where (where .Site.Pages "Type" "footer") "Lang" .Lang }}
+    {{- $showFooterMenu := .Site.Params.footer.showMenu | default true -}}<!-- Adding option to hide footer menu -->
 
     {{ range (sort $footer "Date" "desc") }}
-      {{ if .File }}
-        {{ warnf "[FOOTER] Path: %s | Lang: %s | IsDraft: %t | Type: %s | Section: %s | Kind: %s" .File.Path .Lang .Draft .Type .Section .Kind }}
-      {{ end }}        
       {{ .Content | safeHTML }}
     {{ end }}
 
   <div class="container items">
     <div class="container">
       <div class="row w-100 align-items-center">
-        <div class="footer_left col-12 col-lg-4 mb-3 mb-lg-0 text-center text-lg-start">
+        <div class="footer_left col-12 {{ if $showFooterMenu }}col-lg-4{{ else }}col-lg-10{{ end }} mb-3 mb-lg-0 text-center text-wrap"><!-- Width of footer_left conditional on the showFooterMenu variable, and made the text centered -->
           <div class="footer__copy">
-            <span>{{ i18n "footer_notice" | safeHTML }}</span>
+            <span>{{ .Site.Params.footer.notice | default (i18n "footer_notice") | safeHTML }}</span>
           </div>
         </div>
-        <div class="footer_links col-12 col-lg-6 mb-3 mb-lg-0 text-center text-lg-start">
+        <!-- Adding a wrapper in front of footer menu render -->
+        {{ if $showFooterMenu }}
+        <nav class="footer_links col-12 col-lg-6 mb-3 mb-lg-0 text-center text-lg-start" aria-label='{{ i18n "footer_navigation" }}'>
           <ul class="navbar-nav w-100 align-items-center justify-content-center justify-content-lg-start d-flex flex-wrap gap-2">
             {{ range .Site.Menus.footer }}
             <li class="nav-item">
-              <a class="nav-link" href="{{ .URL | relURL }}"
-                >{{ if .Pre }}
-                  <i class="icon-{{ .Pre }}" aria-label="{{ or .Name .Pre }}"></i>
-                {{ else }}
+              <a class="nav-link" href="{{ .URL | relURL }}">
+                {{- if .Pre -}}
+                  <i class="icon-{{ .Pre }}" aria-hidden="true"></i>
+                  <span class="visually-hidden">{{ .Name | default .Pre }}</span>
+                {{- else -}}
                   {{ .Name | upper }}
-                {{ end }}</a
-              >
+                {{- end -}}
+              </a>
             </li>
             {{ end }}
           </ul>
-        </div>
+        </nav>
+        {{ end }} <!-- End of the footer menu wrapper -->
         <div class="footer_right col-12 col-lg-2 mb-3 mb-lg-0 text-center text-lg-end">
           <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center gap-2 d-grid col-12 ">
             {{- if hugo.IsMultilingual }} 
@@ -47,6 +49,11 @@
             {{ .Scratch.Set "selectorPlacement" "footer" }}
             {{ .Scratch.Set "dropdownDirection" "up" }}
             {{ partial "selector-theme.html" . }}
+            {{- end }}
+            {{- if and .Site.Params.colorSchemeSwitcher.enable (not .Site.Params.colorSchemeSwitcher.selector.disable.footer) }}
+            {{ .Scratch.Set "selectorPlacement" "footer" }}
+            {{ .Scratch.Set "dropdownDirection" "up" }}
+            {{ partial "selector-scheme.html" . }}
             {{- end }}
           </div>
         </div>
@@ -68,95 +75,3 @@
   };
 </script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-<script>
-  (function(){
-    // Compute header/footer heights and expose as CSS variables
-    const headerSelector = 'header.header';
-    const footerSelector = 'footer.footer';
-
-    const setHeaderFooterHeights = () => {
-      // Header
-      const hdr = document.querySelector(headerSelector);
-      const h = hdr ? (hdr.offsetHeight || 0) : 0;
-      document.documentElement.style.setProperty('--site-header-height', h + 'px');
-
-      // Footer (try footer.footer then fallback to any footer)
-      const ftr = document.querySelector(footerSelector) || document.querySelector('footer');
-      const f = ftr ? (ftr.offsetHeight || 0) : 0;
-      document.documentElement.style.setProperty('--site-footer-height', f + 'px');
-      // Compute the vertical distance between header bottom and footer top
-      // This measures the available content area height between header and footer.
-      let contentHeight = 0;
-      let contentPct = '0%';
-      try {
-        if (hdr && ftr) {
-          // Use offsetTop/offsetHeight for robust measurement regardless of transforms
-          const headerBottom = (hdr.offsetTop || hdr.getBoundingClientRect().top || 0) + (hdr.offsetHeight || 0);
-          const footerTop = (ftr.offsetTop || ftr.getBoundingClientRect().top || 0);
-          contentHeight = Math.max(0, footerTop - headerBottom);
-        } else if (hdr) {
-          // No footer found: measure to document bottom
-          const headerBottom = (hdr.offsetTop || hdr.getBoundingClientRect().top || 0) + (hdr.offsetHeight || 0);
-          const docBottom = Math.max(document.documentElement.scrollHeight || 0, document.body.scrollHeight || 0);
-          contentHeight = Math.max(0, docBottom - headerBottom);
-        } else if (ftr) {
-          // No header found: measure from document top to footer top
-          const footerTop = (ftr.offsetTop || ftr.getBoundingClientRect().top || 0);
-          contentHeight = Math.max(0, footerTop);
-        } else {
-          contentHeight = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
-        }
-        // percentage relative to viewport height
-        const winHLocal = (window.innerHeight || document.documentElement.clientHeight || 0);
-        contentPct = winHLocal ? (Math.round((contentHeight / winHLocal) * 10000) / 100) + '%' : '0%';
-      } catch (e) {
-        contentHeight = 0;
-        contentPct = '0%';
-      }
-      document.documentElement.style.setProperty('--site-content-height', contentHeight + 'px');
-      document.documentElement.style.setProperty('--site-content-height-percent', contentPct);
-      // Window / viewport height: expose as CSS variables for layout calculations
-      const winH = (window.innerHeight || document.documentElement.clientHeight || 0);
-      document.documentElement.style.setProperty('--site-window-height', winH + 'px');
-      // Also expose a `--vh` variable equal to 1% of the viewport height (useful for mobile 100vh quirks)
-      document.documentElement.style.setProperty('--vh', (winH * 0.01) + 'px');
-
-      // Body/document height: expose as CSS variables so layouts can react to
-      // the full document length (useful for sticky/fill calculations).
-      const doc = document.documentElement;
-      const body = document.body;
-      const bodyH = Math.max(
-        doc.scrollHeight || 0,
-        body.scrollHeight || 0,
-        doc.offsetHeight || 0,
-        body.offsetHeight || 0,
-        doc.clientHeight || 0
-      );
-      document.documentElement.style.setProperty('--site-body-height', bodyH + 'px');
-      // Also expose body height as a percentage of the viewport height (e.g. 250%)
-      const bodyPct = winH ? ((bodyH / winH) * 100) : 0;
-      document.documentElement.style.setProperty('--site-body-height-percent', bodyPct.toFixed(2) + '%');
-      
-    };
-
-    // Debounce resize
-    let t = null;
-    window.addEventListener('resize', () => {
-      clearTimeout(t);
-      t = setTimeout(() => setHeaderFooterHeights(), 80);
-    });
-
-    // Update after DOM is ready and after resources load (fonts can change header/footer size)
-    document.addEventListener('DOMContentLoaded', () => {
-      requestAnimationFrame(() => {
-        setHeaderFooterHeights();
-        setTimeout(setHeaderFooterHeights, 120);
-      });
-    });
-
-    // Also set on load
-    window.addEventListener('load', setHeaderFooterHeights);
-  })();
-</script>
-
