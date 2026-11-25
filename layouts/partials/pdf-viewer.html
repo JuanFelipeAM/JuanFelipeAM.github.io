@@ -4,6 +4,7 @@
 {{ $file := .file | default "" | jsonify | safeJS }}
 {{ $allowedPdfs := .allowedPdfs | default (slice) | jsonify | safeJS }}
 
+<!-- Could add a hint saying press open, but doesnt look good. <p class="pdf-viewer-hint">If you see a PDF filename and an <strong>Open</strong> button, tap <strong>Open</strong> to view the PDF. Your browser may open it separately; use Back to return to this page.</p> -->
 <div id="{{ $containerId }}" class="pdf-embed">
   <iframe
     id="{{ $frameId }}"

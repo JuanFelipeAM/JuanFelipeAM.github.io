@@ -13,7 +13,9 @@
 <div id="pdfSeriesViewer" class="pdfseries-viewer" hidden>
   <nav class="pdfseries-controls" aria-label="PDF series navigation">
     <button id="pdfSeriesPrevious" type="button">Previous</button>
-    <a id="pdfSeriesTopLink" href="{{ .RelPermalink }}?details=open">{{ .Params.topLabel | default "Top" }}</a>
+    <a id="pdfSeriesTopLink" href="{{ .RelPermalink }}?details=open" aria-label="{{ .Params.topLabel | default "Top" }}">
+      <span id="pdfSeriesTopLabel" class="pdfseries-top-label">{{ .Params.topLabel | default "Top" }}</span>
+    </a>
     <button id="pdfSeriesNext" type="button">Next</button>
   </nav>
   {{ partial "pdf-viewer.html" (dict "containerId" "pdfSeriesEmbed" "frameId" "pdfSeriesFrame" "requireFile" false "allowedPdfs" (.Params.pdfs | default slice)) }}
@@ -23,7 +25,10 @@
   const pdfs = {{ .Params.pdfs | default slice | jsonify | safeJS }};
   const pdfSeriesTop = document.getElementById("pdfSeriesTop");
   const pdfSeriesViewer = document.getElementById("pdfSeriesViewer");
+  const pdfSeriesControls = document.querySelector(".pdfseries-controls");
   const previousButton = document.getElementById("pdfSeriesPrevious");
+  const topLink = document.getElementById("pdfSeriesTopLink");
+  const topLabel = document.getElementById("pdfSeriesTopLabel");
   const nextButton = document.getElementById("pdfSeriesNext");
 
   const rawQuery = window.location.search;
@@ -48,6 +53,91 @@
       pdfSeriesViewer.hidden = false;
       previousButton.disabled = currentIndex === 0;
       nextButton.disabled = currentIndex === pdfs.length - 1;
+
+      const labelText = topLabel.textContent.trim();
+      const measureCanvas = document.createElement("canvas");
+      const measureContext = measureCanvas.getContext("2d");
+
+      function measureTextWidth(text) {
+        if (!measureContext) {
+          return text.length * parseFloat(window.getComputedStyle(topLabel).fontSize) * 0.55;
+        }
+
+        measureContext.font = window.getComputedStyle(topLabel).font;
+        return measureContext.measureText(text).width;
+      }
+
+      function splitLabelEvenly(text) {
+        const words = text.split(/\s+/);
+        if (words.length < 2) {
+          return null;
+        }
+
+        let bestSplit = null;
+        let smallestDifference = Infinity;
+        for (let index = 1; index < words.length; index += 1) {
+          const firstLine = words.slice(0, index).join(" ");
+          const secondLine = words.slice(index).join(" ");
+          const difference = Math.abs(measureTextWidth(firstLine) - measureTextWidth(secondLine));
+          if (difference < smallestDifference) {
+            bestSplit = [firstLine, secondLine];
+            smallestDifference = difference;
+          }
+        }
+
+        return bestSplit;
+      }
+
+      function showTopLabel(lines) {
+        topLink.hidden = false;
+        if (lines.length === 1) {
+          topLink.classList.remove("is-wrapped");
+          topLabel.textContent = labelText;
+          return;
+        }
+
+        if (topLink.classList.contains("is-wrapped")) {
+          return;
+        }
+
+        topLabel.replaceChildren(...lines.map(line => {
+          const lineElement = document.createElement("span");
+          lineElement.className = "pdfseries-top-line";
+          lineElement.textContent = line;
+          return lineElement;
+        }));
+        topLink.classList.add("is-wrapped");
+      }
+
+      function fitTopLabel() {
+        const controlsStyle = window.getComputedStyle(pdfSeriesControls);
+        const linkStyle = window.getComputedStyle(topLink);
+        const gap = parseFloat(controlsStyle.columnGap) || 0;
+        const linkPadding = parseFloat(linkStyle.paddingLeft) + parseFloat(linkStyle.paddingRight);
+        const safeWidth = pdfSeriesControls.clientWidth
+          - previousButton.getBoundingClientRect().width
+          - nextButton.getBoundingClientRect().width
+          - (gap * 2)
+          - linkPadding
+          - 16;
+        const singleLineWidth = measureTextWidth(labelText);
+
+        if (singleLineWidth <= safeWidth) {
+          showTopLabel([labelText]);
+          return;
+        }
+
+        const splitLabel = splitLabelEvenly(labelText);
+        if (splitLabel && Math.max(...splitLabel.map(measureTextWidth)) <= safeWidth) {
+          showTopLabel(splitLabel);
+          return;
+        }
+
+        topLink.hidden = true;
+      }
+
+      fitTopLabel();
+      window.addEventListener("resize", fitTopLabel);
 
       previousButton.addEventListener("click", () => {
         if (currentIndex > 0) {
