@@ -487,6 +487,11 @@ body:has(.rad-showcase) .rad-showcase {
     font-weight: 400 !important;
 }
 
+.inner-content ol li::marker,
+.text-section__content ol li::marker {
+    font-weight: 400;
+}
+
 @media (max-width: 767px) {
     .inner-content h1,
     .text-section__content h1 { font-size: 1.6em; }
