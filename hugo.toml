@@ -1,7 +1,11 @@
-baseURL = 'https://example.org/'
+baseURL = 'https://JuanFelipeAM.github.io/new-website-test/'
 locale = 'en-us'
 title = "Test site for my personal Website"
 theme = "adritian"
+
+[caches]
+  [caches.images]
+    dir = ':cacheDir/images'
 
 # Required for the theme's layouts/robots.txt to be rendered — Hugo ignores
 # a custom robots.txt template unless this is explicitly enabled.
